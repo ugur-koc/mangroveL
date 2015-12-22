@@ -1,0 +1,32 @@
+===< 485 >===
+running 3 interestingness tests in parallel
+===< pass_blank :: 0 >===
+(1.1 %, 278 bytes)
+(14.9 %, 239 bytes)
+Termination check: size was 281; now 239
+===< pass_blank :: 0 >===
+Termination check: size was 239; now 239
+===================== done ====================
+
+pass statistics:
+  method pass_blank :: 0 worked 2 times and failed 0 times
+
+
+          '/Users/ugurmeryem/Dropbox/sb/sample.c' reduced to:
+void foo() {
+   int * p = (int *)malloc(10 * sizeof(int));
+   int r = rand() % 10;
+   if (r>10){
+      free(p);
+  	}
+   free(p);
+   printf("Done!\n");
+}
+void bar() {
+   printf("Done!\n");
+}
+int main() {
+   foo();
+   //bar();
+   return 0;
+}

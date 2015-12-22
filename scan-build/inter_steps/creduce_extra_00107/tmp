@@ -1,0 +1,28 @@
+scan-build: Using '/usr/local/bin/clang-3.8' for static analysis
+sample.c:1:1: warning: type specifier missing, defaults to 'int' [-Wimplicit-int]
+main() {
+^
+sample.c:2:12: warning: implicitly declaring library function 'malloc' with type 'void *(unsigned long)'
+  int *p = malloc(10);
+           ^
+sample.c:2:12: note: include the header <stdlib.h> or explicitly provide a declaration for 'malloc'
+sample.c:3:11: warning: implicit declaration of function 'rand' is invalid in C99 [-Wimplicit-function-declaration]
+  int r = rand() % 10;
+          ^
+sample.c:5:3: warning: implicitly declaring library function 'printf' with type 'int (const char *, ...)'
+  printf("Done!\n");
+  ^
+sample.c:5:3: note: include the header <stdio.h> or explicitly provide a declaration for 'printf'
+4 warnings generated.
+sample.c:2:8: warning: Value stored to 'p' during its initialization is never read
+  int *p = malloc(10);
+       ^   ~~~~~~~~~~
+sample.c:3:7: warning: Value stored to 'r' during its initialization is never read
+  int r = rand() % 10;
+      ^   ~~~~~~~~~~~
+sample.c:3:11: warning: Potential leak of memory pointed to by 'p'
+  int r = rand() % 10;
+          ^~~~~~
+3 warnings generated.
+scan-build: 3 bugs found.
+scan-build: Run 'scan-view /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/scan-build-2015-12-21-100636-91655-1' to examine bug reports.

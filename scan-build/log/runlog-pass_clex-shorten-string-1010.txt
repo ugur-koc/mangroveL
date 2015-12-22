@@ -1,0 +1,44 @@
+===< 44808 >===
+running 3 interestingness tests in parallel
+===< pass_clex :: shorten-string >===
+(0.4 %, 280 bytes)
+(0.7 %, 279 bytes)
+(1.1 %, 278 bytes)
+(1.4 %, 277 bytes)
+(1.8 %, 276 bytes)
+(2.1 %, 275 bytes)
+(2.5 %, 274 bytes)
+(2.8 %, 273 bytes)
+(3.2 %, 272 bytes)
+Termination check: size was 281; now 272
+===< pass_clex :: shorten-string >===
+Termination check: size was 272; now 272
+===================== done ====================
+
+pass statistics:
+  method pass_clex :: shorten-string worked 9 times and failed 10 times
+
+
+          '/Users/ugurmeryem/Dropbox/sb/sample.c' reduced to:
+#include <stdlib.h>
+#include <stdio.h>
+
+void foo() {
+   int * p = (int *)malloc(10 * sizeof(int));
+   int r = rand() % 10;
+   if (r>10){
+      free(p);
+  	}
+   free(p);
+   printf("Done!");
+}
+
+void bar() {
+   printf("");
+}
+
+int main() {
+   foo();
+   //bar();
+   return 0;
+}

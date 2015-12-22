@@ -1,0 +1,37 @@
+===< 44290 >===
+running 3 interestingness tests in parallel
+===< pass_clex :: rename-toks >===
+(0.7 %, 279 bytes)
+(-0.4 %, 282 bytes)
+(-1.1 %, 284 bytes)
+(-0.4 %, 282 bytes)
+Termination check: size was 281; now 282
+===================== done ====================
+
+pass statistics:
+  method pass_clex :: rename-toks worked 4 times and failed 9 times
+
+
+          '/Users/ugurmeryem/Dropbox/sb/sample.c' reduced to:
+#include <stdlib.h>
+#include <stdio.h>
+
+void x0() {
+   int * x1 = (int *)malloc(10 * sizeof(int));
+   int x2 = rand() % 10;
+   if (x2>10){
+      free(x1);
+  	}
+   free(x1);
+   printf("Done!\n");
+}
+
+void x3() {
+   printf("Done!\n");
+}
+
+int main() {
+   x0();
+   //x3();
+   return 0;
+}

@@ -1,0 +1,37 @@
+===< 15479 >===
+running 3 interestingness tests in parallel
+===< pass_indent :: final >===
+(-4.6 %, 294 bytes)
+(3.9 %, 270 bytes)
+Termination check: size was 281; now 270
+===< pass_indent :: final >===
+(-5.3 %, 296 bytes)
+(3.9 %, 270 bytes)
+Termination check: size was 270; now 270
+===================== done ====================
+
+pass statistics:
+  method pass_indent :: final worked 4 times and failed 0 times
+
+
+          '/Users/ugurmeryem/Dropbox/sb/sample.c' reduced to:
+#include <stdlib.h>
+#include <stdio.h>
+
+void foo() {
+  int *p = (int *)malloc(10 * sizeof(int));
+  int r = rand() % 10;
+  if (r > 10) {
+    free(p);
+  }
+  free(p);
+  printf("Done!\n");
+}
+
+void bar() { printf("Done!\n"); }
+
+int main() {
+  foo();
+  // bar();
+  return 0;
+}

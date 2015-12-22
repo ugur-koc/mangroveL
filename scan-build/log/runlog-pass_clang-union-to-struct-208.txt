@@ -1,0 +1,47 @@
+===< 12355 >===
+running 3 interestingness tests in parallel
+===< pass_clang :: union-to-struct >===
+
+***************************************************
+
+pass_clang::union-to-struct has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=union-to-struct --counter=1 /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/creduce-MssQ8a/sample.c
+
+Please consider tarring up /Users/ugurmeryem/Dropbox/sb/creduce_bug_000
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
+Termination check: size was 281; now 281
+===================== done ====================
+
+pass statistics:
+  method pass_clang :: union-to-struct worked 0 times and failed 0 times
+
+
+          '/Users/ugurmeryem/Dropbox/sb/sample.c' reduced to:
+#include <stdlib.h>
+#include <stdio.h>
+
+void foo() {
+   int * p = (int *)malloc(10 * sizeof(int));
+   int r = rand() % 10;
+   if (r>10){
+      free(p);
+  	}
+   free(p);
+   printf("Done!\n");
+}
+
+void bar() {
+   printf("Done!\n");
+}
+
+int main() {
+   foo();
+   //bar();
+   return 0;
+}

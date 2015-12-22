@@ -1,0 +1,44 @@
+===< 15619 >===
+running 3 interestingness tests in parallel
+===< pass_clex :: rm-toks-1 >===
+(1.8 %, 276 bytes)
+(3.6 %, 271 bytes)
+(5.7 %, 265 bytes)
+(7.1 %, 261 bytes)
+(8.2 %, 258 bytes)
+(8.5 %, 257 bytes)
+(8.9 %, 256 bytes)
+(10.7 %, 251 bytes)
+(13.2 %, 244 bytes)
+(13.5 %, 243 bytes)
+Termination check: size was 281; now 243
+===< pass_clex :: rm-toks-1 >===
+Termination check: size was 243; now 243
+===================== done ====================
+
+pass statistics:
+  method pass_clex :: rm-toks-1 worked 10 times and failed 180 times
+
+
+          '/Users/ugurmeryem/Dropbox/sb/sample.c' reduced to:
+#include <stdlib.h>
+#include <stdio.h>
+
+foo() {
+   int * p = (int *)malloc(10 * sizeof(int));
+   int r = rand() % 10;
+   if (r>10){
+      free(p);
+  	}
+   free(p);
+   printf("Done!\n");
+}
+
+bar() {
+   ("Done!\n");
+}
+
+main() {
+   foo();
+   //;
+}

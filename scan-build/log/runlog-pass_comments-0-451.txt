@@ -1,0 +1,36 @@
+===< 437 >===
+running 3 interestingness tests in parallel
+===< pass_comments :: 0 >===
+(2.1 %, 275 bytes)
+Termination check: size was 281; now 275
+===< pass_comments :: 0 >===
+Termination check: size was 275; now 275
+===================== done ====================
+
+pass statistics:
+  method pass_comments :: 0 worked 1 times and failed 0 times
+
+
+          '/Users/ugurmeryem/Dropbox/sb/sample.c' reduced to:
+ #include <stdlib.h>
+#include <stdio.h>
+
+void foo() {
+   int * p = (int *)malloc(10 * sizeof(int));
+   int r = rand() % 10;
+   if (r>10){
+      free(p);
+  	}
+   free(p);
+   printf("Done!\n");
+}
+
+void bar() {
+   printf("Done!\n");
+}
+
+int main() {
+   foo();
+   
+   return 0;
+} 

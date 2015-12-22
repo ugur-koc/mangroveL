@@ -1,0 +1,299 @@
+===< 57554 >===
+running 3 interestingness tests in parallel
+===< pass_clang_binsrch :: remove-unused-function >===
+(18.6 %, 2394 bytes)
+===< pass_lines :: 0 >===
+(19.1 %, 2378 bytes)
+(35.3 %, 1902 bytes)
+(36.7 %, 1862 bytes)
+(54.0 %, 1351 bytes)
+(64.2 %, 1053 bytes)
+(82.3 %, 520 bytes)
+===< pass_lines :: 1 >===
+(82.0 %, 529 bytes)
+(85.8 %, 418 bytes)
+(87.7 %, 362 bytes)
+(88.3 %, 343 bytes)
+(88.9 %, 327 bytes)
+===< pass_lines :: 2 >===
+(88.8 %, 330 bytes)
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_lines :: 0 >===
+(88.8 %, 330 bytes)
+===< pass_lines :: 10 >===
+(88.7 %, 333 bytes)
+===< pass_ternary :: c >===
+===< pass_balanced :: angles >===
+===< pass_balanced :: curly-only >===
+===< pass_clang :: local-to-global >===
+
+***************************************************
+
+pass_clang::local-to-global has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=local-to-global --counter=1 /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/creduce-XdxG6n/CWE401_Memory_Leak__wchar_t_realloc_18.c
+
+Please consider tarring up /Users/ugurmeryem/Dropbox/cppc/creduce_bug_005
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
+===< pass_clang :: union-to-struct >===
+
+***************************************************
+
+pass_clang::union-to-struct has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=union-to-struct --counter=1 /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/creduce-xrozKq/CWE401_Memory_Leak__wchar_t_realloc_18.c
+
+Please consider tarring up /Users/ugurmeryem/Dropbox/cppc/creduce_bug_006
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
+===< pass_clang :: return-void >===
+===< pass_clang :: simple-inliner >===
+===< pass_clang :: callexpr-to-value >===
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: remove-unused-function >===
+===< pass_clang :: remove-unused-enum-member >===
+===< pass_clang :: remove-enum-member-value >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: move-function-body >===
+===< pass_clang :: simplify-dependent-typedef >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: template-non-type-arg-to-int >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: remove-trivial-base-template >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: replace-derived-class >===
+===< pass_clang :: remove-unresolved-base >===
+===< pass_clang :: remove-ctor-initializer >===
+===< pass_clang :: replace-class-with-base-template-spec >===
+===< pass_clang :: simplify-nested-class >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: simplify-struct >===
+===< pass_lines :: 10 >===
+(88.6 %, 336 bytes)
+===< pass_ints :: a >===
+===< pass_ints :: c >===
+===< pass_ints :: d >===
+===< pass_clex :: rename-toks >===
+(94.2 %, 171 bytes)
+(94.4 %, 166 bytes)
+(94.5 %, 162 bytes)
+===< pass_indent :: final >===
+(95.3 %, 137 bytes)
+(95.4 %, 136 bytes)
+===< pass_clex :: delete-string >===
+===< pass_clang :: rename-var >===
+===< pass_clang :: rename-cxx-method >===
+===< pass_clang :: move-global-var >===
+===< pass_clex :: remove-asm-comment >===
+===< pass_clex :: rm-toks-32 >===
+===< pass_clex :: rm-toks-25 >===
+===< pass_clex :: rm-toks-21 >===
+===< pass_clex :: rm-toks-20 >===
+===< pass_clex :: rm-toks-17 >===
+===< pass_clex :: rm-toks-15 >===
+===< pass_clex :: rm-toks-12 >===
+===< pass_clex :: rm-toks-10 >===
+===< pass_clex :: rm-toks-9 >===
+(95.9 %, 121 bytes)
+===< pass_clex :: rm-toks-8 >===
+===< pass_clex :: rm-toks-7 >===
+===< pass_clex :: rm-toks-4 >===
+(96.3 %, 110 bytes)
+===< pass_clex :: rm-toks-1 >===
+(96.3 %, 109 bytes)
+(96.3 %, 108 bytes)
+(96.6 %, 101 bytes)
+(96.6 %, 100 bytes)
+(96.6 %, 99 bytes)
+(96.8 %, 94 bytes)
+(96.8 %, 93 bytes)
+(96.9 %, 92 bytes)
+===< pass_clex :: rm-tok-pattern-8 >===
+(97.0 %, 88 bytes)
+Termination check: size was 2940; now 88
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(96.9 %, 90 bytes)
+===< pass_lines :: 1 >===
+(97.0 %, 89 bytes)
+===< pass_lines :: 2 >===
+(96.9 %, 90 bytes)
+(97.0 %, 89 bytes)
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_lines :: 0 >===
+(96.9 %, 90 bytes)
+(97.0 %, 89 bytes)
+===< pass_lines :: 10 >===
+(96.9 %, 90 bytes)
+(97.0 %, 89 bytes)
+===< pass_ternary :: c >===
+===< pass_balanced :: angles >===
+===< pass_balanced :: curly-only >===
+===< pass_clang :: local-to-global >===
+
+***************************************************
+
+pass_clang::local-to-global has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=local-to-global --counter=1 /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/creduce-zRxENK/CWE401_Memory_Leak__wchar_t_realloc_18.c
+
+Please consider tarring up /Users/ugurmeryem/Dropbox/cppc/creduce_bug_007
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
+===< pass_clang :: union-to-struct >===
+
+***************************************************
+
+pass_clang::union-to-struct has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=union-to-struct --counter=1 /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/creduce-MENsR_/CWE401_Memory_Leak__wchar_t_realloc_18.c
+
+Please consider tarring up /Users/ugurmeryem/Dropbox/cppc/creduce_bug_008
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
+===< pass_clang :: return-void >===
+===< pass_clang :: simple-inliner >===
+===< pass_clang :: callexpr-to-value >===
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: remove-unused-function >===
+===< pass_clang :: remove-unused-enum-member >===
+===< pass_clang :: remove-enum-member-value >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: move-function-body >===
+===< pass_clang :: simplify-dependent-typedef >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: template-non-type-arg-to-int >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: remove-trivial-base-template >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: replace-derived-class >===
+===< pass_clang :: remove-unresolved-base >===
+===< pass_clang :: remove-ctor-initializer >===
+===< pass_clang :: replace-class-with-base-template-spec >===
+===< pass_clang :: simplify-nested-class >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: simplify-struct >===
+===< pass_lines :: 10 >===
+(96.9 %, 90 bytes)
+(97.0 %, 89 bytes)
+===< pass_ints :: a >===
+===< pass_ints :: c >===
+===< pass_ints :: d >===
+===< pass_clex :: rename-toks >===
+===< pass_indent :: final >===
+(96.7 %, 96 bytes)
+(96.8 %, 95 bytes)
+===< pass_clex :: delete-string >===
+===< pass_clang :: rename-var >===
+===< pass_clang :: rename-cxx-method >===
+===< pass_clang :: move-global-var >===
+===< pass_clex :: remove-asm-comment >===
+===< pass_clex :: rm-toks-32 >===
+===< pass_clex :: rm-toks-25 >===
+===< pass_clex :: rm-toks-21 >===
+===< pass_clex :: rm-toks-20 >===
+===< pass_clex :: rm-toks-17 >===
+===< pass_clex :: rm-toks-15 >===
+===< pass_clex :: rm-toks-12 >===
+===< pass_clex :: rm-toks-10 >===
+===< pass_clex :: rm-toks-9 >===
+===< pass_clex :: rm-toks-8 >===
+===< pass_clex :: rm-toks-7 >===
+===< pass_clex :: rm-toks-4 >===
+===< pass_clex :: rm-toks-1 >===
+(96.9 %, 90 bytes)
+(97.0 %, 89 bytes)
+===< pass_clex :: rm-tok-pattern-8 >===
+Termination check: size was 88; now 89
+===================== done ====================
+
+pass statistics:
+  method pass_balanced :: angles worked 0 times and failed 2 times
+  method pass_balanced :: curly-only worked 0 times and failed 2 times
+  method pass_clang :: callexpr-to-value worked 0 times and failed 2 times
+  method pass_clang :: class-template-to-class worked 0 times and failed 0 times
+  method pass_clang :: instantiate-template-param worked 0 times and failed 0 times
+  method pass_clang :: local-to-global worked 0 times and failed 0 times
+  method pass_clang :: move-function-body worked 0 times and failed 0 times
+  method pass_clang :: move-global-var worked 0 times and failed 0 times
+  method pass_clang :: reduce-array-dim worked 0 times and failed 0 times
+  method pass_clang :: reduce-class-template-param worked 0 times and failed 0 times
+  method pass_clang :: remove-ctor-initializer worked 0 times and failed 0 times
+  method pass_clang :: remove-enum-member-value worked 0 times and failed 0 times
+  method pass_clang :: remove-pointer-pairs worked 0 times and failed 0 times
+  method pass_clang :: remove-trivial-base-template worked 0 times and failed 0 times
+  method pass_clang :: remove-unresolved-base worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-enum-member worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-function worked 0 times and failed 2 times
+  method pass_clang :: remove-unused-outer-class worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-var worked 0 times and failed 0 times
+  method pass_clang :: rename-cxx-method worked 0 times and failed 0 times
+  method pass_clang :: rename-var worked 0 times and failed 0 times
+  method pass_clang :: replace-callexpr worked 0 times and failed 0 times
+  method pass_clang :: replace-class-with-base-template-spec worked 0 times and failed 0 times
+  method pass_clang :: replace-derived-class worked 0 times and failed 0 times
+  method pass_clang :: return-void worked 0 times and failed 0 times
+  method pass_clang :: simple-inliner worked 0 times and failed 0 times
+  method pass_clang :: simplify-dependent-typedef worked 0 times and failed 0 times
+  method pass_clang :: simplify-nested-class worked 0 times and failed 0 times
+  method pass_clang :: simplify-struct worked 0 times and failed 0 times
+  method pass_clang :: template-arg-to-int worked 0 times and failed 0 times
+  method pass_clang :: template-non-type-arg-to-int worked 0 times and failed 0 times
+  method pass_clang :: union-to-struct worked 0 times and failed 0 times
+  method pass_clang_binsrch :: remove-unused-function worked 1 times and failed 2 times
+  method pass_clang_binsrch :: replace-function-def-with-decl worked 0 times and failed 2 times
+  method pass_clex :: delete-string worked 0 times and failed 0 times
+  method pass_clex :: remove-asm-comment worked 0 times and failed 0 times
+  method pass_clex :: rename-toks worked 3 times and failed 16 times
+  method pass_clex :: rm-tok-pattern-8 worked 1 times and failed 8704 times
+  method pass_clex :: rm-toks-1 worked 10 times and failed 70 times
+  method pass_clex :: rm-toks-10 worked 0 times and failed 93 times
+  method pass_clex :: rm-toks-12 worked 0 times and failed 93 times
+  method pass_clex :: rm-toks-15 worked 0 times and failed 93 times
+  method pass_clex :: rm-toks-17 worked 0 times and failed 93 times
+  method pass_clex :: rm-toks-20 worked 0 times and failed 93 times
+  method pass_clex :: rm-toks-21 worked 0 times and failed 93 times
+  method pass_clex :: rm-toks-25 worked 0 times and failed 93 times
+  method pass_clex :: rm-toks-32 worked 0 times and failed 93 times
+  method pass_clex :: rm-toks-4 worked 1 times and failed 80 times
+  method pass_clex :: rm-toks-7 worked 0 times and failed 84 times
+  method pass_clex :: rm-toks-8 worked 0 times and failed 84 times
+  method pass_clex :: rm-toks-9 worked 1 times and failed 84 times
+  method pass_indent :: final worked 4 times and failed 0 times
+  method pass_ints :: a worked 0 times and failed 1 times
+  method pass_ints :: c worked 0 times and failed 0 times
+  method pass_ints :: d worked 0 times and failed 0 times
+  method pass_lines :: 0 worked 10 times and failed 39 times
+  method pass_lines :: 0 worked 10 times and failed 39 times
+  method pass_lines :: 1 worked 6 times and failed 26 times
+  method pass_lines :: 10 worked 6 times and failed 36 times
+  method pass_lines :: 10 worked 6 times and failed 36 times
+  method pass_lines :: 2 worked 3 times and failed 18 times
+  method pass_ternary :: c worked 0 times and failed 0 times
+
+
+          '/Users/ugurmeryem/Dropbox/cppc/CWE401_Memory_Leak__wchar_t_realloc_18.c' reduced to:
+#include <wchar.h>#ifndef x0void x1() {wchar_t d = realloc(d, sizeof(wchar_t));}#endif

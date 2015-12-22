@@ -1,0 +1,38 @@
+===< 11529 >===
+running 3 interestingness tests in parallel
+===< pass_balanced :: parens >===
+(1.8 %, 276 bytes)
+(5.7 %, 265 bytes)
+(6.4 %, 263 bytes)
+Termination check: size was 281; now 263
+===< pass_balanced :: parens >===
+Termination check: size was 263; now 263
+===================== done ====================
+
+pass statistics:
+  method pass_balanced :: parens worked 3 times and failed 22 times
+
+
+          '/Users/ugurmeryem/Dropbox/sb/sample.c' reduced to:
+ #include <stdlib.h>
+#include <stdio.h>
+
+void foo() {
+   int * p = malloc(10 * sizeof(int));
+   int r = rand() % 10;
+   if (r>10){
+      free(p);
+  	}
+   free(p);
+   printf("Done!\n");
+}
+
+void bar() {
+   printf;
+}
+
+int main() {
+   foo();
+   //bar;
+   return 0;
+} 

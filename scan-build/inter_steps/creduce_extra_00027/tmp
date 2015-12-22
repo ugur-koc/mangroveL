@@ -1,0 +1,28 @@
+scan-build: Using '/usr/local/bin/clang-3.8' for static analysis
+sample.c:1:2: warning: return type of 'main' is not 'int' [-Wmain-return-type]
+ void main() 
+ ^
+sample.c:1:2: note: change return type to 'int'
+ void main() 
+ ^~~~
+ int
+sample.c:3:20: warning: implicitly declaring library function 'malloc' with type 'void *(unsigned long)'
+          int *p = malloc(10 );
+                   ^
+sample.c:3:20: note: include the header <stdlib.h> or explicitly provide a declaration for 'malloc'
+sample.c:4:19: warning: implicit declaration of function 'rand' is invalid in C99 [-Wimplicit-function-declaration]
+          int r = rand() % 10;
+                  ^
+sample.c:5:29: warning: expression result unused [-Wunused-value]
+          if (r > 10)       0;
+                            ^
+sample.c:6:11: warning: implicit declaration of function 'free' is invalid in C99 [-Wimplicit-function-declaration]
+          free(p);
+          ^
+sample.c:7:11: warning: implicitly declaring library function 'printf' with type 'int (const char *, ...)'
+          printf("Done!\n");
+          ^
+sample.c:7:11: note: include the header <stdio.h> or explicitly provide a declaration for 'printf'
+6 warnings generated.
+scan-build: Removing directory '/var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/scan-build-2015-12-21-100608-77747-1' because it contains no reports.
+scan-build: No bugs found.
