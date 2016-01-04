@@ -1,0 +1,142 @@
+===< 71415 >===
+running 3 interestingness tests in parallel
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang :: remove-namespace >===
+===< pass_clang :: local-to-global >===
+===< pass_clang :: rename-fun >===
+===< pass_clang :: union-to-struct >===
+
+***************************************************
+
+pass_clang::union-to-struct has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=union-to-struct --counter=1 /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/creduce-SajNkr/sample.c
+
+Please consider tarring up /Users/ugurmeryem/Dropbox/mangroveL/scan-build/creduce_bug_001
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
+===< pass_clang :: return-void >===
+(1.4 %, 277 bytes)
+===< pass_clang :: reduce-pointer-level >===
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: remove-unused-enum-member >===
+===< pass_clang :: remove-enum-member-value >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: simplify-comma-expr >===
+===< pass_clang :: replace-simple-typedef >===
+===< pass_clang :: instantiate-template-type-param-to-int >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: remove-unresolved-base >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: simplify-struct >===
+===< pass_clang :: replace-undefined-function >===
+===< pass_clang :: replace-dependent-name >===
+===< pass_clang :: simplify-recursive-template-instantiation >===
+===< pass_clang :: rename-class >===
+===< pass_clang :: combine-global-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_clang :: move-global-var >===
+===< pass_clang :: unify-function-decl >===
+Termination check: size was 281; now 277
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang :: remove-namespace >===
+===< pass_clang :: local-to-global >===
+===< pass_clang :: rename-fun >===
+===< pass_clang :: union-to-struct >===
+
+***************************************************
+
+pass_clang::union-to-struct has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=union-to-struct --counter=1 /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/creduce-LbkXMw/sample.c
+
+Please consider tarring up /Users/ugurmeryem/Dropbox/mangroveL/scan-build/creduce_bug_002
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
+===< pass_clang :: return-void >===
+===< pass_clang :: reduce-pointer-level >===
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: remove-unused-enum-member >===
+===< pass_clang :: remove-enum-member-value >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: simplify-comma-expr >===
+===< pass_clang :: replace-simple-typedef >===
+===< pass_clang :: instantiate-template-type-param-to-int >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: remove-unresolved-base >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: simplify-struct >===
+===< pass_clang :: replace-undefined-function >===
+===< pass_clang :: replace-dependent-name >===
+===< pass_clang :: simplify-recursive-template-instantiation >===
+===< pass_clang :: rename-class >===
+===< pass_clang :: combine-global-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_clang :: move-global-var >===
+===< pass_clang :: unify-function-decl >===
+Termination check: size was 277; now 277
+===================== done ====================
+
+pass statistics:
+  method pass_clang :: class-template-to-class worked 0 times and failed 0 times
+  method pass_clang :: combine-global-var worked 0 times and failed 0 times
+  method pass_clang :: instantiate-template-type-param-to-int worked 0 times and failed 0 times
+  method pass_clang :: local-to-global worked 0 times and failed 4 times
+  method pass_clang :: move-global-var worked 0 times and failed 0 times
+  method pass_clang :: reduce-pointer-level worked 0 times and failed 2 times
+  method pass_clang :: remove-addr-taken worked 0 times and failed 0 times
+  method pass_clang :: remove-enum-member-value worked 0 times and failed 0 times
+  method pass_clang :: remove-namespace worked 0 times and failed 0 times
+  method pass_clang :: remove-unresolved-base worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-enum-member worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-var worked 0 times and failed 0 times
+  method pass_clang :: rename-class worked 0 times and failed 0 times
+  method pass_clang :: rename-fun worked 0 times and failed 2 times
+  method pass_clang :: replace-callexpr worked 0 times and failed 0 times
+  method pass_clang :: replace-dependent-name worked 0 times and failed 0 times
+  method pass_clang :: replace-simple-typedef worked 0 times and failed 0 times
+  method pass_clang :: replace-undefined-function worked 0 times and failed 0 times
+  method pass_clang :: return-void worked 1 times and failed 0 times
+  method pass_clang :: simplify-comma-expr worked 0 times and failed 0 times
+  method pass_clang :: simplify-recursive-template-instantiation worked 0 times and failed 0 times
+  method pass_clang :: simplify-struct worked 0 times and failed 0 times
+  method pass_clang :: simplify-struct-union-decl worked 0 times and failed 0 times
+  method pass_clang :: template-arg-to-int worked 0 times and failed 0 times
+  method pass_clang :: unify-function-decl worked 0 times and failed 0 times
+  method pass_clang :: union-to-struct worked 0 times and failed 0 times
+  method pass_clang_binsrch :: replace-function-def-with-decl worked 0 times and failed 2 times
+
+
+          '/Users/ugurmeryem/Dropbox/mangroveL/scan-build/sample.c' reduced to:
+#include <stdlib.h>
+#include <stdio.h>
+
+void foo() {
+   int * p = (int *)malloc(10 * sizeof(int));
+   int r = rand() % 10;
+   if (r>10){
+      free(p);
+  	}
+   free(p);
+   printf("Done!\n");
+}
+
+void bar() {
+   printf("Done!\n");
+}
+
+void  main() {
+   foo();
+   //bar();
+    0;
+}

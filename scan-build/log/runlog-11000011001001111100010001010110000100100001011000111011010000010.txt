@@ -1,0 +1,120 @@
+===< 73438 >===
+running 3 interestingness tests in parallel
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+(12.8 %, 245 bytes)
+===< pass_clang :: param-to-local >===
+===< pass_clang :: remove-nested-function >===
+===< pass_clang :: return-void >===
+(14.2 %, 241 bytes)
+===< pass_clang :: simple-inliner >===
+(8.5 %, 257 bytes)
+===< pass_clang :: reduce-pointer-level >===
+===< pass_clang :: lift-assignment-expr >===
+===< pass_clang :: simplify-callexpr >===
+(12.8 %, 245 bytes)
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: move-function-body >===
+===< pass_clang :: simplify-comma-expr >===
+(7.8 %, 259 bytes)
+===< pass_clang :: remove-unused-field >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: remove-base-class >===
+===< pass_clang :: remove-unresolved-base >===
+===< pass_clang :: remove-ctor-initializer >===
+===< pass_clang :: empty-struct-to-int >===
+===< pass_clang :: remove-pointer >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: simplify-struct >===
+===< pass_clang :: replace-array-index-var >===
+===< pass_clang :: rename-param >===
+===< pass_clang :: rename-cxx-method >===
+===< pass_clang :: move-global-var >===
+Termination check: size was 281; now 259
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_clang :: param-to-local >===
+===< pass_clang :: remove-nested-function >===
+===< pass_clang :: return-void >===
+===< pass_clang :: simple-inliner >===
+===< pass_clang :: reduce-pointer-level >===
+===< pass_clang :: lift-assignment-expr >===
+===< pass_clang :: simplify-callexpr >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: move-function-body >===
+===< pass_clang :: simplify-comma-expr >===
+===< pass_clang :: remove-unused-field >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: remove-base-class >===
+===< pass_clang :: remove-unresolved-base >===
+===< pass_clang :: remove-ctor-initializer >===
+===< pass_clang :: empty-struct-to-int >===
+===< pass_clang :: remove-pointer >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: simplify-struct >===
+===< pass_clang :: replace-array-index-var >===
+===< pass_clang :: rename-param >===
+===< pass_clang :: rename-cxx-method >===
+===< pass_clang :: move-global-var >===
+Termination check: size was 259; now 259
+===================== done ====================
+
+pass statistics:
+  method pass_clang :: empty-struct-to-int worked 0 times and failed 0 times
+  method pass_clang :: lift-assignment-expr worked 0 times and failed 0 times
+  method pass_clang :: move-function-body worked 0 times and failed 0 times
+  method pass_clang :: move-global-var worked 0 times and failed 0 times
+  method pass_clang :: param-to-local worked 0 times and failed 0 times
+  method pass_clang :: reduce-array-dim worked 0 times and failed 0 times
+  method pass_clang :: reduce-pointer-level worked 0 times and failed 2 times
+  method pass_clang :: remove-addr-taken worked 0 times and failed 0 times
+  method pass_clang :: remove-base-class worked 0 times and failed 0 times
+  method pass_clang :: remove-ctor-initializer worked 0 times and failed 0 times
+  method pass_clang :: remove-nested-function worked 0 times and failed 0 times
+  method pass_clang :: remove-pointer worked 0 times and failed 0 times
+  method pass_clang :: remove-pointer-pairs worked 0 times and failed 0 times
+  method pass_clang :: remove-unresolved-base worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-field worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-var worked 0 times and failed 0 times
+  method pass_clang :: rename-cxx-method worked 0 times and failed 0 times
+  method pass_clang :: rename-param worked 0 times and failed 0 times
+  method pass_clang :: replace-array-index-var worked 0 times and failed 0 times
+  method pass_clang :: return-void worked 1 times and failed 0 times
+  method pass_clang :: simple-inliner worked 1 times and failed 0 times
+  method pass_clang :: simplify-callexpr worked 1 times and failed 8 times
+  method pass_clang :: simplify-comma-expr worked 1 times and failed 0 times
+  method pass_clang :: simplify-struct worked 0 times and failed 0 times
+  method pass_clang :: template-arg-to-int worked 0 times and failed 0 times
+  method pass_clang_binsrch :: remove-unused-function worked 1 times and failed 0 times
+  method pass_clang_binsrch :: replace-function-def-with-decl worked 0 times and failed 2 times
+
+
+          '/Users/ugurmeryem/Dropbox/mangroveL/scan-build/sample.c' reduced to:
+#include <stdlib.h>
+#include <stdio.h>
+
+
+
+
+
+void  main() {
+   {
+      int * p = (int *)malloc(10 * sizeof(int));
+      int r = rand() % 10;
+      if (r>10){
+         free(p);
+     	}
+      free(p);
+      0;
+      
+      (0);
+   }
+   
+   ;
+   //bar();
+    0;
+}

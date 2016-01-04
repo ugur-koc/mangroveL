@@ -1,0 +1,91 @@
+===< 70611 >===
+running 3 interestingness tests in parallel
+===< pass_clang :: remove-namespace >===
+===< pass_clang :: aggregate-to-scalar >===
+===< pass_clang :: param-to-local >===
+===< pass_clang :: union-to-struct >===
+
+***************************************************
+
+pass_clang::union-to-struct has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=union-to-struct --counter=1 /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/creduce-2krNDb/sample.c
+
+Please consider tarring up /Users/ugurmeryem/Dropbox/mangroveL/scan-build/creduce_bug_000
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
+===< pass_clang :: lift-assignment-expr >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: simplify-dependent-typedef >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: remove-unused-field >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: remove-trivial-base-template >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: empty-struct-to-int >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: simplify-struct >===
+===< pass_clang :: rename-class >===
+===< pass_clang :: rename-cxx-method >===
+===< pass_clang :: combine-global-var >===
+===< pass_clang :: combine-local-var >===
+===< pass_clang :: unify-function-decl >===
+Termination check: size was 281; now 281
+===================== done ====================
+
+pass statistics:
+  method pass_clang :: aggregate-to-scalar worked 0 times and failed 0 times
+  method pass_clang :: class-template-to-class worked 0 times and failed 0 times
+  method pass_clang :: combine-global-var worked 0 times and failed 0 times
+  method pass_clang :: combine-local-var worked 0 times and failed 0 times
+  method pass_clang :: empty-struct-to-int worked 0 times and failed 0 times
+  method pass_clang :: lift-assignment-expr worked 0 times and failed 0 times
+  method pass_clang :: param-to-local worked 0 times and failed 0 times
+  method pass_clang :: reduce-array-dim worked 0 times and failed 0 times
+  method pass_clang :: reduce-array-size worked 0 times and failed 0 times
+  method pass_clang :: reduce-class-template-param worked 0 times and failed 0 times
+  method pass_clang :: remove-addr-taken worked 0 times and failed 0 times
+  method pass_clang :: remove-namespace worked 0 times and failed 0 times
+  method pass_clang :: remove-trivial-base-template worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-field worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-var worked 0 times and failed 0 times
+  method pass_clang :: rename-class worked 0 times and failed 0 times
+  method pass_clang :: rename-cxx-method worked 0 times and failed 0 times
+  method pass_clang :: replace-dependent-typedef worked 0 times and failed 0 times
+  method pass_clang :: simplify-dependent-typedef worked 0 times and failed 0 times
+  method pass_clang :: simplify-struct worked 0 times and failed 0 times
+  method pass_clang :: template-arg-to-int worked 0 times and failed 0 times
+  method pass_clang :: unify-function-decl worked 0 times and failed 0 times
+  method pass_clang :: union-to-struct worked 0 times and failed 0 times
+
+
+          '/Users/ugurmeryem/Dropbox/mangroveL/scan-build/sample.c' reduced to:
+#include <stdlib.h>
+#include <stdio.h>
+
+void foo() {
+   int * p = (int *)malloc(10 * sizeof(int));
+   int r = rand() % 10;
+   if (r>10){
+      free(p);
+  	}
+   free(p);
+   printf("Done!\n");
+}
+
+void bar() {
+   printf("Done!\n");
+}
+
+int main() {
+   foo();
+   //bar();
+   return 0;
+}

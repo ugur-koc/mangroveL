@@ -1,0 +1,214 @@
+===< 63065 >===
+running 3 interestingness tests in parallel
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+(18.6 %, 2394 bytes)
+===< pass_clang :: remove-namespace >===
+===< pass_clang :: aggregate-to-scalar >===
+===< pass_clang :: param-to-local >===
+===< pass_clang :: lift-assignment-expr >===
+===< pass_clang :: copy-propagation >===
+===< pass_clang :: simplify-callexpr >===
+(19.1 %, 2379 bytes)
+(19.4 %, 2371 bytes)
+(19.4 %, 2369 bytes)
+(20.2 %, 2347 bytes)
+(20.8 %, 2329 bytes)
+(21.2 %, 2318 bytes)
+===< pass_clang :: remove-unused-function >===
+(34.0 %, 1939 bytes)
+===< pass_clang :: remove-unused-enum-member >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: simplify-comma-expr >===
+(33.6 %, 1951 bytes)
+(33.3 %, 1961 bytes)
+(33.0 %, 1971 bytes)
+(32.9 %, 1973 bytes)
+===< pass_clang :: simplify-dependent-typedef >===
+===< pass_clang :: replace-simple-typedef >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: replace-one-level-typedef-type >===
+===< pass_clang :: remove-unused-field >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: remove-trivial-base-template >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: remove-base-class >===
+===< pass_clang :: remove-unresolved-base >===
+===< pass_clang :: simplify-nested-class >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: empty-struct-to-int >===
+===< pass_clang :: remove-array >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: replace-array-index-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_clang :: move-global-var >===
+===< pass_clang :: unify-function-decl >===
+Termination check: size was 2940; now 1973
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_clang :: remove-namespace >===
+===< pass_clang :: aggregate-to-scalar >===
+===< pass_clang :: param-to-local >===
+===< pass_clang :: lift-assignment-expr >===
+===< pass_clang :: copy-propagation >===
+===< pass_clang :: simplify-callexpr >===
+===< pass_clang :: remove-unused-function >===
+===< pass_clang :: remove-unused-enum-member >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: simplify-comma-expr >===
+===< pass_clang :: simplify-dependent-typedef >===
+===< pass_clang :: replace-simple-typedef >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: replace-one-level-typedef-type >===
+===< pass_clang :: remove-unused-field >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: remove-trivial-base-template >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: remove-base-class >===
+===< pass_clang :: remove-unresolved-base >===
+===< pass_clang :: simplify-nested-class >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: empty-struct-to-int >===
+===< pass_clang :: remove-array >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: replace-array-index-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_clang :: move-global-var >===
+===< pass_clang :: unify-function-decl >===
+Termination check: size was 1973; now 1973
+===================== done ====================
+
+pass statistics:
+  method pass_clang :: aggregate-to-scalar worked 0 times and failed 0 times
+  method pass_clang :: class-template-to-class worked 0 times and failed 0 times
+  method pass_clang :: copy-propagation worked 0 times and failed 0 times
+  method pass_clang :: empty-struct-to-int worked 0 times and failed 0 times
+  method pass_clang :: instantiate-template-param worked 0 times and failed 0 times
+  method pass_clang :: lift-assignment-expr worked 0 times and failed 0 times
+  method pass_clang :: move-global-var worked 0 times and failed 0 times
+  method pass_clang :: param-to-local worked 0 times and failed 0 times
+  method pass_clang :: reduce-array-dim worked 0 times and failed 0 times
+  method pass_clang :: reduce-array-size worked 0 times and failed 0 times
+  method pass_clang :: reduce-class-template-param worked 0 times and failed 0 times
+  method pass_clang :: remove-addr-taken worked 0 times and failed 0 times
+  method pass_clang :: remove-array worked 0 times and failed 0 times
+  method pass_clang :: remove-base-class worked 0 times and failed 0 times
+  method pass_clang :: remove-namespace worked 0 times and failed 0 times
+  method pass_clang :: remove-trivial-base-template worked 0 times and failed 0 times
+  method pass_clang :: remove-unresolved-base worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-enum-member worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-field worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-function worked 1 times and failed 2 times
+  method pass_clang :: remove-unused-outer-class worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-var worked 0 times and failed 0 times
+  method pass_clang :: replace-array-index-var worked 0 times and failed 0 times
+  method pass_clang :: replace-dependent-typedef worked 0 times and failed 0 times
+  method pass_clang :: replace-one-level-typedef-type worked 0 times and failed 0 times
+  method pass_clang :: replace-simple-typedef worked 0 times and failed 0 times
+  method pass_clang :: simplify-callexpr worked 6 times and failed 2 times
+  method pass_clang :: simplify-comma-expr worked 4 times and failed 0 times
+  method pass_clang :: simplify-dependent-typedef worked 0 times and failed 0 times
+  method pass_clang :: simplify-nested-class worked 0 times and failed 0 times
+  method pass_clang :: simplify-struct-union-decl worked 0 times and failed 0 times
+  method pass_clang :: template-arg-to-int worked 0 times and failed 0 times
+  method pass_clang :: unify-function-decl worked 0 times and failed 0 times
+  method pass_clang_binsrch :: remove-unused-function worked 1 times and failed 2 times
+  method pass_clang_binsrch :: replace-function-def-with-decl worked 0 times and failed 2 times
+
+
+          '/Users/ugurmeryem/Dropbox/mangroveL/cppcheck/CWE401_Memory_Leak__wchar_t_realloc_18.c' reduced to:
+/* TEMPLATE GENERATED TESTCASE FILE
+Filename: CWE401_Memory_Leak__wchar_t_realloc_18.c
+Label Definition File: CWE401_Memory_Leak.c.label.xml
+Template File: sources-sinks-18.tmpl.c
+*/
+/*
+ * @description
+ * CWE: 401 Memory Leak
+ * BadSource: realloc Allocate data using realloc()
+ * GoodSource: Allocate data on the stack
+ * Sinks:
+ *    GoodSink: call free() on data
+ *    BadSink : no deallocation of data
+ * Flow Variant: 18 Control flow: goto statements
+ *
+ * */
+
+#include "std_testcase.h"
+
+#include <wchar.h>
+
+#ifndef OMITBAD
+
+
+
+#endif /* OMITBAD */
+
+#ifndef OMITGOOD
+
+/* goodB2G() - use badsource and goodsink by reversing the blocks on the second goto statement */
+static void goodB2G()
+{
+    wchar_t * d;
+    d = NULL;
+    goto source;
+source:
+    /* POTENTIAL FLAW: Allocate memory on the heap */
+    d = (wchar_t *)realloc(d, 100*sizeof(wchar_t));
+    /* Initialize and make use of data */
+    0;
+    
+    (0);
+    
+    (0);
+    0;
+    
+    (0);
+    goto sink;
+0;
+
+sink:
+    /* FIX: Deallocate memory */
+    (0);
+}
+
+/* goodG2B() - use goodsource and badsink by reversing the blocks on the first goto statement */
+
+
+
+
+#endif /* OMITGOOD */
+
+/* Below is the main(). It is only used when building this testcase on
+   its own for testing or for building a binary to use in testing binary
+   analysis tools. It is not used when compiling all the testcases as one
+   application, which is how source code analysis tools are tested. */
+
+#ifdef INCLUDEMAIN
+
+int main(int argc, char * argv[])
+{
+    /* seed randomness */
+    srand( (unsigned)time(NULL) );
+#ifndef OMITGOOD
+    printLine("Calling good()...");
+    CWE401_Memory_Leak__wchar_t_realloc_18_good();
+    printLine("Finished good()");
+#endif /* OMITGOOD */
+#ifndef OMITBAD
+    printLine("Calling bad()...");
+    CWE401_Memory_Leak__wchar_t_realloc_18_bad();
+    printLine("Finished bad()");
+#endif /* OMITBAD */
+    return 0;
+}
+
+#endif

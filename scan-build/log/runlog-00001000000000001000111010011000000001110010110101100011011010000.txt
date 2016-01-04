@@ -1,0 +1,100 @@
+===< 70121 >===
+running 3 interestingness tests in parallel
+===< pass_clang :: local-to-global >===
+===< pass_clang :: reduce-pointer-level >===
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: simplify-callexpr >===
+(4.3 %, 269 bytes)
+(8.5 %, 257 bytes)
+(10.3 %, 252 bytes)
+===< pass_clang :: remove-unused-function >===
+(18.9 %, 228 bytes)
+===< pass_clang :: remove-enum-member-value >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: template-non-type-arg-to-int >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: replace-derived-class >===
+===< pass_clang :: remove-unresolved-base >===
+===< pass_clang :: replace-class-with-base-template-spec >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: empty-struct-to-int >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: simplify-struct >===
+===< pass_clang :: replace-array-index-var >===
+===< pass_clang :: replace-dependent-name >===
+===< pass_clang :: combine-global-var >===
+Termination check: size was 281; now 228
+===< pass_clang :: local-to-global >===
+===< pass_clang :: reduce-pointer-level >===
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: simplify-callexpr >===
+===< pass_clang :: remove-unused-function >===
+===< pass_clang :: remove-enum-member-value >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: template-non-type-arg-to-int >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: replace-derived-class >===
+===< pass_clang :: remove-unresolved-base >===
+===< pass_clang :: replace-class-with-base-template-spec >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: empty-struct-to-int >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: simplify-struct >===
+===< pass_clang :: replace-array-index-var >===
+===< pass_clang :: replace-dependent-name >===
+===< pass_clang :: combine-global-var >===
+Termination check: size was 228; now 228
+===================== done ====================
+
+pass statistics:
+  method pass_clang :: class-template-to-class worked 0 times and failed 0 times
+  method pass_clang :: combine-global-var worked 0 times and failed 0 times
+  method pass_clang :: empty-struct-to-int worked 0 times and failed 0 times
+  method pass_clang :: instantiate-template-param worked 0 times and failed 0 times
+  method pass_clang :: local-to-global worked 0 times and failed 4 times
+  method pass_clang :: reduce-array-dim worked 0 times and failed 0 times
+  method pass_clang :: reduce-array-size worked 0 times and failed 0 times
+  method pass_clang :: reduce-pointer-level worked 0 times and failed 2 times
+  method pass_clang :: remove-addr-taken worked 0 times and failed 0 times
+  method pass_clang :: remove-enum-member-value worked 0 times and failed 0 times
+  method pass_clang :: remove-unresolved-base worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-function worked 1 times and failed 2 times
+  method pass_clang :: remove-unused-outer-class worked 0 times and failed 0 times
+  method pass_clang :: replace-array-index-var worked 0 times and failed 0 times
+  method pass_clang :: replace-callexpr worked 0 times and failed 0 times
+  method pass_clang :: replace-class-with-base-template-spec worked 0 times and failed 0 times
+  method pass_clang :: replace-dependent-name worked 0 times and failed 0 times
+  method pass_clang :: replace-derived-class worked 0 times and failed 0 times
+  method pass_clang :: simplify-callexpr worked 3 times and failed 8 times
+  method pass_clang :: simplify-struct worked 0 times and failed 0 times
+  method pass_clang :: template-arg-to-int worked 0 times and failed 0 times
+  method pass_clang :: template-non-type-arg-to-int worked 0 times and failed 0 times
+
+
+          '/Users/ugurmeryem/Dropbox/mangroveL/scan-build/sample.c' reduced to:
+#include <stdlib.h>
+#include <stdio.h>
+
+void foo() {
+   int * p = (int *)malloc(10 * sizeof(int));
+   int r = rand() % 10;
+   if (r>10){
+      free(p);
+  	}
+   free(p);
+   (0,0);
+}
+
+
+
+int main() {
+   ;
+   //bar();
+   return 0;
+}

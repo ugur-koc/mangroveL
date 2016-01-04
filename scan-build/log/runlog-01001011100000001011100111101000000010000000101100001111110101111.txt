@@ -1,0 +1,156 @@
+===< 70682 >===
+running 3 interestingness tests in parallel
+===< pass_clang_binsrch :: remove-unused-function >===
+(12.8 %, 245 bytes)
+===< pass_clang :: local-to-global >===
+===< pass_clang :: param-to-local >===
+===< pass_clang :: remove-nested-function >===
+===< pass_clang :: rename-fun >===
+===< pass_clang :: reduce-pointer-level >===
+===< pass_clang :: copy-propagation >===
+===< pass_clang :: callexpr-to-value >===
+(18.5 %, 229 bytes)
+(20.3 %, 224 bytes)
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: remove-unused-enum-member >===
+===< pass_clang :: remove-enum-member-value >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: simplify-if >===
+(18.9 %, 228 bytes)
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: instantiate-template-type-param-to-int >===
+===< pass_clang :: replace-derived-class >===
+===< pass_clang :: remove-ctor-initializer >===
+===< pass_clang :: replace-class-with-base-template-spec >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: remove-array >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: simplify-struct >===
+===< pass_clang :: replace-undefined-function >===
+===< pass_clang :: replace-array-index-var >===
+===< pass_clang :: simplify-recursive-template-instantiation >===
+===< pass_clang :: combine-local-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_clang :: move-global-var >===
+===< pass_clang :: unify-function-decl >===
+Termination check: size was 281; now 228
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_clang :: local-to-global >===
+===< pass_clang :: param-to-local >===
+===< pass_clang :: remove-nested-function >===
+===< pass_clang :: rename-fun >===
+===< pass_clang :: reduce-pointer-level >===
+===< pass_clang :: copy-propagation >===
+===< pass_clang :: callexpr-to-value >===
+(20.6 %, 223 bytes)
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: remove-unused-enum-member >===
+===< pass_clang :: remove-enum-member-value >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: simplify-if >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: instantiate-template-type-param-to-int >===
+===< pass_clang :: replace-derived-class >===
+===< pass_clang :: remove-ctor-initializer >===
+===< pass_clang :: replace-class-with-base-template-spec >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: remove-array >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: simplify-struct >===
+===< pass_clang :: replace-undefined-function >===
+===< pass_clang :: replace-array-index-var >===
+===< pass_clang :: simplify-recursive-template-instantiation >===
+===< pass_clang :: combine-local-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_clang :: move-global-var >===
+===< pass_clang :: unify-function-decl >===
+Termination check: size was 228; now 223
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_clang :: local-to-global >===
+(17.4 %, 232 bytes)
+===< pass_clang :: param-to-local >===
+===< pass_clang :: remove-nested-function >===
+===< pass_clang :: rename-fun >===
+===< pass_clang :: reduce-pointer-level >===
+===< pass_clang :: copy-propagation >===
+===< pass_clang :: callexpr-to-value >===
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: remove-unused-enum-member >===
+===< pass_clang :: remove-enum-member-value >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: simplify-if >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: instantiate-template-type-param-to-int >===
+===< pass_clang :: replace-derived-class >===
+===< pass_clang :: remove-ctor-initializer >===
+===< pass_clang :: replace-class-with-base-template-spec >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: remove-array >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: simplify-struct >===
+===< pass_clang :: replace-undefined-function >===
+===< pass_clang :: replace-array-index-var >===
+===< pass_clang :: simplify-recursive-template-instantiation >===
+===< pass_clang :: combine-local-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_clang :: move-global-var >===
+===< pass_clang :: unify-function-decl >===
+Termination check: size was 223; now 232
+===================== done ====================
+
+pass statistics:
+  method pass_clang :: callexpr-to-value worked 3 times and failed 10 times
+  method pass_clang :: combine-local-var worked 0 times and failed 0 times
+  method pass_clang :: copy-propagation worked 0 times and failed 0 times
+  method pass_clang :: instantiate-template-type-param-to-int worked 0 times and failed 0 times
+  method pass_clang :: local-to-global worked 1 times and failed 5 times
+  method pass_clang :: move-global-var worked 0 times and failed 0 times
+  method pass_clang :: param-to-local worked 0 times and failed 0 times
+  method pass_clang :: reduce-array-size worked 0 times and failed 0 times
+  method pass_clang :: reduce-pointer-level worked 0 times and failed 3 times
+  method pass_clang :: remove-addr-taken worked 0 times and failed 0 times
+  method pass_clang :: remove-array worked 0 times and failed 0 times
+  method pass_clang :: remove-ctor-initializer worked 0 times and failed 0 times
+  method pass_clang :: remove-enum-member-value worked 0 times and failed 0 times
+  method pass_clang :: remove-nested-function worked 0 times and failed 0 times
+  method pass_clang :: remove-pointer-pairs worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-enum-member worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-var worked 0 times and failed 0 times
+  method pass_clang :: rename-fun worked 0 times and failed 3 times
+  method pass_clang :: replace-array-index-var worked 0 times and failed 0 times
+  method pass_clang :: replace-callexpr worked 0 times and failed 0 times
+  method pass_clang :: replace-class-with-base-template-spec worked 0 times and failed 0 times
+  method pass_clang :: replace-derived-class worked 0 times and failed 0 times
+  method pass_clang :: replace-undefined-function worked 0 times and failed 0 times
+  method pass_clang :: simplify-if worked 1 times and failed 0 times
+  method pass_clang :: simplify-recursive-template-instantiation worked 0 times and failed 0 times
+  method pass_clang :: simplify-struct worked 0 times and failed 0 times
+  method pass_clang :: simplify-struct-union-decl worked 0 times and failed 0 times
+  method pass_clang :: unify-function-decl worked 0 times and failed 0 times
+  method pass_clang_binsrch :: remove-unused-function worked 1 times and failed 2 times
+
+
+          '/Users/ugurmeryem/Dropbox/mangroveL/scan-build/sample.c' reduced to:
+#include <stdlib.h>
+#include <stdio.h>
+
+int foo_r = 0 % 10;
+void foo() {
+   int * p = (int *)malloc(10 * sizeof(int));
+   
+   foo_r>10;
+   
+   {
+      free(p);
+  	}
+   free(p);
+   0;
+}
+
+
+
+int main() {
+   ;
+   //bar();
+   return 0;
+}

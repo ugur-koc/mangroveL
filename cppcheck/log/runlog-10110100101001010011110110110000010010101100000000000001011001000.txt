@@ -1,0 +1,210 @@
+===< 62354 >===
+running 3 interestingness tests in parallel
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang :: remove-namespace >===
+===< pass_clang :: aggregate-to-scalar >===
+===< pass_clang :: param-to-global >===
+===< pass_clang :: rename-fun >===
+===< pass_clang :: simple-inliner >===
+(-1.2 %, 2974 bytes)
+===< pass_clang :: copy-propagation >===
+===< pass_clang :: callexpr-to-value >===
+(-0.0 %, 2941 bytes)
+(0.8 %, 2917 bytes)
+(1.3 %, 2902 bytes)
+(2.2 %, 2876 bytes)
+(3.0 %, 2852 bytes)
+(3.5 %, 2837 bytes)
+(4.2 %, 2816 bytes)
+(4.6 %, 2804 bytes)
+(4.8 %, 2798 bytes)
+(5.1 %, 2789 bytes)
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: simplify-callexpr >===
+===< pass_clang :: remove-unused-enum-member >===
+===< pass_clang :: remove-enum-member-value >===
+===< pass_clang :: simplify-if >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: instantiate-template-type-param-to-int >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: remove-trivial-base-template >===
+===< pass_clang :: simplify-struct >===
+===< pass_clang :: replace-array-index-var >===
+===< pass_clang :: replace-dependent-name >===
+===< pass_clang :: rename-param >===
+===< pass_clang :: rename-cxx-method >===
+===< pass_clang :: combine-local-var >===
+Termination check: size was 2940; now 2789
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang :: remove-namespace >===
+===< pass_clang :: aggregate-to-scalar >===
+===< pass_clang :: param-to-global >===
+===< pass_clang :: rename-fun >===
+===< pass_clang :: simple-inliner >===
+===< pass_clang :: copy-propagation >===
+===< pass_clang :: callexpr-to-value >===
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: simplify-callexpr >===
+===< pass_clang :: remove-unused-enum-member >===
+===< pass_clang :: remove-enum-member-value >===
+===< pass_clang :: simplify-if >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: instantiate-template-type-param-to-int >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: remove-trivial-base-template >===
+===< pass_clang :: simplify-struct >===
+===< pass_clang :: replace-array-index-var >===
+===< pass_clang :: replace-dependent-name >===
+===< pass_clang :: rename-param >===
+===< pass_clang :: rename-cxx-method >===
+===< pass_clang :: combine-local-var >===
+Termination check: size was 2789; now 2789
+===================== done ====================
+
+pass statistics:
+  method pass_clang :: aggregate-to-scalar worked 0 times and failed 0 times
+  method pass_clang :: callexpr-to-value worked 10 times and failed 2 times
+  method pass_clang :: combine-local-var worked 0 times and failed 0 times
+  method pass_clang :: copy-propagation worked 0 times and failed 0 times
+  method pass_clang :: instantiate-template-type-param-to-int worked 0 times and failed 0 times
+  method pass_clang :: param-to-global worked 0 times and failed 0 times
+  method pass_clang :: reduce-array-dim worked 0 times and failed 0 times
+  method pass_clang :: reduce-class-template-param worked 0 times and failed 0 times
+  method pass_clang :: remove-enum-member-value worked 0 times and failed 0 times
+  method pass_clang :: remove-namespace worked 0 times and failed 0 times
+  method pass_clang :: remove-trivial-base-template worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-enum-member worked 0 times and failed 0 times
+  method pass_clang :: rename-cxx-method worked 0 times and failed 0 times
+  method pass_clang :: rename-fun worked 0 times and failed 2 times
+  method pass_clang :: rename-param worked 0 times and failed 0 times
+  method pass_clang :: replace-array-index-var worked 0 times and failed 0 times
+  method pass_clang :: replace-callexpr worked 0 times and failed 0 times
+  method pass_clang :: replace-dependent-name worked 0 times and failed 0 times
+  method pass_clang :: replace-dependent-typedef worked 0 times and failed 0 times
+  method pass_clang :: simple-inliner worked 1 times and failed 1 times
+  method pass_clang :: simplify-callexpr worked 0 times and failed 2 times
+  method pass_clang :: simplify-if worked 0 times and failed 0 times
+  method pass_clang :: simplify-struct worked 0 times and failed 0 times
+  method pass_clang :: template-arg-to-int worked 0 times and failed 0 times
+  method pass_clang_binsrch :: replace-function-def-with-decl worked 0 times and failed 2 times
+
+
+          '/Users/ugurmeryem/Dropbox/mangroveL/cppcheck/CWE401_Memory_Leak__wchar_t_realloc_18.c' reduced to:
+/* TEMPLATE GENERATED TESTCASE FILE
+Filename: CWE401_Memory_Leak__wchar_t_realloc_18.c
+Label Definition File: CWE401_Memory_Leak.c.label.xml
+Template File: sources-sinks-18.tmpl.c
+*/
+/*
+ * @description
+ * CWE: 401 Memory Leak
+ * BadSource: realloc Allocate data using realloc()
+ * GoodSource: Allocate data on the stack
+ * Sinks:
+ *    GoodSink: call free() on data
+ *    BadSink : no deallocation of data
+ * Flow Variant: 18 Control flow: goto statements
+ *
+ * */
+
+#include "std_testcase.h"
+
+#include <wchar.h>
+
+#ifndef OMITBAD
+
+void CWE401_Memory_Leak__wchar_t_realloc_18_bad()
+{
+    wchar_t * data;
+    data = NULL;
+    goto source;
+source:
+    /* POTENTIAL FLAW: Allocate memory on the heap */
+    data = (wchar_t *)0;
+    /* Initialize and make use of data */
+    0;
+    0;
+    goto sink;
+sink:
+    /* POTENTIAL FLAW: No deallocation */
+    ; /* empty statement needed for some flow variants */
+}
+
+#endif /* OMITBAD */
+
+#ifndef OMITGOOD
+
+/* goodB2G() - use badsource and goodsink by reversing the blocks on the second goto statement */
+
+
+/* goodG2B() - use goodsource and badsink by reversing the blocks on the first goto statement */
+static void goodG2B()
+{
+    wchar_t * data;
+    data = NULL;
+    goto source;
+source:
+    /* FIX: Use memory allocated on the stack with ALLOCA */
+    data = (wchar_t *)0;
+    /* Initialize and make use of data */
+    0;
+    0;
+    goto sink;
+sink:
+    /* POTENTIAL FLAW: No deallocation */
+    ; /* empty statement needed for some flow variants */
+}
+
+void CWE401_Memory_Leak__wchar_t_realloc_18_good()
+{
+    {
+        wchar_t * d;
+        d = NULL;
+        goto source;
+    source:
+        /* POTENTIAL FLAW: Allocate memory on the heap */
+        d = (wchar_t *)realloc(d, 100*sizeof(wchar_t));
+        /* Initialize and make use of data */
+        0;
+        0;
+        goto sink;
+    sink:
+        /* FIX: Deallocate memory */
+        0;
+    }
+    
+    ;
+    ;
+}
+
+#endif /* OMITGOOD */
+
+/* Below is the main(). It is only used when building this testcase on
+   its own for testing or for building a binary to use in testing binary
+   analysis tools. It is not used when compiling all the testcases as one
+   application, which is how source code analysis tools are tested. */
+
+#ifdef INCLUDEMAIN
+
+int main(int argc, char * argv[])
+{
+    /* seed randomness */
+    srand( (unsigned)time(NULL) );
+#ifndef OMITGOOD
+    printLine("Calling good()...");
+    CWE401_Memory_Leak__wchar_t_realloc_18_good();
+    printLine("Finished good()");
+#endif /* OMITGOOD */
+#ifndef OMITBAD
+    printLine("Calling bad()...");
+    CWE401_Memory_Leak__wchar_t_realloc_18_bad();
+    printLine("Finished bad()");
+#endif /* OMITBAD */
+    return 0;
+}
+
+#endif

@@ -1,0 +1,25 @@
+scan-build: Using '/usr/local/bin/clang-3.8' for static analysis
+bzip2.c:2350:17: warning: The left operand of '==' is a garbage value
+      if (yy[0] == ll_i) { 
+          ~~~~~ ^
+bzip2.c:2373:19: warning: Assigned value is garbage or undefined
+            rtmp  = yy[1];
+                  ^ ~~~~~
+bzip2.c:2405:7: warning: Value stored to 'zPend' is never read
+      zPend = 0;
+      ^       ~
+bzip2.c:3872:10: warning: Value stored to 'progress' is never read
+         progress = handle_compress ( strm );
+         ^          ~~~~~~~~~~~~~~~~~~~~~~~~
+bzip2.c:5555:10: warning: Value stored to 'nread' is never read
+         nread = BZ2_bzRead ( &bzerr, bzf, obuf, 5000 );
+         ^       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+bzip2.c:6038:4: warning: Value stored to 'retVal' is never read
+   retVal = chown ( dstName, fileMetaInfo.st_uid, fileMetaInfo.st_gid );
+   ^        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+bzip2.c:6769:4: warning: Value stored to 'i' is never read
+   i = j = 0; /* avoid bogus warning from egcs-1.1.X */
+   ^   ~~~~~
+7 warnings generated.
+scan-build: 7 bugs found.
+scan-build: Run 'scan-view /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/scan-build-2015-12-22-211659-569-1' to examine bug reports.

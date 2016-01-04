@@ -1,0 +1,279 @@
+===< 65730 >===
+running 3 interestingness tests in parallel
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang :: local-to-global >===
+
+***************************************************
+
+pass_clang::local-to-global has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=local-to-global --counter=1 /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/creduce-AuBb9m/CWE401_Memory_Leak__wchar_t_realloc_18.c
+
+Please consider tarring up /Users/ugurmeryem/Dropbox/mangroveL/cppcheck/creduce_bug_006
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
+===< pass_clang :: rename-fun >===
+===< pass_clang :: reduce-pointer-level >===
+===< pass_clang :: lift-assignment-expr >===
+===< pass_clang :: callexpr-to-value >===
+(1.1 %, 2907 bytes)
+(1.9 %, 2883 bytes)
+(2.4 %, 2868 bytes)
+(3.2 %, 2847 bytes)
+(3.6 %, 2835 bytes)
+(3.8 %, 2829 bytes)
+(4.7 %, 2803 bytes)
+(5.5 %, 2779 bytes)
+(6.0 %, 2764 bytes)
+(6.3 %, 2755 bytes)
+(6.6 %, 2746 bytes)
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: simplify-if >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: remove-unused-field >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: replace-derived-class >===
+===< pass_clang :: simplify-nested-class >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: remove-array >===
+===< pass_clang :: replace-undefined-function >===
+===< pass_clang :: simplify-recursive-template-instantiation >===
+===< pass_clang :: rename-cxx-method >===
+===< pass_clang :: combine-global-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_clang :: move-global-var >===
+Termination check: size was 2940; now 2746
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang :: local-to-global >===
+
+***************************************************
+
+pass_clang::local-to-global has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=local-to-global --counter=1 /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/creduce-5paZo1/CWE401_Memory_Leak__wchar_t_realloc_18.c
+
+Please consider tarring up /Users/ugurmeryem/Dropbox/mangroveL/cppcheck/creduce_bug_007
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
+===< pass_clang :: rename-fun >===
+===< pass_clang :: reduce-pointer-level >===
+(6.6 %, 2745 bytes)
+(6.7 %, 2744 bytes)
+===< pass_clang :: lift-assignment-expr >===
+===< pass_clang :: callexpr-to-value >===
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: simplify-if >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: remove-unused-field >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: replace-derived-class >===
+===< pass_clang :: simplify-nested-class >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: remove-array >===
+===< pass_clang :: replace-undefined-function >===
+===< pass_clang :: simplify-recursive-template-instantiation >===
+===< pass_clang :: rename-cxx-method >===
+===< pass_clang :: combine-global-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_clang :: move-global-var >===
+Termination check: size was 2746; now 2744
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang :: local-to-global >===
+
+***************************************************
+
+pass_clang::local-to-global has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=local-to-global --counter=1 /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/creduce-8VRXAk/CWE401_Memory_Leak__wchar_t_realloc_18.c
+
+Please consider tarring up /Users/ugurmeryem/Dropbox/mangroveL/cppcheck/creduce_bug_008
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
+===< pass_clang :: rename-fun >===
+===< pass_clang :: reduce-pointer-level >===
+===< pass_clang :: lift-assignment-expr >===
+===< pass_clang :: callexpr-to-value >===
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: simplify-if >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: remove-unused-field >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: replace-derived-class >===
+===< pass_clang :: simplify-nested-class >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: remove-array >===
+===< pass_clang :: replace-undefined-function >===
+===< pass_clang :: simplify-recursive-template-instantiation >===
+===< pass_clang :: rename-cxx-method >===
+===< pass_clang :: combine-global-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_clang :: move-global-var >===
+Termination check: size was 2744; now 2744
+===================== done ====================
+
+pass statistics:
+  method pass_clang :: callexpr-to-value worked 11 times and failed 3 times
+  method pass_clang :: class-template-to-class worked 0 times and failed 0 times
+  method pass_clang :: combine-global-var worked 0 times and failed 0 times
+  method pass_clang :: lift-assignment-expr worked 0 times and failed 0 times
+  method pass_clang :: local-to-global worked 0 times and failed 0 times
+  method pass_clang :: move-global-var worked 0 times and failed 0 times
+  method pass_clang :: reduce-array-dim worked 0 times and failed 0 times
+  method pass_clang :: reduce-array-size worked 0 times and failed 0 times
+  method pass_clang :: reduce-class-template-param worked 0 times and failed 0 times
+  method pass_clang :: reduce-pointer-level worked 2 times and failed 0 times
+  method pass_clang :: remove-array worked 0 times and failed 0 times
+  method pass_clang :: remove-pointer-pairs worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-field worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-outer-class worked 0 times and failed 0 times
+  method pass_clang :: rename-cxx-method worked 0 times and failed 0 times
+  method pass_clang :: rename-fun worked 0 times and failed 3 times
+  method pass_clang :: replace-callexpr worked 0 times and failed 0 times
+  method pass_clang :: replace-dependent-typedef worked 0 times and failed 0 times
+  method pass_clang :: replace-derived-class worked 0 times and failed 0 times
+  method pass_clang :: replace-undefined-function worked 0 times and failed 0 times
+  method pass_clang :: simplify-if worked 0 times and failed 0 times
+  method pass_clang :: simplify-nested-class worked 0 times and failed 0 times
+  method pass_clang :: simplify-recursive-template-instantiation worked 0 times and failed 0 times
+  method pass_clang :: simplify-struct-union-decl worked 0 times and failed 0 times
+  method pass_clang_binsrch :: replace-function-def-with-decl worked 0 times and failed 3 times
+
+
+          '/Users/ugurmeryem/Dropbox/mangroveL/cppcheck/CWE401_Memory_Leak__wchar_t_realloc_18.c' reduced to:
+/* TEMPLATE GENERATED TESTCASE FILE
+Filename: CWE401_Memory_Leak__wchar_t_realloc_18.c
+Label Definition File: CWE401_Memory_Leak.c.label.xml
+Template File: sources-sinks-18.tmpl.c
+*/
+/*
+ * @description
+ * CWE: 401 Memory Leak
+ * BadSource: realloc Allocate data using realloc()
+ * GoodSource: Allocate data on the stack
+ * Sinks:
+ *    GoodSink: call free() on data
+ *    BadSink : no deallocation of data
+ * Flow Variant: 18 Control flow: goto statements
+ *
+ * */
+
+#include "std_testcase.h"
+
+#include <wchar.h>
+
+#ifndef OMITBAD
+
+void CWE401_Memory_Leak__wchar_t_realloc_18_bad()
+{
+    wchar_t  data;
+    data = NULL;
+    goto source;
+source:
+    /* POTENTIAL FLAW: Allocate memory on the heap */
+    data = (wchar_t *)0;
+    /* Initialize and make use of data */
+    0;
+    0;
+    goto sink;
+sink:
+    /* POTENTIAL FLAW: No deallocation */
+    ; /* empty statement needed for some flow variants */
+}
+
+#endif /* OMITBAD */
+
+#ifndef OMITGOOD
+
+/* goodB2G() - use badsource and goodsink by reversing the blocks on the second goto statement */
+static void goodB2G()
+{
+    wchar_t * d;
+    d = NULL;
+    goto source;
+source:
+    /* POTENTIAL FLAW: Allocate memory on the heap */
+    d = (wchar_t *)realloc(d, 100*sizeof(wchar_t));
+    /* Initialize and make use of data */
+    0;
+    0;
+    goto sink;
+sink:
+    /* FIX: Deallocate memory */
+    0;
+}
+
+/* goodG2B() - use goodsource and badsink by reversing the blocks on the first goto statement */
+static void goodG2B()
+{
+    wchar_t  data;
+    data = NULL;
+    goto source;
+source:
+    /* FIX: Use memory allocated on the stack with ALLOCA */
+    data = (wchar_t *)0;
+    /* Initialize and make use of data */
+    0;
+    0;
+    goto sink;
+sink:
+    /* POTENTIAL FLAW: No deallocation */
+    ; /* empty statement needed for some flow variants */
+}
+
+void CWE401_Memory_Leak__wchar_t_realloc_18_good()
+{
+    ;
+    ;
+}
+
+#endif /* OMITGOOD */
+
+/* Below is the main(). It is only used when building this testcase on
+   its own for testing or for building a binary to use in testing binary
+   analysis tools. It is not used when compiling all the testcases as one
+   application, which is how source code analysis tools are tested. */
+
+#ifdef INCLUDEMAIN
+
+int main(int argc, char * argv[])
+{
+    /* seed randomness */
+    srand( (unsigned)time(NULL) );
+#ifndef OMITGOOD
+    printLine("Calling good()...");
+    CWE401_Memory_Leak__wchar_t_realloc_18_good();
+    printLine("Finished good()");
+#endif /* OMITGOOD */
+#ifndef OMITBAD
+    printLine("Calling bad()...");
+    CWE401_Memory_Leak__wchar_t_realloc_18_bad();
+    printLine("Finished bad()");
+#endif /* OMITBAD */
+    return 0;
+}
+
+#endif

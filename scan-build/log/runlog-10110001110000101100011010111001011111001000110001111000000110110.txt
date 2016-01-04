@@ -1,0 +1,162 @@
+===< 72858 >===
+running 3 interestingness tests in parallel
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang :: remove-namespace >===
+===< pass_clang :: aggregate-to-scalar >===
+===< pass_clang :: remove-nested-function >===
+===< pass_clang :: rename-fun >===
+===< pass_clang :: union-to-struct >===
+
+***************************************************
+
+pass_clang::union-to-struct has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=union-to-struct --counter=1 /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/creduce-6HgAzr/sample.c
+
+Please consider tarring up /Users/ugurmeryem/Dropbox/mangroveL/scan-build/creduce_bug_005
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
+===< pass_clang :: return-void >===
+(1.4 %, 277 bytes)
+===< pass_clang :: reduce-pointer-level >===
+===< pass_clang :: lift-assignment-expr >===
+===< pass_clang :: simplify-callexpr >===
+(5.7 %, 265 bytes)
+(10.0 %, 253 bytes)
+(11.7 %, 248 bytes)
+===< pass_clang :: remove-unused-function >===
+(20.3 %, 224 bytes)
+===< pass_clang :: remove-enum-member-value >===
+===< pass_clang :: simplify-if >===
+(18.9 %, 228 bytes)
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: simplify-dependent-typedef >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: replace-one-level-typedef-type >===
+===< pass_clang :: remove-unused-field >===
+===< pass_clang :: instantiate-template-type-param-to-int >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: replace-derived-class >===
+===< pass_clang :: remove-unresolved-base >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: empty-struct-to-int >===
+===< pass_clang :: remove-pointer >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: simplify-recursive-template-instantiation >===
+===< pass_clang :: combine-global-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_clang :: move-global-var >===
+Termination check: size was 281; now 228
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang :: remove-namespace >===
+===< pass_clang :: aggregate-to-scalar >===
+===< pass_clang :: remove-nested-function >===
+===< pass_clang :: rename-fun >===
+===< pass_clang :: union-to-struct >===
+
+***************************************************
+
+pass_clang::union-to-struct has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=union-to-struct --counter=1 /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/creduce-AiGbr6/sample.c
+
+Please consider tarring up /Users/ugurmeryem/Dropbox/mangroveL/scan-build/creduce_bug_006
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
+===< pass_clang :: return-void >===
+===< pass_clang :: reduce-pointer-level >===
+===< pass_clang :: lift-assignment-expr >===
+===< pass_clang :: simplify-callexpr >===
+===< pass_clang :: remove-unused-function >===
+===< pass_clang :: remove-enum-member-value >===
+===< pass_clang :: simplify-if >===
+===< pass_clang :: reduce-array-dim >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: simplify-dependent-typedef >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: replace-one-level-typedef-type >===
+===< pass_clang :: remove-unused-field >===
+===< pass_clang :: instantiate-template-type-param-to-int >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: replace-derived-class >===
+===< pass_clang :: remove-unresolved-base >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: empty-struct-to-int >===
+===< pass_clang :: remove-pointer >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: simplify-recursive-template-instantiation >===
+===< pass_clang :: combine-global-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_clang :: move-global-var >===
+Termination check: size was 228; now 228
+===================== done ====================
+
+pass statistics:
+  method pass_clang :: aggregate-to-scalar worked 0 times and failed 0 times
+  method pass_clang :: combine-global-var worked 0 times and failed 0 times
+  method pass_clang :: empty-struct-to-int worked 0 times and failed 0 times
+  method pass_clang :: instantiate-template-param worked 0 times and failed 0 times
+  method pass_clang :: instantiate-template-type-param-to-int worked 0 times and failed 0 times
+  method pass_clang :: lift-assignment-expr worked 0 times and failed 0 times
+  method pass_clang :: move-global-var worked 0 times and failed 0 times
+  method pass_clang :: reduce-array-dim worked 0 times and failed 0 times
+  method pass_clang :: reduce-array-size worked 0 times and failed 0 times
+  method pass_clang :: reduce-class-template-param worked 0 times and failed 0 times
+  method pass_clang :: reduce-pointer-level worked 0 times and failed 2 times
+  method pass_clang :: remove-enum-member-value worked 0 times and failed 0 times
+  method pass_clang :: remove-namespace worked 0 times and failed 0 times
+  method pass_clang :: remove-nested-function worked 0 times and failed 0 times
+  method pass_clang :: remove-pointer worked 0 times and failed 0 times
+  method pass_clang :: remove-pointer-pairs worked 0 times and failed 0 times
+  method pass_clang :: remove-unresolved-base worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-field worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-function worked 1 times and failed 2 times
+  method pass_clang :: remove-unused-outer-class worked 0 times and failed 0 times
+  method pass_clang :: rename-fun worked 0 times and failed 2 times
+  method pass_clang :: replace-dependent-typedef worked 0 times and failed 0 times
+  method pass_clang :: replace-derived-class worked 0 times and failed 0 times
+  method pass_clang :: replace-one-level-typedef-type worked 0 times and failed 0 times
+  method pass_clang :: return-void worked 1 times and failed 0 times
+  method pass_clang :: simplify-callexpr worked 3 times and failed 8 times
+  method pass_clang :: simplify-dependent-typedef worked 0 times and failed 0 times
+  method pass_clang :: simplify-if worked 1 times and failed 0 times
+  method pass_clang :: simplify-recursive-template-instantiation worked 0 times and failed 0 times
+  method pass_clang :: simplify-struct-union-decl worked 0 times and failed 0 times
+  method pass_clang :: union-to-struct worked 0 times and failed 0 times
+  method pass_clang_binsrch :: replace-function-def-with-decl worked 0 times and failed 2 times
+
+
+          '/Users/ugurmeryem/Dropbox/mangroveL/scan-build/sample.c' reduced to:
+#include <stdlib.h>
+#include <stdio.h>
+
+void foo() {
+   int * p = (int *)malloc(10 * sizeof(int));
+   int r = rand() % 10;
+   r>10;
+   
+   {
+      free(p);
+  	}
+   free(p);
+   (0,0);
+}
+
+
+
+void  main() {
+   ;
+   //bar();
+    0;
+}

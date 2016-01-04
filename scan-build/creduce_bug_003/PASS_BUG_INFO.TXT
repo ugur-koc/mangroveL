@@ -1,0 +1,21 @@
+creduce 2.5.0
+e5c6db7
+Darwin
+Ugur-MacBook-Pro.local
+15.2.0
+Darwin Kernel Version 15.2.0: Fri Nov 13 19:56:56 PST 2015; root:xnu-3248.20.55~2/RELEASE_X86_64
+x86_64
+
+***************************************************
+
+pass_clang::union-to-struct has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=union-to-struct --counter=1 /var/folders/f7/rzdyhd9x2bd39zsnq6ys_5fr0000gn/T/creduce-ODm6eA/sample.c
+
+Please consider tarring up /Users/ugurmeryem/Dropbox/mangroveL/scan-build/creduce_bug_003
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
