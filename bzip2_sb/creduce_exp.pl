@@ -30,10 +30,9 @@ while (my $line = <ALL_PASSES>){
 $passesStr=~s/^\s+|\s+$//g;
 
 close ALL_PASSES;
-print "$passesStr,$runId,$fileId\n";
-
-`creduce --no-default-passes $passesStr $interestingness $program > log/runlog-$fileId.txt`;
+#print "$passesStr,$runId,$fileId\n";
+`creduce --no-default-passes $passesStr $interestingness $program > log/runlog-$runId.txt`;
 if(-e "$program.orig") {
-   `mv $program reduced/$program-$fileId.c`;
+   `mv $program reduced/$program-$runId.c`;
    `mv $program.orig $program`;
 }
