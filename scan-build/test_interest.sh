@@ -15,7 +15,7 @@ if [[ "$var" != *"warning: Attempt to free released memory"* ]]; then
    exit 1;
 fi
 
-exit 1;
+exit 0;
 
 #wont run anyway
 ./a.out > tmp 2>&1;

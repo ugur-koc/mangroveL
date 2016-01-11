@@ -1,0 +1,17 @@
+
+C-Reduce cannot run because the interestingness test does not return
+zero. Please ensure that it does so not only in the directory where
+you are invoking C-Reduce, but also in an arbitrary temporary
+directory containing only the files that are being reduced. In other
+words, running these commands:
+
+  DIR=`mktemp -d`
+  cp /home/ukoc/mangroveL/bzip2_sb/bzip2.c $DIR
+  cd $DIR
+  /home/ukoc/mangroveL/bzip2_sb/test_interest.sh
+  echo $?
+
+should result in "0" being echoed to the terminal.
+
+See "creduce --help" for more information.
+
