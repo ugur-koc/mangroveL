@@ -38,7 +38,7 @@ pass_clang local-to-global 202
 pass_clang param-to-global 203
 pass_clang param-to-local 204
 pass_clang remove-nested-function 205
-pass_clang rename-fun
+pass_clang rename-fun 207
 pass_clang union-to-struct 208
 pass_clang rename-param 991
 pass_clang rename-var 992
