@@ -9,11 +9,16 @@ use Math::BigFloat;
 my $program=$ARGV[0];
 my $tool=$ARGV[1]; #"cppcheck";
 my $interestingness=$ARGV[2];#"./test_interest.sh";
-my $fileId=$ARGV[2];#"./test_interest.sh";
+my $id=Time::HiRes::time();
 
 my @passes = ();
 my $passesStr = "";
 my $runId = "";
+
+`rm -fr /tmp/scan-build-2016-*`;
+`mkdir runs/run-$id`;
+`cp $program runs/run-$id/$program`;
+`cp $interestingness runs/run-$id/$interestingness`;
 
 open ALL_PASSES,"<all_passes.txt" or die $!;
 while (my $line = <ALL_PASSES>){
@@ -30,9 +35,8 @@ while (my $line = <ALL_PASSES>){
 $passesStr=~s/^\s+|\s+$//g;
 
 close ALL_PASSES;
-#print "$passesStr,$runId,$fileId\n";
-`creduce --no-default-passes $passesStr $interestingness $program > log/runlog-$runId.txt`;
-if(-e "$program.orig") {
-   `mv $program reduced/$program-$runId.c`;
-   `mv $program.orig $program`;
-}
+
+my $logFile="runlog.txt";
+`echo "$runId" > runlog.txt 2>&1`;
+`echo "$passesStr" >> runlog.txt 2>&1`;
+`cd runs/run-$id && time creduce --no-default-passes $passesStr $interestingness $program >> runlog.txt 2>&1`;
