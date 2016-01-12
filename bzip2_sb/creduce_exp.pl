@@ -37,6 +37,6 @@ $passesStr=~s/^\s+|\s+$//g;
 close ALL_PASSES;
 
 my $logFile="runlog.txt";
-`echo "$runId" > runlog.txt 2>&1`;
-`echo "$passesStr" >> runlog.txt 2>&1`;
+`cd runs/run-$id && echo "$runId" > runlog.txt 2>&1`;
+`cd runs/run-$id && echo "$passesStr" >> runlog.txt 2>&1`;
 `cd runs/run-$id && time creduce --no-default-passes $passesStr $interestingness $program >> runlog.txt 2>&1`;
