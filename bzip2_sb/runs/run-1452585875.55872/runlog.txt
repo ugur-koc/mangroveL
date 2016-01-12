@@ -1,0 +1,1370 @@
+===< 10556 >===
+running 2 interestingness tests in parallel
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+(21.2 %, 161408 bytes)
+(33.4 %, 136511 bytes)
+(36.5 %, 130085 bytes)
+===< pass_lines :: 0 >===
+(39.6 %, 123847 bytes)
+(45.4 %, 111801 bytes)
+(48.0 %, 106631 bytes)
+(49.9 %, 102743 bytes)
+(50.8 %, 100760 bytes)
+(52.1 %, 98248 bytes)
+(53.3 %, 95746 bytes)
+(53.7 %, 94793 bytes)
+(54.5 %, 93202 bytes)
+(55.2 %, 91854 bytes)
+(55.8 %, 90589 bytes)
+(56.4 %, 89449 bytes)
+(56.9 %, 88342 bytes)
+(57.4 %, 87255 bytes)
+(57.9 %, 86237 bytes)
+(58.4 %, 85211 bytes)
+(59.2 %, 83589 bytes)
+(59.4 %, 83207 bytes)
+(59.6 %, 82814 bytes)
+(59.8 %, 82346 bytes)
+(59.9 %, 82089 bytes)
+(60.2 %, 81610 bytes)
+(60.4 %, 81053 bytes)
+(60.7 %, 80639 bytes)
+(61.0 %, 80023 bytes)
+(61.1 %, 79655 bytes)
+(61.4 %, 79171 bytes)
+(61.6 %, 78755 bytes)
+(61.9 %, 78133 bytes)
+(62.2 %, 77546 bytes)
+(62.4 %, 76961 bytes)
+(62.7 %, 76502 bytes)
+(62.8 %, 76263 bytes)
+(62.9 %, 75979 bytes)
+(63.2 %, 75414 bytes)
+(63.4 %, 74958 bytes)
+(63.6 %, 74520 bytes)
+(63.9 %, 74009 bytes)
+(64.2 %, 73462 bytes)
+(64.4 %, 72921 bytes)
+(64.7 %, 72394 bytes)
+(64.8 %, 72074 bytes)
+(65.1 %, 71546 bytes)
+(65.3 %, 71038 bytes)
+(65.6 %, 70578 bytes)
+(65.9 %, 69923 bytes)
+(66.1 %, 69490 bytes)
+(66.4 %, 68915 bytes)
+(66.6 %, 68524 bytes)
+(66.7 %, 68153 bytes)
+(67.0 %, 67558 bytes)
+(67.3 %, 67082 bytes)
+(67.4 %, 66823 bytes)
+(67.6 %, 66500 bytes)
+(67.7 %, 66243 bytes)
+(67.8 %, 66058 bytes)
+(67.9 %, 65687 bytes)
+(68.0 %, 65542 bytes)
+(68.1 %, 65389 bytes)
+(68.2 %, 65168 bytes)
+(68.3 %, 65035 bytes)
+(68.3 %, 64906 bytes)
+(68.5 %, 64626 bytes)
+(68.5 %, 64510 bytes)
+(68.7 %, 64183 bytes)
+(68.8 %, 63955 bytes)
+(68.9 %, 63776 bytes)
+(68.9 %, 63638 bytes)
+(69.1 %, 63360 bytes)
+(69.2 %, 63211 bytes)
+(69.2 %, 63023 bytes)
+(69.3 %, 62913 bytes)
+(69.4 %, 62717 bytes)
+(69.5 %, 62599 bytes)
+(69.6 %, 62233 bytes)
+(69.8 %, 61948 bytes)
+(69.9 %, 61762 bytes)
+(69.9 %, 61585 bytes)
+(70.0 %, 61436 bytes)
+(70.1 %, 61245 bytes)
+(70.2 %, 61012 bytes)
+(70.3 %, 60805 bytes)
+(70.4 %, 60610 bytes)
+(70.6 %, 60344 bytes)
+(70.7 %, 60100 bytes)
+(70.8 %, 59797 bytes)
+(70.9 %, 59639 bytes)
+(71.0 %, 59510 bytes)
+(71.1 %, 59216 bytes)
+(71.3 %, 58886 bytes)
+(71.4 %, 58702 bytes)
+(71.5 %, 58355 bytes)
+(71.7 %, 58051 bytes)
+(71.8 %, 57859 bytes)
+(72.0 %, 57464 bytes)
+(72.1 %, 57146 bytes)
+(72.2 %, 56919 bytes)
+(72.3 %, 56727 bytes)
+(72.5 %, 56447 bytes)
+(72.6 %, 56210 bytes)
+(72.7 %, 55937 bytes)
+(72.9 %, 55561 bytes)
+(73.0 %, 55354 bytes)
+(73.1 %, 55077 bytes)
+(73.3 %, 54764 bytes)
+(73.4 %, 54437 bytes)
+(73.6 %, 54179 bytes)
+(73.7 %, 53870 bytes)
+(73.8 %, 53675 bytes)
+(73.9 %, 53489 bytes)
+(74.0 %, 53222 bytes)
+(74.2 %, 52949 bytes)
+(74.3 %, 52598 bytes)
+(74.6 %, 52088 bytes)
+(74.7 %, 51878 bytes)
+(74.8 %, 51587 bytes)
+(75.0 %, 51249 bytes)
+(75.1 %, 51076 bytes)
+(75.2 %, 50908 bytes)
+(75.2 %, 50731 bytes)
+(75.4 %, 50484 bytes)
+(75.5 %, 50300 bytes)
+(75.6 %, 50076 bytes)
+(75.7 %, 49856 bytes)
+(75.8 %, 49679 bytes)
+(75.8 %, 49508 bytes)
+(75.9 %, 49383 bytes)
+(76.0 %, 49145 bytes)
+(76.0 %, 49110 bytes)
+(76.1 %, 49031 bytes)
+(76.2 %, 48799 bytes)
+(76.2 %, 48716 bytes)
+(76.3 %, 48623 bytes)
+(76.3 %, 48525 bytes)
+(76.4 %, 48435 bytes)
+(76.4 %, 48340 bytes)
+(76.5 %, 48222 bytes)
+(76.5 %, 48128 bytes)
+(76.6 %, 47959 bytes)
+(76.7 %, 47821 bytes)
+(76.7 %, 47685 bytes)
+(76.8 %, 47586 bytes)
+(76.9 %, 47426 bytes)
+(76.9 %, 47342 bytes)
+(77.0 %, 47137 bytes)
+(77.1 %, 46934 bytes)
+(77.2 %, 46740 bytes)
+(77.3 %, 46593 bytes)
+(77.3 %, 46476 bytes)
+(77.4 %, 46373 bytes)
+(77.5 %, 46204 bytes)
+(77.5 %, 46139 bytes)
+(77.6 %, 45878 bytes)
+(77.7 %, 45673 bytes)
+(77.8 %, 45521 bytes)
+(77.9 %, 45388 bytes)
+(77.9 %, 45219 bytes)
+(78.0 %, 45081 bytes)
+(78.1 %, 44852 bytes)
+(78.2 %, 44756 bytes)
+(78.3 %, 44544 bytes)
+(78.3 %, 44479 bytes)
+(78.4 %, 44310 bytes)
+(78.4 %, 44201 bytes)
+(78.5 %, 44080 bytes)
+(78.5 %, 43970 bytes)
+(78.6 %, 43861 bytes)
+(78.6 %, 43755 bytes)
+(78.7 %, 43691 bytes)
+(78.8 %, 43492 bytes)
+(78.8 %, 43361 bytes)
+(78.9 %, 43241 bytes)
+(79.0 %, 43110 bytes)
+(79.0 %, 42938 bytes)
+(79.1 %, 42784 bytes)
+(79.2 %, 42614 bytes)
+(79.3 %, 42427 bytes)
+(79.4 %, 42233 bytes)
+(79.5 %, 42093 bytes)
+(79.6 %, 41893 bytes)
+(79.6 %, 41813 bytes)
+(79.7 %, 41702 bytes)
+(79.7 %, 41630 bytes)
+(79.8 %, 41484 bytes)
+(79.8 %, 41344 bytes)
+(79.9 %, 41253 bytes)
+(79.9 %, 41129 bytes)
+(80.0 %, 40921 bytes)
+(80.1 %, 40713 bytes)
+(80.2 %, 40505 bytes)
+(80.3 %, 40428 bytes)
+(80.4 %, 40220 bytes)
+(80.5 %, 40021 bytes)
+(80.6 %, 39818 bytes)
+(80.7 %, 39607 bytes)
+(80.7 %, 39490 bytes)
+(80.8 %, 39274 bytes)
+(80.9 %, 39145 bytes)
+(80.9 %, 39081 bytes)
+(81.0 %, 38891 bytes)
+(81.1 %, 38758 bytes)
+(81.2 %, 38616 bytes)
+(81.2 %, 38531 bytes)
+(81.3 %, 38399 bytes)
+(81.3 %, 38337 bytes)
+(81.4 %, 38173 bytes)
+(81.4 %, 38027 bytes)
+(81.5 %, 37956 bytes)
+(81.5 %, 37896 bytes)
+(81.5 %, 37831 bytes)
+(81.6 %, 37736 bytes)
+(81.6 %, 37698 bytes)
+(81.7 %, 37599 bytes)
+(81.7 %, 37480 bytes)
+(81.8 %, 37363 bytes)
+(81.8 %, 37232 bytes)
+(81.9 %, 37167 bytes)
+(81.9 %, 37118 bytes)
+(81.9 %, 37006 bytes)
+(82.0 %, 36967 bytes)
+(82.1 %, 36783 bytes)
+(82.1 %, 36700 bytes)
+(82.1 %, 36597 bytes)
+(82.2 %, 36528 bytes)
+(82.2 %, 36462 bytes)
+(82.2 %, 36415 bytes)
+(82.3 %, 36266 bytes)
+(82.4 %, 36165 bytes)
+(82.4 %, 36017 bytes)
+(82.5 %, 35868 bytes)
+(82.5 %, 35799 bytes)
+(82.5 %, 35780 bytes)
+(82.6 %, 35584 bytes)
+(82.7 %, 35437 bytes)
+(82.7 %, 35355 bytes)
+(82.8 %, 35223 bytes)
+(82.9 %, 35061 bytes)
+(83.0 %, 34923 bytes)
+(83.0 %, 34871 bytes)
+(83.0 %, 34843 bytes)
+(83.1 %, 34579 bytes)
+(83.1 %, 34550 bytes)
+(83.2 %, 34490 bytes)
+(83.2 %, 34431 bytes)
+(83.2 %, 34338 bytes)
+(83.3 %, 34154 bytes)
+(83.4 %, 34038 bytes)
+(83.4 %, 33963 bytes)
+(83.5 %, 33890 bytes)
+(83.5 %, 33802 bytes)
+(83.6 %, 33692 bytes)
+(83.6 %, 33598 bytes)
+(83.6 %, 33554 bytes)
+(83.7 %, 33456 bytes)
+(83.7 %, 33416 bytes)
+(83.7 %, 33337 bytes)
+(83.9 %, 33073 bytes)
+(83.9 %, 32997 bytes)
+(83.9 %, 32995 bytes)
+(83.9 %, 32936 bytes)
+(84.0 %, 32888 bytes)
+(84.0 %, 32821 bytes)
+(84.0 %, 32781 bytes)
+(84.0 %, 32779 bytes)
+(84.0 %, 32734 bytes)
+(84.0 %, 32732 bytes)
+(84.1 %, 32628 bytes)
+(84.1 %, 32523 bytes)
+(84.1 %, 32500 bytes)
+(84.2 %, 32444 bytes)
+(84.2 %, 32401 bytes)
+(84.2 %, 32354 bytes)
+(84.2 %, 32319 bytes)
+(84.3 %, 32260 bytes)
+(84.3 %, 32203 bytes)
+(84.3 %, 32146 bytes)
+(84.3 %, 32128 bytes)
+(84.4 %, 32071 bytes)
+(84.4 %, 32016 bytes)
+(84.4 %, 31932 bytes)
+(84.4 %, 31875 bytes)
+(84.5 %, 31845 bytes)
+(84.5 %, 31765 bytes)
+(84.5 %, 31685 bytes)
+(84.6 %, 31636 bytes)
+(84.6 %, 31603 bytes)
+(84.6 %, 31581 bytes)
+(84.6 %, 31524 bytes)
+(84.7 %, 31457 bytes)
+(84.7 %, 31435 bytes)
+(84.7 %, 31396 bytes)
+(84.7 %, 31339 bytes)
+(84.7 %, 31262 bytes)
+(84.8 %, 31220 bytes)
+(84.8 %, 31165 bytes)
+(84.8 %, 31108 bytes)
+(84.8 %, 31106 bytes)
+(84.8 %, 31049 bytes)
+(84.9 %, 31013 bytes)
+(84.9 %, 30947 bytes)
+(84.9 %, 30857 bytes)
+(85.0 %, 30790 bytes)
+(85.0 %, 30788 bytes)
+(85.0 %, 30766 bytes)
+(85.0 %, 30709 bytes)
+(85.0 %, 30658 bytes)
+(85.1 %, 30570 bytes)
+(85.1 %, 30529 bytes)
+(85.1 %, 30485 bytes)
+(85.2 %, 30384 bytes)
+(85.2 %, 30271 bytes)
+(85.3 %, 30187 bytes)
+(85.3 %, 30185 bytes)
+(85.3 %, 30092 bytes)
+(85.4 %, 29980 bytes)
+(85.4 %, 29870 bytes)
+(85.4 %, 29825 bytes)
+(85.5 %, 29768 bytes)
+(85.5 %, 29729 bytes)
+(85.5 %, 29705 bytes)
+(85.5 %, 29703 bytes)
+(85.6 %, 29601 bytes)
+(85.6 %, 29587 bytes)
+(85.6 %, 29545 bytes)
+(85.6 %, 29496 bytes)
+(85.6 %, 29439 bytes)
+(85.7 %, 29381 bytes)
+(85.7 %, 29324 bytes)
+(85.7 %, 29258 bytes)
+(85.8 %, 29193 bytes)
+(85.8 %, 29170 bytes)
+(85.8 %, 29168 bytes)
+(85.8 %, 29166 bytes)
+(85.8 %, 29137 bytes)
+(85.8 %, 29096 bytes)
+(85.8 %, 29024 bytes)
+(85.9 %, 28951 bytes)
+(85.9 %, 28919 bytes)
+(86.0 %, 28792 bytes)
+(86.0 %, 28759 bytes)
+(86.0 %, 28700 bytes)
+(86.0 %, 28654 bytes)
+(86.0 %, 28593 bytes)
+(86.1 %, 28504 bytes)
+(86.1 %, 28458 bytes)
+(86.1 %, 28435 bytes)
+(86.2 %, 28321 bytes)
+(86.2 %, 28281 bytes)
+(86.2 %, 28244 bytes)
+(86.2 %, 28206 bytes)
+(86.3 %, 28151 bytes)
+(86.3 %, 28083 bytes)
+(86.3 %, 28065 bytes)
+(86.3 %, 28030 bytes)
+(86.3 %, 27995 bytes)
+(86.4 %, 27965 bytes)
+(86.4 %, 27936 bytes)
+(86.4 %, 27907 bytes)
+(86.4 %, 27868 bytes)
+(86.4 %, 27828 bytes)
+(86.4 %, 27802 bytes)
+(86.4 %, 27771 bytes)
+(86.4 %, 27769 bytes)
+(86.5 %, 27715 bytes)
+(86.5 %, 27611 bytes)
+(86.6 %, 27507 bytes)
+(86.6 %, 27403 bytes)
+(86.7 %, 27299 bytes)
+(86.7 %, 27195 bytes)
+(86.8 %, 27091 bytes)
+(86.8 %, 26987 bytes)
+(86.9 %, 26879 bytes)
+(86.9 %, 26804 bytes)
+(86.9 %, 26798 bytes)
+(87.0 %, 26694 bytes)
+(87.0 %, 26590 bytes)
+(87.1 %, 26486 bytes)
+(87.1 %, 26382 bytes)
+(87.2 %, 26278 bytes)
+(87.2 %, 26174 bytes)
+(87.3 %, 26070 bytes)
+(87.3 %, 25966 bytes)
+(87.4 %, 25862 bytes)
+(87.4 %, 25811 bytes)
+(87.5 %, 25703 bytes)
+(87.5 %, 25571 bytes)
+(87.6 %, 25504 bytes)
+(87.6 %, 25400 bytes)
+(87.6 %, 25335 bytes)
+(87.7 %, 25277 bytes)
+(87.7 %, 25243 bytes)
+(87.7 %, 25116 bytes)
+(87.8 %, 25059 bytes)
+(87.8 %, 25041 bytes)
+(87.8 %, 24952 bytes)
+(87.8 %, 24926 bytes)
+(87.9 %, 24869 bytes)
+(87.9 %, 24858 bytes)
+(87.9 %, 24787 bytes)
+(87.9 %, 24732 bytes)
+(88.0 %, 24692 bytes)
+(88.0 %, 24655 bytes)
+(88.0 %, 24631 bytes)
+(88.0 %, 24566 bytes)
+(88.0 %, 24539 bytes)
+(88.1 %, 24481 bytes)
+(88.1 %, 24479 bytes)
+(88.1 %, 24383 bytes)
+(88.1 %, 24354 bytes)
+(88.1 %, 24309 bytes)
+(88.2 %, 24244 bytes)
+(88.2 %, 24184 bytes)
+(88.2 %, 24122 bytes)
+(88.3 %, 24065 bytes)
+(88.3 %, 24043 bytes)
+(88.3 %, 23966 bytes)
+(88.3 %, 23897 bytes)
+(88.4 %, 23810 bytes)
+(88.4 %, 23794 bytes)
+(88.4 %, 23732 bytes)
+(88.5 %, 23647 bytes)
+(88.5 %, 23579 bytes)
+(88.5 %, 23536 bytes)
+(88.5 %, 23480 bytes)
+(88.6 %, 23409 bytes)
+(88.6 %, 23392 bytes)
+(88.6 %, 23389 bytes)
+(88.6 %, 23334 bytes)
+(88.6 %, 23279 bytes)
+(88.7 %, 23230 bytes)
+(88.7 %, 23192 bytes)
+(88.7 %, 23080 bytes)
+(88.8 %, 23023 bytes)
+(88.8 %, 22990 bytes)
+(88.8 %, 22935 bytes)
+(88.8 %, 22873 bytes)
+(88.9 %, 22804 bytes)
+(88.9 %, 22734 bytes)
+(88.9 %, 22712 bytes)
+(89.0 %, 22628 bytes)
+(89.0 %, 22607 bytes)
+(89.0 %, 22545 bytes)
+(89.0 %, 22487 bytes)
+(89.1 %, 22425 bytes)
+(89.1 %, 22401 bytes)
+(89.1 %, 22332 bytes)
+(89.1 %, 22251 bytes)
+(89.2 %, 22206 bytes)
+(89.2 %, 22150 bytes)
+(89.2 %, 22094 bytes)
+(89.2 %, 22038 bytes)
+(89.3 %, 21982 bytes)
+(89.3 %, 21926 bytes)
+(89.3 %, 21869 bytes)
+(89.4 %, 21822 bytes)
+(89.4 %, 21791 bytes)
+(89.4 %, 21758 bytes)
+(89.4 %, 21705 bytes)
+(89.4 %, 21657 bytes)
+(89.5 %, 21598 bytes)
+(89.5 %, 21567 bytes)
+(89.5 %, 21520 bytes)
+(89.5 %, 21497 bytes)
+(89.5 %, 21439 bytes)
+(89.6 %, 21414 bytes)
+(89.6 %, 21354 bytes)
+(89.6 %, 21265 bytes)
+(89.6 %, 21241 bytes)
+(89.7 %, 21180 bytes)
+(89.7 %, 21130 bytes)
+(89.7 %, 21104 bytes)
+(89.7 %, 21054 bytes)
+(89.8 %, 21004 bytes)
+(89.8 %, 21002 bytes)
+(89.8 %, 20979 bytes)
+(89.8 %, 20940 bytes)
+(89.8 %, 20872 bytes)
+(89.9 %, 20782 bytes)
+(89.9 %, 20701 bytes)
+(89.9 %, 20644 bytes)
+(90.0 %, 20595 bytes)
+(90.0 %, 20557 bytes)
+(90.0 %, 20460 bytes)
+(90.0 %, 20404 bytes)
+(90.1 %, 20381 bytes)
+(90.1 %, 20343 bytes)
+(90.1 %, 20322 bytes)
+(90.1 %, 20255 bytes)
+(90.2 %, 20123 bytes)
+(90.2 %, 20079 bytes)
+(90.3 %, 19980 bytes)
+(90.3 %, 19921 bytes)
+(90.3 %, 19892 bytes)
+(90.3 %, 19851 bytes)
+(90.3 %, 19807 bytes)
+(90.3 %, 19805 bytes)
+(90.4 %, 19759 bytes)
+(90.4 %, 19697 bytes)
+(90.4 %, 19695 bytes)
+(90.4 %, 19675 bytes)
+(90.4 %, 19640 bytes)
+(90.4 %, 19572 bytes)
+(90.5 %, 19510 bytes)
+(90.5 %, 19478 bytes)
+(90.5 %, 19460 bytes)
+(90.5 %, 19402 bytes)
+(90.6 %, 19284 bytes)
+(90.6 %, 19283 bytes)
+sh: 0: getcwd() failed: No such file or directory
+(90.6 %, 19264 bytes)
+(90.6 %, 19263 bytes)
+(90.6 %, 19241 bytes)
+(90.6 %, 19240 bytes)
+(90.6 %, 19218 bytes)
+(90.6 %, 19217 bytes)
+(90.6 %, 19183 bytes)
+(90.6 %, 19182 bytes)
+(90.7 %, 19145 bytes)
+(90.7 %, 19113 bytes)
+(90.7 %, 19101 bytes)
+(90.7 %, 19089 bytes)
+(90.7 %, 19040 bytes)
+(90.7 %, 19039 bytes)
+(90.7 %, 19007 bytes)
+(90.7 %, 18978 bytes)
+(90.7 %, 18966 bytes)
+(90.8 %, 18934 bytes)
+(90.8 %, 18894 bytes)
+(90.8 %, 18880 bytes)
+(90.8 %, 18836 bytes)
+(90.8 %, 18821 bytes)
+(90.8 %, 18791 bytes)
+(90.8 %, 18758 bytes)
+(90.9 %, 18695 bytes)
+(90.9 %, 18688 bytes)
+(90.9 %, 18687 bytes)
+(90.9 %, 18686 bytes)
+(90.9 %, 18664 bytes)
+(90.9 %, 18625 bytes)
+(90.9 %, 18624 bytes)
+(90.9 %, 18608 bytes)
+(90.9 %, 18607 bytes)
+(90.9 %, 18577 bytes)
+(90.9 %, 18550 bytes)
+(91.0 %, 18504 bytes)
+(91.0 %, 18492 bytes)
+(91.0 %, 18491 bytes)
+(91.0 %, 18471 bytes)
+(91.0 %, 18439 bytes)
+(91.0 %, 18410 bytes)
+(91.0 %, 18409 bytes)
+(91.0 %, 18402 bytes)
+(91.0 %, 18401 bytes)
+(91.0 %, 18377 bytes)
+(91.0 %, 18343 bytes)
+(91.1 %, 18292 bytes)
+(91.1 %, 18291 bytes)
+(91.1 %, 18264 bytes)
+(91.1 %, 18263 bytes)
+(91.1 %, 18262 bytes)
+(91.1 %, 18261 bytes)
+(91.1 %, 18260 bytes)
+(91.1 %, 18207 bytes)
+(91.1 %, 18206 bytes)
+(91.1 %, 18205 bytes)
+(91.1 %, 18165 bytes)
+(91.2 %, 18116 bytes)
+(91.2 %, 18115 bytes)
+(91.2 %, 18072 bytes)
+(91.2 %, 18071 bytes)
+(91.2 %, 18050 bytes)
+(91.2 %, 17994 bytes)
+(91.2 %, 17993 bytes)
+(91.2 %, 17992 bytes)
+(91.2 %, 17945 bytes)
+(91.3 %, 17894 bytes)
+(91.3 %, 17893 bytes)
+(91.3 %, 17870 bytes)
+(91.3 %, 17854 bytes)
+(91.3 %, 17853 bytes)
+(91.3 %, 17822 bytes)
+(91.3 %, 17797 bytes)
+(91.3 %, 17775 bytes)
+(91.3 %, 17774 bytes)
+(91.3 %, 17773 bytes)
+(91.3 %, 17772 bytes)
+(91.3 %, 17771 bytes)
+(91.4 %, 17723 bytes)
+(91.4 %, 17688 bytes)
+(91.4 %, 17666 bytes)
+(91.4 %, 17629 bytes)
+(91.4 %, 17583 bytes)
+(91.4 %, 17524 bytes)
+(91.4 %, 17523 bytes)
+(91.5 %, 17467 bytes)
+(91.5 %, 17466 bytes)
+(91.5 %, 17462 bytes)
+(91.5 %, 17413 bytes)
+(91.5 %, 17340 bytes)
+(91.6 %, 17298 bytes)
+(91.6 %, 17297 bytes)
+(91.6 %, 17296 bytes)
+(91.6 %, 17283 bytes)
+(91.6 %, 17276 bytes)
+(91.6 %, 17275 bytes)
+(91.6 %, 17253 bytes)
+(91.6 %, 17197 bytes)
+(91.6 %, 17196 bytes)
+(91.6 %, 17175 bytes)
+(91.6 %, 17125 bytes)
+(91.7 %, 17108 bytes)
+(91.7 %, 17094 bytes)
+(91.7 %, 17093 bytes)
+(91.7 %, 17092 bytes)
+(91.7 %, 17055 bytes)
+(91.7 %, 17024 bytes)
+(91.7 %, 17009 bytes)
+(91.7 %, 16979 bytes)
+(91.7 %, 16930 bytes)
+(91.7 %, 16916 bytes)
+(91.8 %, 16872 bytes)
+(91.8 %, 16854 bytes)
+(91.8 %, 16798 bytes)
+(91.8 %, 16781 bytes)
+(91.8 %, 16767 bytes)
+(91.8 %, 16711 bytes)
+(91.8 %, 16710 bytes)
+(91.8 %, 16709 bytes)
+(91.8 %, 16708 bytes)
+(91.9 %, 16682 bytes)
+(91.9 %, 16661 bytes)
+(91.9 %, 16660 bytes)
+(91.9 %, 16659 bytes)
+(91.9 %, 16658 bytes)
+(91.9 %, 16627 bytes)
+(91.9 %, 16626 bytes)
+(91.9 %, 16597 bytes)
+(91.9 %, 16596 bytes)
+(91.9 %, 16546 bytes)
+(91.9 %, 16516 bytes)
+(91.9 %, 16515 bytes)
+(92.0 %, 16493 bytes)
+(92.0 %, 16444 bytes)
+(92.0 %, 16395 bytes)
+(92.0 %, 16356 bytes)
+(92.0 %, 16309 bytes)
+(92.1 %, 16242 bytes)
+(92.1 %, 16203 bytes)
+(92.1 %, 16202 bytes)
+(92.1 %, 16159 bytes)
+(92.1 %, 16135 bytes)
+(92.1 %, 16099 bytes)
+(92.1 %, 16098 bytes)
+(92.1 %, 16097 bytes)
+(92.2 %, 16068 bytes)
+(92.2 %, 16031 bytes)
+(92.2 %, 16004 bytes)
+(92.2 %, 15969 bytes)
+(92.2 %, 15928 bytes)
+(92.3 %, 15871 bytes)
+(92.3 %, 15837 bytes)
+(92.3 %, 15802 bytes)
+(92.3 %, 15784 bytes)
+(92.3 %, 15763 bytes)
+(92.3 %, 15748 bytes)
+(92.3 %, 15701 bytes)
+(92.4 %, 15671 bytes)
+(92.4 %, 15649 bytes)
+(92.4 %, 15631 bytes)
+(92.4 %, 15575 bytes)
+(92.4 %, 15574 bytes)
+(92.4 %, 15547 bytes)
+(92.4 %, 15546 bytes)
+(92.4 %, 15545 bytes)
+(92.4 %, 15527 bytes)
+(92.5 %, 15468 bytes)
+(92.5 %, 15467 bytes)
+(92.5 %, 15466 bytes)
+(92.5 %, 15450 bytes)
+(92.5 %, 15449 bytes)
+(92.5 %, 15390 bytes)
+(92.5 %, 15324 bytes)
+(92.5 %, 15323 bytes)
+(92.5 %, 15296 bytes)
+(92.6 %, 15245 bytes)
+(92.6 %, 15213 bytes)
+(92.6 %, 15211 bytes)
+(92.6 %, 15166 bytes)
+(92.6 %, 15134 bytes)
+(92.6 %, 15133 bytes)
+(92.6 %, 15085 bytes)
+(92.6 %, 15084 bytes)
+(92.7 %, 15047 bytes)
+(92.7 %, 15029 bytes)
+(92.7 %, 14998 bytes)
+(92.7 %, 14997 bytes)
+(92.7 %, 14996 bytes)
+(92.7 %, 14949 bytes)
+(92.7 %, 14948 bytes)
+(92.7 %, 14941 bytes)
+(92.7 %, 14924 bytes)
+(92.7 %, 14923 bytes)
+(92.7 %, 14906 bytes)
+(92.7 %, 14870 bytes)
+(92.8 %, 14855 bytes)
+(92.8 %, 14854 bytes)
+(92.8 %, 14853 bytes)
+(92.8 %, 14800 bytes)
+(92.8 %, 14769 bytes)
+(92.8 %, 14745 bytes)
+(92.8 %, 14708 bytes)
+(92.8 %, 14682 bytes)
+(92.8 %, 14655 bytes)
+(92.9 %, 14620 bytes)
+(92.9 %, 14597 bytes)
+(92.9 %, 14555 bytes)
+(92.9 %, 14534 bytes)
+(92.9 %, 14516 bytes)
+(92.9 %, 14465 bytes)
+(92.9 %, 14464 bytes)
+(92.9 %, 14463 bytes)
+(93.0 %, 14435 bytes)
+(93.0 %, 14412 bytes)
+(93.0 %, 14380 bytes)
+(93.0 %, 14365 bytes)
+(93.0 %, 14364 bytes)
+(93.0 %, 14363 bytes)
+(93.0 %, 14336 bytes)
+(93.0 %, 14312 bytes)
+(93.0 %, 14258 bytes)
+(93.1 %, 14212 bytes)
+(93.1 %, 14166 bytes)
+(93.1 %, 14131 bytes)
+(93.1 %, 14091 bytes)
+(93.1 %, 14090 bytes)
+(93.1 %, 14061 bytes)
+(93.1 %, 14042 bytes)
+(93.2 %, 14021 bytes)
+(93.2 %, 13997 bytes)
+(93.2 %, 13943 bytes)
+(93.2 %, 13942 bytes)
+(93.2 %, 13916 bytes)
+(93.2 %, 13888 bytes)
+(93.2 %, 13887 bytes)
+(93.2 %, 13866 bytes)
+(93.2 %, 13865 bytes)
+(93.2 %, 13842 bytes)
+(93.3 %, 13793 bytes)
+(93.3 %, 13792 bytes)
+(93.3 %, 13769 bytes)
+(93.3 %, 13768 bytes)
+(93.3 %, 13740 bytes)
+(93.3 %, 13739 bytes)
+(93.3 %, 13712 bytes)
+(93.3 %, 13711 bytes)
+(93.3 %, 13654 bytes)
+(93.4 %, 13607 bytes)
+(93.4 %, 13563 bytes)
+(93.4 %, 13539 bytes)
+(93.4 %, 13513 bytes)
+(93.4 %, 13474 bytes)
+(93.5 %, 13420 bytes)
+(93.5 %, 13398 bytes)
+(93.5 %, 13397 bytes)
+(93.5 %, 13365 bytes)
+(93.5 %, 13343 bytes)
+(93.5 %, 13294 bytes)
+(93.5 %, 13293 bytes)
+(93.5 %, 13268 bytes)
+(93.5 %, 13219 bytes)
+(93.6 %, 13170 bytes)
+(93.6 %, 13169 bytes)
+(93.6 %, 13120 bytes)
+(93.6 %, 13071 bytes)
+(93.6 %, 13022 bytes)
+(93.6 %, 13021 bytes)
+(93.6 %, 13020 bytes)
+(93.6 %, 13019 bytes)
+(93.6 %, 13018 bytes)
+(93.7 %, 12988 bytes)
+(93.7 %, 12985 bytes)
+(93.7 %, 12951 bytes)
+(93.7 %, 12950 bytes)
+(93.7 %, 12944 bytes)
+(93.7 %, 12893 bytes)
+(93.7 %, 12892 bytes)
+(93.7 %, 12868 bytes)
+(93.7 %, 12867 bytes)
+(93.7 %, 12836 bytes)
+(93.7 %, 12835 bytes)
+(93.8 %, 12794 bytes)
+(93.8 %, 12774 bytes)
+(93.8 %, 12773 bytes)
+(93.8 %, 12748 bytes)
+(93.8 %, 12747 bytes)
+(93.8 %, 12746 bytes)
+(93.8 %, 12745 bytes)
+(93.8 %, 12725 bytes)
+(93.8 %, 12707 bytes)
+(93.8 %, 12688 bytes)
+(93.8 %, 12687 bytes)
+(93.8 %, 12669 bytes)
+(93.8 %, 12651 bytes)
+(93.8 %, 12636 bytes)
+(93.8 %, 12626 bytes)
+(93.8 %, 12625 bytes)
+(93.8 %, 12624 bytes)
+(93.8 %, 12613 bytes)
+(93.8 %, 12612 bytes)
+(93.9 %, 12551 bytes)
+(93.9 %, 12550 bytes)
+(93.9 %, 12549 bytes)
+(93.9 %, 12548 bytes)
+(93.9 %, 12547 bytes)
+(93.9 %, 12546 bytes)
+(93.9 %, 12545 bytes)
+(93.9 %, 12544 bytes)
+(93.9 %, 12543 bytes)
+(93.9 %, 12542 bytes)
+(93.9 %, 12541 bytes)
+(93.9 %, 12540 bytes)
+(93.9 %, 12539 bytes)
+(93.9 %, 12516 bytes)
+(93.9 %, 12515 bytes)
+(93.9 %, 12514 bytes)
+(93.9 %, 12513 bytes)
+(93.9 %, 12512 bytes)
+(93.9 %, 12511 bytes)
+(93.9 %, 12487 bytes)
+(93.9 %, 12486 bytes)
+(93.9 %, 12451 bytes)
+(93.9 %, 12416 bytes)
+(94.0 %, 12381 bytes)
+(94.0 %, 12359 bytes)
+(94.0 %, 12325 bytes)
+(94.0 %, 12304 bytes)
+(94.0 %, 12303 bytes)
+(94.0 %, 12269 bytes)
+(94.0 %, 12235 bytes)
+(94.0 %, 12201 bytes)
+(94.1 %, 12167 bytes)
+(94.1 %, 12133 bytes)
+(94.1 %, 12099 bytes)
+(94.1 %, 12065 bytes)
+(94.1 %, 12034 bytes)
+(94.1 %, 12003 bytes)
+(94.1 %, 12002 bytes)
+(94.1 %, 12001 bytes)
+(94.1 %, 12000 bytes)
+===< pass_lines :: 1 >===
+(94.1 %, 12142 bytes)
+(95.0 %, 10190 bytes)
+(95.6 %, 8931 bytes)
+(95.7 %, 8828 bytes)
+(95.9 %, 8480 bytes)
+(96.0 %, 8293 bytes)
+(96.0 %, 8121 bytes)
+(96.2 %, 7708 bytes)
+(96.5 %, 7234 bytes)
+(96.7 %, 6846 bytes)
+(96.9 %, 6372 bytes)
+(96.9 %, 6279 bytes)
+(97.0 %, 6211 bytes)
+(97.1 %, 6035 bytes)
+(97.2 %, 5693 bytes)
+(97.4 %, 5376 bytes)
+(97.4 %, 5358 bytes)
+(97.4 %, 5277 bytes)
+(97.4 %, 5247 bytes)
+(97.5 %, 5134 bytes)
+(97.5 %, 5097 bytes)
+(97.5 %, 5072 bytes)
+(97.5 %, 5028 bytes)
+(97.8 %, 4595 bytes)
+(97.8 %, 4580 bytes)
+(97.8 %, 4562 bytes)
+(97.8 %, 4541 bytes)
+(97.8 %, 4512 bytes)
+(97.8 %, 4470 bytes)
+(97.8 %, 4431 bytes)
+(97.9 %, 4402 bytes)
+(97.9 %, 4369 bytes)
+(97.9 %, 4336 bytes)
+(97.9 %, 4305 bytes)
+(97.9 %, 4282 bytes)
+(97.9 %, 4261 bytes)
+(97.9 %, 4233 bytes)
+(97.9 %, 4206 bytes)
+(98.0 %, 4148 bytes)
+(98.0 %, 4096 bytes)
+(98.0 %, 4073 bytes)
+(98.0 %, 4051 bytes)
+(98.0 %, 4033 bytes)
+(98.0 %, 4015 bytes)
+(98.1 %, 3985 bytes)
+(98.1 %, 3952 bytes)
+(98.1 %, 3919 bytes)
+(98.1 %, 3887 bytes)
+(98.1 %, 3857 bytes)
+(98.1 %, 3810 bytes)
+(98.2 %, 3754 bytes)
+(98.3 %, 3470 bytes)
+(98.4 %, 3272 bytes)
+(98.5 %, 3093 bytes)
+(98.5 %, 3044 bytes)
+(98.6 %, 2917 bytes)
+(98.7 %, 2752 bytes)
+(98.7 %, 2724 bytes)
+(98.7 %, 2694 bytes)
+(98.7 %, 2663 bytes)
+(98.7 %, 2653 bytes)
+===< pass_lines :: 2 >===
+(98.7 %, 2686 bytes)
+(98.9 %, 2295 bytes)
+(98.9 %, 2195 bytes)
+(99.0 %, 2110 bytes)
+(99.0 %, 2051 bytes)
+(99.0 %, 2011 bytes)
+(99.1 %, 1944 bytes)
+(99.3 %, 1536 bytes)
+(99.3 %, 1508 bytes)
+(99.3 %, 1421 bytes)
+(99.3 %, 1394 bytes)
+(99.3 %, 1381 bytes)
+(99.3 %, 1362 bytes)
+===< pass_clang_binsrch :: remove-unused-function >===
+(99.4 %, 1168 bytes)
+===< pass_lines :: 0 >===
+(99.4 %, 1172 bytes)
+(99.5 %, 1104 bytes)
+(99.5 %, 1077 bytes)
+(99.5 %, 1031 bytes)
+(99.5 %, 1004 bytes)
+(99.5 %, 977 bytes)
+(99.5 %, 951 bytes)
+===< pass_ternary :: b >===
+===< pass_balanced :: curly >===
+(99.5 %, 941 bytes)
+===< pass_balanced :: curly2 >===
+===< pass_balanced :: angles >===
+===< pass_balanced :: curly-only >===
+(99.5 %, 939 bytes)
+(99.5 %, 937 bytes)
+===< pass_balanced :: angles-only >===
+===< pass_clang :: local-to-global >===
+(99.5 %, 961 bytes)
+(99.5 %, 985 bytes)
+===< pass_clang :: remove-nested-function >===
+===< pass_clang :: union-to-struct >===
+===< pass_clang :: simple-inliner >===
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: remove-unused-var >===
+(99.5 %, 960 bytes)
+(99.5 %, 934 bytes)
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: replace-one-level-typedef-type >===
+(99.6 %, 912 bytes)
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: remove-trivial-base-template >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: remove-ctor-initializer >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: empty-struct-to-int >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: remove-array >===
+===< pass_clang :: replace-dependent-name >===
+===< pass_lines :: 0 >===
+(99.6 %, 913 bytes)
+===< pass_lines :: 2 >===
+(99.5 %, 926 bytes)
+===< pass_unifdef :: 0 >===
+(99.6 %, 902 bytes)
+(99.6 %, 875 bytes)
+===< pass_comments :: 0 >===
+===< pass_special :: c >===
+===< pass_ints :: c >===
+===< pass_ints :: d >===
+===< pass_clex :: rename-toks >===
+(99.6 %, 869 bytes)
+(99.6 %, 847 bytes)
+(99.6 %, 833 bytes)
+(99.6 %, 819 bytes)
+(99.6 %, 811 bytes)
+(99.6 %, 807 bytes)
+(99.6 %, 785 bytes)
+(99.6 %, 781 bytes)
+(99.6 %, 772 bytes)
+(99.6 %, 768 bytes)
+(99.6 %, 766 bytes)
+(99.6 %, 758 bytes)
+(99.6 %, 749 bytes)
+(99.6 %, 736 bytes)
+(99.6 %, 732 bytes)
+(99.6 %, 736 bytes)
+(99.6 %, 728 bytes)
+(99.6 %, 722 bytes)
+(99.7 %, 715 bytes)
+(99.7 %, 715 bytes)
+(99.7 %, 715 bytes)
+===< pass_clex :: delete-string >===
+===< pass_clang :: rename-cxx-method >===
+===< pass_clang :: combine-global-var >===
+===< pass_clang :: combine-local-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_indent :: regular >===
+(99.8 %, 453 bytes)
+===< pass_clex :: delete-string >===
+===< pass_clex :: remove-asm-comment >===
+===< pass_clex :: shorten-string >===
+===< pass_clex :: rm-toks-32 >===
+===< pass_clex :: rm-toks-26 >===
+===< pass_clex :: rm-toks-23 >===
+===< pass_clex :: rm-toks-22 >===
+===< pass_clex :: rm-toks-16 >===
+===< pass_clex :: rm-toks-15 >===
+===< pass_clex :: rm-toks-12 >===
+===< pass_clex :: rm-toks-9 >===
+===< pass_clex :: rm-toks-7 >===
+(99.8 %, 416 bytes)
+===< pass_clex :: rm-toks-6 >===
+(99.8 %, 399 bytes)
+(99.8 %, 385 bytes)
+===< pass_clex :: rm-toks-5 >===
+(99.8 %, 369 bytes)
+(99.8 %, 357 bytes)
+===< pass_clex :: rm-toks-4 >===
+(99.8 %, 344 bytes)
+(99.8 %, 327 bytes)
+(99.8 %, 312 bytes)
+(99.9 %, 301 bytes)
+(99.9 %, 294 bytes)
+(99.9 %, 280 bytes)
+(99.9 %, 264 bytes)
+===< pass_clex :: rm-toks-3 >===
+(99.9 %, 253 bytes)
+(99.9 %, 231 bytes)
+(99.9 %, 226 bytes)
+(99.9 %, 222 bytes)
+(99.9 %, 208 bytes)
+===< pass_clex :: rm-toks-2 >===
+(99.9 %, 198 bytes)
+(99.9 %, 190 bytes)
+(99.9 %, 183 bytes)
+(99.9 %, 176 bytes)
+===< pass_peep :: b >===
+(99.9 %, 178 bytes)
+(99.9 %, 172 bytes)
+(99.9 %, 169 bytes)
+(99.9 %, 160 bytes)
+(99.9 %, 148 bytes)
+(99.9 %, 147 bytes)
+(99.9 %, 143 bytes)
+(99.9 %, 142 bytes)
+Termination check: size was 204936; now 142
+===< pass_blank :: 0 >===
+(99.9 %, 138 bytes)
+(100.0 %, 100 bytes)
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_lines :: 0 >===
+(100.0 %, 101 bytes)
+(100.0 %, 86 bytes)
+===< pass_lines :: 1 >===
+(100.0 %, 90 bytes)
+===< pass_lines :: 2 >===
+(100.0 %, 94 bytes)
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(100.0 %, 95 bytes)
+===< pass_ternary :: b >===
+===< pass_balanced :: curly >===
+===< pass_balanced :: curly2 >===
+===< pass_balanced :: angles >===
+===< pass_balanced :: curly-only >===
+===< pass_balanced :: angles-only >===
+===< pass_clang :: local-to-global >===
+===< pass_clang :: remove-nested-function >===
+===< pass_clang :: union-to-struct >===
+===< pass_clang :: simple-inliner >===
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: replace-one-level-typedef-type >===
+(100.0 %, 84 bytes)
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: remove-trivial-base-template >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: remove-ctor-initializer >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: empty-struct-to-int >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: remove-array >===
+===< pass_clang :: replace-dependent-name >===
+===< pass_lines :: 0 >===
+(100.0 %, 84 bytes)
+===< pass_lines :: 2 >===
+(100.0 %, 87 bytes)
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_special :: c >===
+===< pass_ints :: c >===
+===< pass_ints :: d >===
+===< pass_clex :: rename-toks >===
+===< pass_clex :: delete-string >===
+===< pass_clang :: rename-cxx-method >===
+===< pass_clang :: combine-global-var >===
+===< pass_clang :: combine-local-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_indent :: regular >===
+(100.0 %, 64 bytes)
+===< pass_clex :: delete-string >===
+===< pass_clex :: remove-asm-comment >===
+===< pass_clex :: shorten-string >===
+===< pass_clex :: rm-toks-32 >===
+===< pass_clex :: rm-toks-26 >===
+===< pass_clex :: rm-toks-23 >===
+===< pass_clex :: rm-toks-22 >===
+===< pass_clex :: rm-toks-16 >===
+===< pass_clex :: rm-toks-15 >===
+===< pass_clex :: rm-toks-12 >===
+===< pass_clex :: rm-toks-9 >===
+===< pass_clex :: rm-toks-7 >===
+===< pass_clex :: rm-toks-6 >===
+===< pass_clex :: rm-toks-5 >===
+(100.0 %, 48 bytes)
+===< pass_clex :: rm-toks-4 >===
+===< pass_clex :: rm-toks-3 >===
+===< pass_clex :: rm-toks-2 >===
+===< pass_peep :: b >===
+(100.0 %, 45 bytes)
+Termination check: size was 142; now 45
+===< pass_blank :: 0 >===
+(100.0 %, 44 bytes)
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_lines :: 0 >===
+(100.0 %, 44 bytes)
+===< pass_lines :: 1 >===
+(100.0 %, 47 bytes)
+===< pass_lines :: 2 >===
+(100.0 %, 50 bytes)
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(100.0 %, 50 bytes)
+===< pass_ternary :: b >===
+===< pass_balanced :: curly >===
+===< pass_balanced :: curly2 >===
+===< pass_balanced :: angles >===
+===< pass_balanced :: curly-only >===
+===< pass_balanced :: angles-only >===
+===< pass_clang :: local-to-global >===
+===< pass_clang :: remove-nested-function >===
+===< pass_clang :: union-to-struct >===
+===< pass_clang :: simple-inliner >===
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: replace-one-level-typedef-type >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: remove-trivial-base-template >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: remove-ctor-initializer >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: empty-struct-to-int >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: remove-array >===
+===< pass_clang :: replace-dependent-name >===
+===< pass_lines :: 0 >===
+(100.0 %, 51 bytes)
+(100.0 %, 50 bytes)
+===< pass_lines :: 2 >===
+(100.0 %, 53 bytes)
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_special :: c >===
+===< pass_ints :: c >===
+===< pass_ints :: d >===
+===< pass_clex :: rename-toks >===
+===< pass_clex :: delete-string >===
+===< pass_clang :: rename-cxx-method >===
+===< pass_clang :: combine-global-var >===
+===< pass_clang :: combine-local-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_indent :: regular >===
+(100.0 %, 37 bytes)
+===< pass_clex :: delete-string >===
+===< pass_clex :: remove-asm-comment >===
+===< pass_clex :: shorten-string >===
+===< pass_clex :: rm-toks-32 >===
+===< pass_clex :: rm-toks-26 >===
+===< pass_clex :: rm-toks-23 >===
+===< pass_clex :: rm-toks-22 >===
+===< pass_clex :: rm-toks-16 >===
+===< pass_clex :: rm-toks-15 >===
+===< pass_clex :: rm-toks-12 >===
+===< pass_clex :: rm-toks-9 >===
+===< pass_clex :: rm-toks-7 >===
+===< pass_clex :: rm-toks-6 >===
+===< pass_clex :: rm-toks-5 >===
+===< pass_clex :: rm-toks-4 >===
+===< pass_clex :: rm-toks-3 >===
+===< pass_clex :: rm-toks-2 >===
+===< pass_peep :: b >===
+Termination check: size was 45; now 37
+===< pass_blank :: 0 >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_lines :: 0 >===
+(100.0 %, 37 bytes)
+===< pass_lines :: 1 >===
+(100.0 %, 40 bytes)
+===< pass_lines :: 2 >===
+(100.0 %, 43 bytes)
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 0 >===
+(100.0 %, 43 bytes)
+===< pass_ternary :: b >===
+===< pass_balanced :: curly >===
+===< pass_balanced :: curly2 >===
+===< pass_balanced :: angles >===
+===< pass_balanced :: curly-only >===
+===< pass_balanced :: angles-only >===
+===< pass_clang :: local-to-global >===
+===< pass_clang :: remove-nested-function >===
+===< pass_clang :: union-to-struct >===
+===< pass_clang :: simple-inliner >===
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: reduce-array-size >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: replace-one-level-typedef-type >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: reduce-class-template-param >===
+===< pass_clang :: remove-trivial-base-template >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: remove-ctor-initializer >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: empty-struct-to-int >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: remove-array >===
+===< pass_clang :: replace-dependent-name >===
+===< pass_lines :: 0 >===
+(100.0 %, 44 bytes)
+(100.0 %, 43 bytes)
+===< pass_lines :: 2 >===
+(100.0 %, 46 bytes)
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_special :: c >===
+===< pass_ints :: c >===
+===< pass_ints :: d >===
+===< pass_clex :: rename-toks >===
+===< pass_clex :: delete-string >===
+===< pass_clang :: rename-cxx-method >===
+===< pass_clang :: combine-global-var >===
+===< pass_clang :: combine-local-var >===
+===< pass_clang :: simplify-struct-union-decl >===
+===< pass_indent :: regular >===
+(100.0 %, 37 bytes)
+===< pass_clex :: delete-string >===
+===< pass_clex :: remove-asm-comment >===
+===< pass_clex :: shorten-string >===
+===< pass_clex :: rm-toks-32 >===
+===< pass_clex :: rm-toks-26 >===
+===< pass_clex :: rm-toks-23 >===
+===< pass_clex :: rm-toks-22 >===
+===< pass_clex :: rm-toks-16 >===
+===< pass_clex :: rm-toks-15 >===
+===< pass_clex :: rm-toks-12 >===
+===< pass_clex :: rm-toks-9 >===
+===< pass_clex :: rm-toks-7 >===
+===< pass_clex :: rm-toks-6 >===
+===< pass_clex :: rm-toks-5 >===
+===< pass_clex :: rm-toks-4 >===
+===< pass_clex :: rm-toks-3 >===
+===< pass_clex :: rm-toks-2 >===
+===< pass_peep :: b >===
+Termination check: size was 37; now 37
+===================== done ====================
+
+pass statistics:
+  method pass_balanced :: angles worked 0 times and failed 0 times
+  method pass_balanced :: angles-only worked 0 times and failed 0 times
+  method pass_balanced :: curly worked 1 times and failed 8 times
+  method pass_balanced :: curly-only worked 2 times and failed 6 times
+  method pass_balanced :: curly2 worked 0 times and failed 8 times
+  method pass_blank :: 0 worked 3 times and failed 1 times
+  method pass_clang :: class-template-to-class worked 0 times and failed 0 times
+  method pass_clang :: combine-global-var worked 0 times and failed 0 times
+  method pass_clang :: combine-local-var worked 0 times and failed 0 times
+  method pass_clang :: empty-struct-to-int worked 0 times and failed 0 times
+  method pass_clang :: instantiate-template-param worked 0 times and failed 0 times
+  method pass_clang :: local-to-global worked 2 times and failed 5 times
+  method pass_clang :: reduce-array-size worked 0 times and failed 0 times
+  method pass_clang :: reduce-class-template-param worked 0 times and failed 0 times
+  method pass_clang :: remove-array worked 0 times and failed 0 times
+  method pass_clang :: remove-ctor-initializer worked 0 times and failed 0 times
+  method pass_clang :: remove-nested-function worked 0 times and failed 0 times
+  method pass_clang :: remove-pointer-pairs worked 0 times and failed 0 times
+  method pass_clang :: remove-trivial-base-template worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-outer-class worked 0 times and failed 0 times
+  method pass_clang :: remove-unused-var worked 2 times and failed 0 times
+  method pass_clang :: rename-cxx-method worked 0 times and failed 0 times
+  method pass_clang :: replace-callexpr worked 0 times and failed 0 times
+  method pass_clang :: replace-dependent-name worked 0 times and failed 0 times
+  method pass_clang :: replace-dependent-typedef worked 0 times and failed 0 times
+  method pass_clang :: replace-one-level-typedef-type worked 2 times and failed 1 times
+  method pass_clang :: simple-inliner worked 0 times and failed 0 times
+  method pass_clang :: simplify-struct-union-decl worked 0 times and failed 0 times
+  method pass_clang :: template-arg-to-int worked 0 times and failed 0 times
+  method pass_clang :: union-to-struct worked 0 times and failed 0 times
+  method pass_clang_binsrch :: remove-unused-function worked 1 times and failed 3 times
+  method pass_clang_binsrch :: replace-function-def-with-decl worked 3 times and failed 9 times
+  method pass_clex :: delete-string worked 0 times and failed 0 times
+  method pass_clex :: delete-string worked 0 times and failed 0 times
+  method pass_clex :: remove-asm-comment worked 0 times and failed 0 times
+  method pass_clex :: rename-toks worked 21 times and failed 1 times
+  method pass_clex :: rm-toks-12 worked 0 times and failed 190 times
+  method pass_clex :: rm-toks-15 worked 0 times and failed 190 times
+  method pass_clex :: rm-toks-16 worked 0 times and failed 190 times
+  method pass_clex :: rm-toks-2 worked 4 times and failed 104 times
+  method pass_clex :: rm-toks-22 worked 0 times and failed 190 times
+  method pass_clex :: rm-toks-23 worked 0 times and failed 190 times
+  method pass_clex :: rm-toks-26 worked 0 times and failed 190 times
+  method pass_clex :: rm-toks-3 worked 5 times and failed 112 times
+  method pass_clex :: rm-toks-32 worked 0 times and failed 190 times
+  method pass_clex :: rm-toks-4 worked 7 times and failed 128 times
+  method pass_clex :: rm-toks-5 worked 3 times and failed 156 times
+  method pass_clex :: rm-toks-6 worked 2 times and failed 171 times
+  method pass_clex :: rm-toks-7 worked 1 times and failed 183 times
+  method pass_clex :: rm-toks-9 worked 0 times and failed 190 times
+  method pass_clex :: shorten-string worked 0 times and failed 0 times
+  method pass_comments :: 0 worked 0 times and failed 0 times
+  method pass_indent :: regular worked 4 times and failed 0 times
+  method pass_ints :: c worked 0 times and failed 0 times
+  method pass_ints :: d worked 0 times and failed 0 times
+  method pass_lines :: 0 worked 868 times and failed 2772 times
+  method pass_lines :: 0 worked 868 times and failed 2772 times
+  method pass_lines :: 0 worked 868 times and failed 2772 times
+  method pass_lines :: 1 worked 64 times and failed 264 times
+  method pass_lines :: 2 worked 20 times and failed 229 times
+  method pass_lines :: 2 worked 20 times and failed 229 times
+  method pass_peep :: b worked 9 times and failed 355 times
+  method pass_special :: c worked 0 times and failed 0 times
+  method pass_ternary :: b worked 0 times and failed 0 times
+  method pass_unifdef :: 0 worked 2 times and failed 1 times
+
+
+          '/home/ukoc/mangroveL/bzip2_sb/runs/run-1452585875.55872/bzip2.c' reduced to:
+(x13)() {
+  int x19;
+  (x19 == 0);
+}
+1269.65user 279.96system 19:14.89elapsed 134%CPU (0avgtext+0avgdata 59088maxresident)k
+21064inputs+13628336outputs (115major+108453468minor)pagefaults 0swaps
