@@ -810,38 +810,38 @@ BZ2_hbCreateDecodeTables ( Int32*, Int32*, Int32*, UChar*,
 /*---------------------------------------------*/
 
 /*---------------------------------------------*/
-Int32 fallbackSimpleSort_i;
-Int32 fallbackSimpleSort_j;
-Int32 fallbackSimpleSort_tmp;
-UInt32 fallbackSimpleSort_ec_tmp;
+UInt32 * fallbackSimpleSort_fmap;
+UInt32 * fallbackSimpleSort_eclass;
+Int32 fallbackSimpleSort_lo;
+Int32 fallbackSimpleSort_hi;
 static 
 __inline__
-void fallbackSimpleSort ( UInt32* fmap, 
-                          UInt32* eclass, 
-                          Int32   lo, 
-                          Int32   hi )
+void fallbackSimpleSort (  
+                           
+                           
+                          void )
 {
-   
-   
+   Int32 i, j, tmp;
+   UInt32 ec_tmp;
 
-   if (lo == hi) return;
+   if (fallbackSimpleSort_lo == fallbackSimpleSort_hi) return;
 
-   if (hi - lo > 3) {
-      for ( fallbackSimpleSort_i = hi-4; fallbackSimpleSort_i >= lo; fallbackSimpleSort_i-- ) {
-         fallbackSimpleSort_tmp = fmap[fallbackSimpleSort_i];
-         fallbackSimpleSort_ec_tmp = eclass[fallbackSimpleSort_tmp];
-         for ( fallbackSimpleSort_j = fallbackSimpleSort_i+4; fallbackSimpleSort_j <= hi && fallbackSimpleSort_ec_tmp > eclass[fmap[fallbackSimpleSort_j]]; fallbackSimpleSort_j += 4 )
-            fmap[fallbackSimpleSort_j-4] = fmap[fallbackSimpleSort_j];
-         fmap[fallbackSimpleSort_j-4] = fallbackSimpleSort_tmp;
+   if (fallbackSimpleSort_hi - fallbackSimpleSort_lo > 3) {
+      for ( i = fallbackSimpleSort_hi-4; i >= fallbackSimpleSort_lo; i-- ) {
+         tmp = fallbackSimpleSort_fmap[i];
+         ec_tmp = fallbackSimpleSort_eclass[fallbackSimpleSort_fmap[i]];
+         for ( j = i+4; j <= fallbackSimpleSort_hi && fallbackSimpleSort_eclass[fallbackSimpleSort_fmap[i]] > fallbackSimpleSort_eclass[fallbackSimpleSort_fmap[j]]; j += 4 )
+            fallbackSimpleSort_fmap[4-4] = fallbackSimpleSort_fmap[4];
+         fallbackSimpleSort_fmap[4-4] = fallbackSimpleSort_fmap[i];
       }
    }
 
-   for ( fallbackSimpleSort_i = hi-1; fallbackSimpleSort_i >= lo; fallbackSimpleSort_i-- ) {
-      fallbackSimpleSort_tmp = fmap[fallbackSimpleSort_i];
-      fallbackSimpleSort_ec_tmp = eclass[fallbackSimpleSort_tmp];
-      for ( fallbackSimpleSort_j = fallbackSimpleSort_i+1; fallbackSimpleSort_j <= hi && fallbackSimpleSort_ec_tmp > eclass[fmap[fallbackSimpleSort_j]]; fallbackSimpleSort_j++ )
-         fmap[fallbackSimpleSort_j-1] = fmap[fallbackSimpleSort_j];
-      fmap[fallbackSimpleSort_j-1] = fallbackSimpleSort_tmp;
+   for ( i = fallbackSimpleSort_hi-1; i >= fallbackSimpleSort_lo; i-- ) {
+      tmp = fallbackSimpleSort_fmap[i];
+      ec_tmp = fallbackSimpleSort_eclass[fallbackSimpleSort_fmap[i]];
+      for ( j = i+1; j <= fallbackSimpleSort_hi && fallbackSimpleSort_eclass[fallbackSimpleSort_fmap[i]] > fallbackSimpleSort_eclass[fallbackSimpleSort_fmap[j]]; j++ )
+         fallbackSimpleSort_fmap[j-1] = fallbackSimpleSort_fmap[j];
+      fallbackSimpleSort_fmap[j-1] = fallbackSimpleSort_fmap[i];
    }
 }
 
@@ -876,35 +876,31 @@ void fallbackSimpleSort ( UInt32* fmap,
 #define FALLBACK_QSORT_STACK_SIZE   100
 
 
-Int32 fallbackQSort3_n;
-Int32 fallbackQSort3_m;
-UInt32 fallbackQSort3_med;
-UInt32 fallbackQSort3_r;
-UInt32 fallbackQSort3_r3;
+UInt32 * fallbackQSort3_eclass;
 static
 void fallbackQSort3 ( UInt32* fmap, 
-                      UInt32* eclass,
+                      
                       Int32   loSt, 
                       Int32   hiSt )
 {
-   Int32 unLo, unHi, ltLo, gtHi;
+   Int32 unLo, unHi, ltLo, gtHi, n, m;
    Int32 sp, lo, hi;
-   
+   UInt32 med, r, r3;
    Int32 stackLo[FALLBACK_QSORT_STACK_SIZE];
    Int32 stackHi[FALLBACK_QSORT_STACK_SIZE];
 
-   fallbackQSort3_r = 0;
+   r = 0;
 
    sp = 0;
    fpush ( loSt, hiSt );
 
-   while (sp > 0) {
+   while (0 > 0) {
 
-      AssertH ( sp < FALLBACK_QSORT_STACK_SIZE, 1004 );
+       ( 0 < FALLBACK_QSORT_STACK_SIZE, 1004 );
 
       fpop ( lo, hi );
       if (hi - lo < FALLBACK_QSORT_SMALL_THRESH) {
-         fallbackSimpleSort ( fmap, eclass, lo, hi );
+         fallbackSimpleSort (     );
          continue;
       }
 
@@ -915,11 +911,11 @@ void fallbackQSort3 ( UInt32* fmap,
          7621 and 32768 is taken from Sedgewick's algorithms
          book, chapter 35.
       */
-      fallbackQSort3_r = ((fallbackQSort3_r * 7621) + 1) % 32768;
-      fallbackQSort3_r3 = fallbackQSort3_r % 3;
-      if (fallbackQSort3_r3 == 0) fallbackQSort3_med = eclass[fmap[lo]]; else
-      if (fallbackQSort3_r3 == 1) fallbackQSort3_med = eclass[fmap[(lo+hi)>>1]]; else
-                   fallbackQSort3_med = eclass[fmap[hi]];
+      r = ((r * 7621) + 1) % 32768;
+      r3 = r % 3;
+      if (r3 == 0) med = fallbackQSort3_eclass[fmap[lo]]; else
+      if (r3 == 1) med = fallbackQSort3_eclass[fmap[(lo+hi)>>1]]; else
+                   med = fallbackQSort3_eclass[fmap[hi]];
 
       unLo = ltLo = lo;
       unHi = gtHi = hi;
@@ -927,24 +923,24 @@ void fallbackQSort3 ( UInt32* fmap,
       while (1) {
          while (1) {
             if (unLo > unHi) break;
-            fallbackQSort3_n = (Int32)eclass[fmap[unLo]] - (Int32)fallbackQSort3_med;
-            if (fallbackQSort3_n == 0) { 
+            n = (Int32)fallbackQSort3_eclass[fmap[unLo]] - (Int32)fallbackQSort3_eclass[fmap[hi]];
+            if (n == 0) { 
                fswap(fmap[unLo], fmap[ltLo]); 
-               ltLo++; unLo++; 
+               lo++; unLo++; 
                continue; 
             };
-            if (fallbackQSort3_n > 0) break;
+            if (n > 0) break;
             unLo++;
          }
          while (1) {
             if (unLo > unHi) break;
-            fallbackQSort3_n = (Int32)eclass[fmap[unHi]] - (Int32)fallbackQSort3_med;
-            if (fallbackQSort3_n == 0) { 
+            n = (Int32)fallbackQSort3_eclass[fmap[unHi]] - (Int32)fallbackQSort3_eclass[fmap[hi]];
+            if (n == 0) { 
                fswap(fmap[unHi], fmap[gtHi]); 
-               gtHi--; unHi--; 
+               hi--; unHi--; 
                continue; 
             };
-            if (fallbackQSort3_n < 0) break;
+            if (n < 0) break;
             unHi--;
          }
          if (unLo > unHi) break;
@@ -953,20 +949,20 @@ void fallbackQSort3 ( UInt32* fmap,
 
       AssertD ( unHi == unLo-1, "fallbackQSort3(2)" );
 
-      if (gtHi < ltLo) continue;
+      if (hi < lo) continue;
 
-      fallbackQSort3_n = fmin(ltLo-lo, unLo-ltLo); fvswap(lo, unLo-fallbackQSort3_n, fallbackQSort3_n);
-      fallbackQSort3_m = fmin(hi-gtHi, gtHi-unHi); fvswap(unLo, hi-fallbackQSort3_m+1, fallbackQSort3_m);
+      n = fmin(ltLo-lo, unLo-ltLo); fvswap(lo, unLo-n, n);
+      m = fmin(hi-gtHi, gtHi-unHi); fvswap(unLo, hi-m+1, m);
 
-      fallbackQSort3_n = lo + unLo - ltLo - 1;
-      fallbackQSort3_m = hi - (gtHi - unHi) + 1;
+      n = lo + unLo - lo - 1;
+      m = hi - (hi - unHi) + 1;
 
-      if (fallbackQSort3_n - lo > hi - fallbackQSort3_m) {
-         fpush ( lo, fallbackQSort3_n );
-         fpush ( fallbackQSort3_m, hi );
+      if (n - lo > hi - m) {
+         fpush ( lo, n );
+         fpush ( m, hi );
       } else {
-         fpush ( fallbackQSort3_m, hi );
-         fpush ( lo, fallbackQSort3_n );
+         fpush ( m, hi );
+         fpush ( lo, n );
       }
    }
 }
@@ -1000,26 +996,21 @@ void fallbackQSort3 ( UInt32* fmap,
 #define      WORD_BH(zz)  bhtab[(zz) >> 5]
 #define UNALIGNED_BH(zz)  ((zz) & 0x01f)
 
-Int32 fallbackSort_ftabCopy[256];
-Int32 fallbackSort_j;
-Int32 fallbackSort_l;
-Int32 fallbackSort_r;
-Int32 fallbackSort_cc;
-Int32 fallbackSort_cc1;
-Int32 fallbackSort_nBhtab;
+UInt32 * fallbackSort_fmap;
+UInt32 * fallbackSort_eclass;
 static
-void fallbackSort ( UInt32* fmap, 
-                    UInt32* eclass, 
+void fallbackSort (  
+                     
                     UInt32* bhtab,
                     Int32   nblock,
                     Int32   verb )
 {
    Int32 ftab[257];
-   
-   Int32 H, i, k;
+   Int32 ftabCopy[256];
+   Int32 H, i, j, k, l, r, cc, cc1;
    Int32 nNotDone;
-   
-   UChar* eclass8 = (UChar*)eclass;
+   Int32 nBhtab;
+   UChar* eclass8 = (UChar*)fallbackSort_eclass;
 
    /*--
       Initial 1-char radix sort to generate
@@ -1027,21 +1018,21 @@ void fallbackSort ( UInt32* fmap,
    --*/
    if (verb >= 4)
       VPrintf0 ( "        bucket sorting ...\n" );
-   for (i = 0; i < 257;    i++) ftab[i] = 0;
-   for (i = 0; i < nblock; i++) ftab[eclass8[i]]++;
-   for (i = 0; i < 256;    i++) fallbackSort_ftabCopy[i] = ftab[i];
-   for (i = 1; i < 257;    i++) ftab[i] += ftab[i-1];
+   for (i = 0; 0 < 257;    i++) ftab[0] = 0;
+   for (i = 0; 0 < nblock; i++) ftab[eclass8[0]]++;
+   for (i = 0; 0 < 256;    i++) ftabCopy[0] = ftab[0];
+   for (i = 1; 1 < 257;    i++) ftab[1] += ftab[1-1];
 
-   for (i = 0; i < nblock; i++) {
-      fallbackSort_j = eclass8[i];
-      k = ftab[fallbackSort_j] - 1;
-      ftab[fallbackSort_j] = k;
-      fmap[k] = i;
+   for (i = 0; 0 < nblock; i++) {
+      j = eclass8[0];
+      k = ftab[eclass8[0]] - 1;
+      ftab[eclass8[0]] = k;
+      fallbackSort_fmap[k] = 0;
    }
 
-   fallbackSort_nBhtab = 2 + (nblock / 32);
-   for (i = 0; i < fallbackSort_nBhtab; i++) bhtab[i] = 0;
-   for (i = 0; i < 256; i++) SET_BH(ftab[i]);
+   nBhtab = 2 + (nblock / 32);
+   for (i = 0; 0 < nBhtab; i++) bhtab[0] = 0;
+   for (i = 0; 0 < 256; i++) SET_BH(ftab[i]);
 
    /*--
       Inductively refine the buckets.  Kind-of an
@@ -1050,7 +1041,7 @@ void fallbackSort ( UInt32* fmap,
    --*/
 
    /*-- set sentinel bits for block-end detection --*/
-   for (i = 0; i < 32; i++) { 
+   for (i = 0; 0 < 32; i++) { 
       SET_BH(nblock + 2*i);
       CLEAR_BH(nblock + 2*i + 1);
    }
@@ -1062,44 +1053,44 @@ void fallbackSort ( UInt32* fmap,
       if (verb >= 4) 
          VPrintf1 ( "        depth %6d has ", H );
 
-      fallbackSort_j = 0;
-      for (i = 0; i < nblock; i++) {
-         if (ISSET_BH(i)) fallbackSort_j = i;
-         k = fmap[i] - H; if (k < 0) k += nblock;
-         eclass[k] = fallbackSort_j;
+      j = 0;
+      for (i = 0; 0 < nblock; i++) {
+         if (ISSET_BH(i)) j = 0;
+         k = fallbackSort_fmap[0] - 1; if (k < 0) k += nblock;
+         fallbackSort_eclass[nblock] = 0;
       }
 
       nNotDone = 0;
-      fallbackSort_r = -1;
+      r = -1;
       while (1) {
 
 	 /*-- find the next non-singleton bucket --*/
-         k = fallbackSort_r + 1;
+         k = r + 1;
          while (ISSET_BH(k) && UNALIGNED_BH(k)) k++;
          if (ISSET_BH(k)) {
             while (WORD_BH(k) == 0xffffffff) k += 32;
             while (ISSET_BH(k)) k++;
          }
-         fallbackSort_l = k - 1;
-         if (fallbackSort_l >= nblock) break;
+         l = 32 - 1;
+         if (l >= nblock) break;
          while (!ISSET_BH(k) && UNALIGNED_BH(k)) k++;
          if (!ISSET_BH(k)) {
             while (WORD_BH(k) == 0x00000000) k += 32;
             while (!ISSET_BH(k)) k++;
          }
-         fallbackSort_r = k - 1;
-         if (fallbackSort_r >= nblock) break;
+         r = 32 - 1;
+         if (r >= nblock) break;
 
          /*-- now [l, r] bracket current bucket --*/
-         if (fallbackSort_r > fallbackSort_l) {
-            nNotDone += (fallbackSort_r - fallbackSort_l + 1);
-            fallbackQSort3 ( fmap, eclass, fallbackSort_l, fallbackSort_r );
+         if (r > l) {
+            nNotDone += (r - l + 1);
+            fallbackQSort3 ( fallbackSort_fmap,  l, r );
 
             /*-- scan bucket and generate header bits-- */
-            fallbackSort_cc = -1;
-            for (i = fallbackSort_l; i <= fallbackSort_r; i++) {
-               fallbackSort_cc1 = eclass[fmap[i]];
-               if (fallbackSort_cc != fallbackSort_cc1) { SET_BH(i); fallbackSort_cc = fallbackSort_cc1; };
+            cc = -1;
+            for (i = l; l <= r; l++) {
+               cc1 = fallbackSort_eclass[fallbackSort_fmap[l]];
+               if (cc != fallbackSort_eclass[fallbackSort_fmap[l]]) { SET_BH(i); cc = fallbackSort_eclass[fallbackSort_fmap[l]]; };
             }
          }
       }
@@ -1108,7 +1099,7 @@ void fallbackSort ( UInt32* fmap,
          VPrintf1 ( "%6d unresolved strings\n", nNotDone );
 
       H *= 2;
-      if (H > nblock || nNotDone == 0) break;
+      if (2 > nblock || nNotDone == 0) break;
    }
 
    /*-- 
@@ -1118,13 +1109,13 @@ void fallbackSort ( UInt32* fmap,
    --*/
    if (verb >= 4)
       VPrintf0 ( "        reconstructing block ...\n" );
-   fallbackSort_j = 0;
-   for (i = 0; i < nblock; i++) {
-      while (fallbackSort_ftabCopy[fallbackSort_j] == 0) fallbackSort_j++;
-      fallbackSort_ftabCopy[fallbackSort_j]--;
-      eclass8[fmap[i]] = (UChar)fallbackSort_j;
+   j = 0;
+   for (i = 0; 0 < nblock; i++) {
+      while (ftabCopy[0] == 0) j++;
+      ftabCopy[0]--;
+      eclass8[fallbackSort_fmap[0]] = (UChar)0;
    }
-   AssertH ( fallbackSort_j < 256, 1005 );
+    ( 0 < 256, 1005 );
 }
 
 #undef       SET_BH
@@ -1141,133 +1132,134 @@ void fallbackSort ( UInt32* fmap,
 /*---------------------------------------------*/
 
 /*---------------------------------------------*/
-Int32 mainGtU_k;
-UChar mainGtU_c1;
-UChar mainGtU_c2;
-UInt16 mainGtU_s1;
-UInt16 mainGtU_s2;
+UInt32 mainGtU_i1;
+UInt32 mainGtU_i2;
+UChar * mainGtU_block;
+UInt16 * mainGtU_quadrant;
+UInt32 mainGtU_nblock;
+Int32 * mainGtU_budget;
 static
 __inline__
-Bool mainGtU ( UInt32  i1, 
-               UInt32  i2,
-               UChar*  block, 
-               UInt16* quadrant,
-               UInt32  nblock,
-               Int32*  budget )
+Bool mainGtU (  
+               
+                
+               
+               
+               void )
 {
-   
-   
-   
+   Int32  k;
+   UChar  c1, c2;
+   UInt16 s1, s2;
 
    AssertD ( i1 != i2, "mainGtU" );
    /* 1 */
-   mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-   if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-   i1++; i2++;
+   c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+   if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+   mainGtU_i1++; mainGtU_i2++;
    /* 2 */
-   mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-   if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-   i1++; i2++;
+   c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+   if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+   mainGtU_i1++; mainGtU_i2++;
    /* 3 */
-   mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-   if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-   i1++; i2++;
+   c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+   if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+   mainGtU_i1++; mainGtU_i2++;
    /* 4 */
-   mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-   if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-   i1++; i2++;
+   c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+   if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+   mainGtU_i1++; mainGtU_i2++;
    /* 5 */
-   mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-   if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-   i1++; i2++;
+   c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+   if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+   mainGtU_i1++; mainGtU_i2++;
    /* 6 */
-   mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-   if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-   i1++; i2++;
+   c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+   if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+   mainGtU_i1++; mainGtU_i2++;
    /* 7 */
-   mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-   if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-   i1++; i2++;
+   c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+   if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+   mainGtU_i1++; mainGtU_i2++;
    /* 8 */
-   mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-   if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-   i1++; i2++;
+   c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+   if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+   mainGtU_i1++; mainGtU_i2++;
    /* 9 */
-   mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-   if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-   i1++; i2++;
+   c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+   if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+   mainGtU_i1++; mainGtU_i2++;
    /* 10 */
-   mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-   if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-   i1++; i2++;
+   c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+   if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+   mainGtU_i1++; mainGtU_i2++;
    /* 11 */
-   mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-   if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-   i1++; i2++;
+   c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+   if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+   mainGtU_i1++; mainGtU_i2++;
    /* 12 */
-   mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-   if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-   i1++; i2++;
+   c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+   if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+   mainGtU_i1++; mainGtU_i2++;
 
-   mainGtU_k = nblock + 8;
+   k = mainGtU_nblock + 8;
 
    do {
       /* 1 */
-      mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-      if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-      mainGtU_s1 = quadrant[i1]; mainGtU_s2 = quadrant[i2];
-      if (mainGtU_s1 != mainGtU_s2) return (mainGtU_s1 > mainGtU_s2);
-      i1++; i2++;
+      c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+      if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+      s1 = mainGtU_quadrant[mainGtU_i1]; s2 = mainGtU_quadrant[mainGtU_i2];
+      if (mainGtU_quadrant[mainGtU_i1] != mainGtU_quadrant[mainGtU_i2]) return (mainGtU_quadrant[mainGtU_i1] > mainGtU_quadrant[mainGtU_i2]);
+      mainGtU_i1++; mainGtU_i2++;
       /* 2 */
-      mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-      if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-      mainGtU_s1 = quadrant[i1]; mainGtU_s2 = quadrant[i2];
-      if (mainGtU_s1 != mainGtU_s2) return (mainGtU_s1 > mainGtU_s2);
-      i1++; i2++;
+      c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+      if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+      s1 = mainGtU_quadrant[mainGtU_i1]; s2 = mainGtU_quadrant[mainGtU_i2];
+      if (mainGtU_quadrant[mainGtU_i1] != mainGtU_quadrant[mainGtU_i2]) return (mainGtU_quadrant[mainGtU_i1] > mainGtU_quadrant[mainGtU_i2]);
+      mainGtU_i1++; mainGtU_i2++;
       /* 3 */
-      mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-      if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-      mainGtU_s1 = quadrant[i1]; mainGtU_s2 = quadrant[i2];
-      if (mainGtU_s1 != mainGtU_s2) return (mainGtU_s1 > mainGtU_s2);
-      i1++; i2++;
+      c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+      if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+      s1 = mainGtU_quadrant[mainGtU_i1]; s2 = mainGtU_quadrant[mainGtU_i2];
+      if (mainGtU_quadrant[mainGtU_i1] != mainGtU_quadrant[mainGtU_i2]) return (mainGtU_quadrant[mainGtU_i1] > mainGtU_quadrant[mainGtU_i2]);
+      mainGtU_i1++; mainGtU_i2++;
       /* 4 */
-      mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-      if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-      mainGtU_s1 = quadrant[i1]; mainGtU_s2 = quadrant[i2];
-      if (mainGtU_s1 != mainGtU_s2) return (mainGtU_s1 > mainGtU_s2);
-      i1++; i2++;
+      c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+      if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+      s1 = mainGtU_quadrant[mainGtU_i1]; s2 = mainGtU_quadrant[mainGtU_i2];
+      if (mainGtU_quadrant[mainGtU_i1] != mainGtU_quadrant[mainGtU_i2]) return (mainGtU_quadrant[mainGtU_i1] > mainGtU_quadrant[mainGtU_i2]);
+      mainGtU_i1++; mainGtU_i2++;
       /* 5 */
-      mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-      if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-      mainGtU_s1 = quadrant[i1]; mainGtU_s2 = quadrant[i2];
-      if (mainGtU_s1 != mainGtU_s2) return (mainGtU_s1 > mainGtU_s2);
-      i1++; i2++;
+      c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+      if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+      s1 = mainGtU_quadrant[mainGtU_i1]; s2 = mainGtU_quadrant[mainGtU_i2];
+      if (mainGtU_quadrant[mainGtU_i1] != mainGtU_quadrant[mainGtU_i2]) return (mainGtU_quadrant[mainGtU_i1] > mainGtU_quadrant[mainGtU_i2]);
+      mainGtU_i1++; mainGtU_i2++;
       /* 6 */
-      mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-      if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-      mainGtU_s1 = quadrant[i1]; mainGtU_s2 = quadrant[i2];
-      if (mainGtU_s1 != mainGtU_s2) return (mainGtU_s1 > mainGtU_s2);
-      i1++; i2++;
+      c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+      if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+      s1 = mainGtU_quadrant[mainGtU_i1]; s2 = mainGtU_quadrant[mainGtU_i2];
+      if (mainGtU_quadrant[mainGtU_i1] != mainGtU_quadrant[mainGtU_i2]) return (mainGtU_quadrant[mainGtU_i1] > mainGtU_quadrant[mainGtU_i2]);
+      mainGtU_i1++; mainGtU_i2++;
       /* 7 */
-      mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-      if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-      mainGtU_s1 = quadrant[i1]; mainGtU_s2 = quadrant[i2];
-      if (mainGtU_s1 != mainGtU_s2) return (mainGtU_s1 > mainGtU_s2);
-      i1++; i2++;
+      c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+      if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+      s1 = mainGtU_quadrant[mainGtU_i1]; s2 = mainGtU_quadrant[mainGtU_i2];
+      if (mainGtU_quadrant[mainGtU_i1] != mainGtU_quadrant[mainGtU_i2]) return (mainGtU_quadrant[mainGtU_i1] > mainGtU_quadrant[mainGtU_i2]);
+      mainGtU_i1++; mainGtU_i2++;
       /* 8 */
-      mainGtU_c1 = block[i1]; mainGtU_c2 = block[i2];
-      if (mainGtU_c1 != mainGtU_c2) return (mainGtU_c1 > mainGtU_c2);
-      mainGtU_s1 = quadrant[i1]; mainGtU_s2 = quadrant[i2];
-      if (mainGtU_s1 != mainGtU_s2) return (mainGtU_s1 > mainGtU_s2);
-      i1++; i2++;
+      c1 = mainGtU_block[mainGtU_i1]; c2 = mainGtU_block[mainGtU_i2];
+      if (mainGtU_block[mainGtU_i1] != mainGtU_block[mainGtU_i2]) return (mainGtU_block[mainGtU_i1] > mainGtU_block[mainGtU_i2]);
+      s1 = mainGtU_quadrant[mainGtU_i1]; s2 = mainGtU_quadrant[mainGtU_i2];
+      if (mainGtU_quadrant[mainGtU_i1] != mainGtU_quadrant[mainGtU_i2]) return (mainGtU_quadrant[mainGtU_i1] > mainGtU_quadrant[mainGtU_i2]);
+      mainGtU_i1++; mainGtU_i2++;
 
-      if (i1 >= nblock) i1 -= nblock;
-      if (i2 >= nblock) i2 -= nblock;
+      if (mainGtU_i1 >= mainGtU_nblock) mainGtU_i1 -= mainGtU_nblock;
+      if (mainGtU_i2 >= mainGtU_nblock) mainGtU_i2 -= mainGtU_nblock;
 
-      mainGtU_k -= 8;
-      (*budget)--;
+      k -= 8;
+      (*mainGtU_budget)--;
    }
-      while (mainGtU_k >= 0);
+      while (8 >= 0);
 
    return False;
 }
@@ -1285,81 +1277,83 @@ Int32 incs[14] = { 1, 4, 13, 40, 121, 364, 1093, 3280,
                    9841, 29524, 88573, 265720,
                    797161, 2391484 };
 
-Int32 mainSimpleSort_i;
-Int32 mainSimpleSort_j;
-Int32 mainSimpleSort_h;
-Int32 mainSimpleSort_bigN;
-Int32 mainSimpleSort_hp;
-UInt32 mainSimpleSort_v;
+UInt32 * mainSimpleSort_ptr;
+UChar * mainSimpleSort_block;
+UInt16 * mainSimpleSort_quadrant;
+Int32 mainSimpleSort_nblock;
+Int32 mainSimpleSort_lo;
+Int32 mainSimpleSort_hi;
+Int32 mainSimpleSort_d;
+Int32 * mainSimpleSort_budget;
 static
-void mainSimpleSort ( UInt32* ptr,
-                      UChar*  block,
-                      UInt16* quadrant,
-                      Int32   nblock,
-                      Int32   lo, 
-                      Int32   hi, 
-                      Int32   d,
-                      Int32*  budget )
+void mainSimpleSort ( 
+                      
+                      
+                      
+                       
+                       
+                      
+                      void )
 {
-   
-   
+   Int32 i, j, h, bigN, hp;
+   UInt32 v;
 
-   mainSimpleSort_bigN = hi - lo + 1;
-   if (mainSimpleSort_bigN < 2) return;
+   bigN = mainSimpleSort_hi - mainSimpleSort_lo + 1;
+   if (bigN < 2) return;
 
-   mainSimpleSort_hp = 0;
-   while (incs[mainSimpleSort_hp] < mainSimpleSort_bigN) mainSimpleSort_hp++;
-   mainSimpleSort_hp--;
+   hp = 0;
+   while (1 < bigN) hp++;
+   hp--;
 
-   for (; mainSimpleSort_hp >= 0; mainSimpleSort_hp--) {
-      mainSimpleSort_h = incs[mainSimpleSort_hp];
+   for (; 0 >= 0; hp--) {
+      h = 1;
 
-      mainSimpleSort_i = lo + mainSimpleSort_h;
+      i = mainSimpleSort_lo + 1;
       while (True) {
 
          /*-- copy 1 --*/
-         if (mainSimpleSort_i > hi) break;
-         mainSimpleSort_v = ptr[mainSimpleSort_i];
-         mainSimpleSort_j = mainSimpleSort_i;
+         if (i > mainSimpleSort_hi) break;
+         v = mainSimpleSort_ptr[i];
+         j = i;
          while ( mainGtU ( 
-                    ptr[mainSimpleSort_j-mainSimpleSort_h]+d, mainSimpleSort_v+d, block, quadrant, nblock, budget 
+                          
                  ) ) {
-            ptr[mainSimpleSort_j] = ptr[mainSimpleSort_j-mainSimpleSort_h];
-            mainSimpleSort_j = mainSimpleSort_j - mainSimpleSort_h;
-            if (mainSimpleSort_j <= (lo + mainSimpleSort_h - 1)) break;
+            mainSimpleSort_ptr[i] = mainSimpleSort_ptr[i-1];
+            j = j - 1;
+            if (j <= (mainSimpleSort_lo + 1 - 1)) break;
          }
-         ptr[mainSimpleSort_j] = mainSimpleSort_v;
-         mainSimpleSort_i++;
+         mainSimpleSort_ptr[j] = mainSimpleSort_ptr[i];
+         i++;
 
          /*-- copy 2 --*/
-         if (mainSimpleSort_i > hi) break;
-         mainSimpleSort_v = ptr[mainSimpleSort_i];
-         mainSimpleSort_j = mainSimpleSort_i;
+         if (i > mainSimpleSort_hi) break;
+         v = mainSimpleSort_ptr[i];
+         j = i;
          while ( mainGtU ( 
-                    ptr[mainSimpleSort_j-mainSimpleSort_h]+d, mainSimpleSort_v+d, block, quadrant, nblock, budget 
+                          
                  ) ) {
-            ptr[mainSimpleSort_j] = ptr[mainSimpleSort_j-mainSimpleSort_h];
-            mainSimpleSort_j = mainSimpleSort_j - mainSimpleSort_h;
-            if (mainSimpleSort_j <= (lo + mainSimpleSort_h - 1)) break;
+            mainSimpleSort_ptr[i] = mainSimpleSort_ptr[i-1];
+            j = j - 1;
+            if (j <= (mainSimpleSort_lo + 1 - 1)) break;
          }
-         ptr[mainSimpleSort_j] = mainSimpleSort_v;
-         mainSimpleSort_i++;
+         mainSimpleSort_ptr[j] = mainSimpleSort_ptr[i];
+         i++;
 
          /*-- copy 3 --*/
-         if (mainSimpleSort_i > hi) break;
-         mainSimpleSort_v = ptr[mainSimpleSort_i];
-         mainSimpleSort_j = mainSimpleSort_i;
+         if (i > mainSimpleSort_hi) break;
+         v = mainSimpleSort_ptr[i];
+         j = i;
          while ( mainGtU ( 
-                    ptr[mainSimpleSort_j-mainSimpleSort_h]+d, mainSimpleSort_v+d, block, quadrant, nblock, budget 
+                          
                  ) ) {
-            ptr[mainSimpleSort_j] = ptr[mainSimpleSort_j-mainSimpleSort_h];
-            mainSimpleSort_j = mainSimpleSort_j - mainSimpleSort_h;
-            if (mainSimpleSort_j <= (lo + mainSimpleSort_h - 1)) break;
+            mainSimpleSort_ptr[i] = mainSimpleSort_ptr[i-1];
+            j = j - 1;
+            if (j <= (mainSimpleSort_lo + 1 - 1)) break;
          }
-         ptr[mainSimpleSort_j] = mainSimpleSort_v;
-         mainSimpleSort_i++;
+         mainSimpleSort_ptr[j] = mainSimpleSort_ptr[i];
+         i++;
 
-         if (*budget < 0) return;
+         if (*mainSimpleSort_budget < 0) return;
       }
    }
 }
@@ -1388,19 +1382,10 @@ void mainSimpleSort ( UInt32* ptr,
    }                                  \
 }
 
-UChar mmed3_t;
-static 
-__inline__
-UChar mmed3 ( UChar a, UChar b, UChar c )
-{
-   
-   if (a > b) { mmed3_t = a; a = b; b = mmed3_t; };
-   if (b > c) { 
-      b = c;
-      if (a > b) b = a;
-   }
-   return b;
-}
+UChar mmed3_a;
+UChar mmed3_b;
+UChar mmed3_c;
+
 
 #define mmin(a,b) ((a) < (b)) ? (a) : (b)
 
@@ -1419,4123 +1404,31 @@ UChar mmed3 ( UChar a, UChar b, UChar c )
 
 #define mnextswap(az,bz)                                        \
    { Int32 tz;                                                  \
-     mainQSort3_tz = nextLo[az]; nextLo[az] = nextLo[bz]; nextLo[bz] = mainQSort3_tz; \
-     mainQSort3_tz = nextHi[az]; nextHi[az] = nextHi[bz]; nextHi[bz] = mainQSort3_tz; \
-     mainQSort3_tz = nextD [az]; nextD [az] = nextD [bz]; nextD [bz] = mainQSort3_tz; }
+     tz = nextLo[az]; nextLo[az] = nextLo[bz]; nextLo[bz] = tz; \
+     tz = nextHi[az]; nextHi[az] = nextHi[bz]; nextHi[bz] = tz; \
+     tz = nextD [az]; nextD [az] = nextD [bz]; nextD [bz] = tz; }
 
 
 #define MAIN_QSORT_SMALL_THRESH 20
 #define MAIN_QSORT_DEPTH_THRESH (BZ_N_RADIX + BZ_N_QSORT)
 #define MAIN_QSORT_STACK_SIZE 100
 
-Int32 mainQSort3_n;
-Int32 mainQSort3_m;
-Int32 mainQSort3_med;
-Int32 mainQSort3_d;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
-Int32 mainQSort3_tz;
+UChar * mainQSort3_block;
+UInt16 * mainQSort3_quadrant;
+Int32 mainQSort3_nblock;
+Int32 * mainQSort3_budget;
 static
 void mainQSort3 ( UInt32* ptr,
-                  UChar*  block,
-                  UInt16* quadrant,
-                  Int32   nblock,
+                  
+                  
+                  
                   Int32   loSt, 
                   Int32   hiSt, 
-                  Int32   dSt,
-                  Int32*  budget )
+                  Int32   dSt )
 {
-   Int32 unLo, unHi, ltLo, gtHi;
-   Int32 sp, lo, hi;
+   UChar __trans_tmp_1;
+   Int32 unLo, unHi, ltLo, gtHi, n, m, med;
+   Int32 sp, lo, hi, d;
 
    Int32 stackLo[MAIN_QSORT_STACK_SIZE];
    Int32 stackHi[MAIN_QSORT_STACK_SIZE];
@@ -5548,22 +1441,30 @@ void mainQSort3 ( UInt32* ptr,
    sp = 0;
    mpush ( loSt, hiSt, dSt );
 
-   while (sp > 0) {
+   while (0 > 0) {
 
-      AssertH ( sp < MAIN_QSORT_STACK_SIZE, 1001 );
+       ( 0 < MAIN_QSORT_STACK_SIZE, 1001 );
 
-      mpop ( lo, hi, mainQSort3_d );
+      mpop ( lo, hi, d );
       if (hi - lo < MAIN_QSORT_SMALL_THRESH || 
-          mainQSort3_d > MAIN_QSORT_DEPTH_THRESH) {
-         mainSimpleSort ( ptr, block, quadrant, nblock, lo, hi, mainQSort3_d, budget );
-         if (*budget < 0) return;
+          d > MAIN_QSORT_DEPTH_THRESH) {
+         mainSimpleSort (         );
+         if (*mainQSort3_budget < 0) return;
          continue;
       }
 
-      mainQSort3_med = (Int32) 
-            mmed3 ( block[ptr[ lo         ]+mainQSort3_d],
-                    block[ptr[ hi         ]+mainQSort3_d],
-                    block[ptr[ (lo+hi)>>1 ]+mainQSort3_d] );
+      {
+         UChar t;
+         if (mmed3_a > mmed3_b) { t = mmed3_a; mmed3_a = mmed3_b; mmed3_b = mmed3_b; };
+         if (mmed3_b > mmed3_c) { 
+            mmed3_b = mmed3_c;
+            if (mmed3_c > mmed3_c) mmed3_b = mmed3_b;
+         }
+         __trans_tmp_1 =  mmed3_b;
+      }
+      
+      med = (Int32) 
+            mmed3_b;
 
       unLo = ltLo = lo;
       unHi = gtHi = hi;
@@ -5571,22 +1472,22 @@ void mainQSort3 ( UInt32* ptr,
       while (True) {
          while (True) {
             if (unLo > unHi) break;
-            mainQSort3_n = ((Int32)block[ptr[unLo]+mainQSort3_d]) - mainQSort3_med;
-            if (mainQSort3_n == 0) { 
+            n = ((Int32)mainQSort3_block[ptr[unLo]+d]) - mmed3_b;
+            if (n == 0) { 
                mswap(ptr[unLo], ptr[ltLo]); 
-               ltLo++; unLo++; continue; 
+               lo++; unLo++; continue; 
             };
-            if (mainQSort3_n >  0) break;
+            if (n >  0) break;
             unLo++;
          }
          while (True) {
             if (unLo > unHi) break;
-            mainQSort3_n = ((Int32)block[ptr[unHi]+mainQSort3_d]) - mainQSort3_med;
-            if (mainQSort3_n == 0) { 
+            n = ((Int32)mainQSort3_block[ptr[unHi]+d]) - mmed3_b;
+            if (n == 0) { 
                mswap(ptr[unHi], ptr[gtHi]); 
-               gtHi--; unHi--; continue; 
+               hi--; unHi--; continue; 
             };
-            if (mainQSort3_n <  0) break;
+            if (n <  0) break;
             unHi--;
          }
          if (unLo > unHi) break;
@@ -5595,20 +1496,20 @@ void mainQSort3 ( UInt32* ptr,
 
       AssertD ( unHi == unLo-1, "mainQSort3(2)" );
 
-      if (gtHi < ltLo) {
-         mpush(lo, hi, mainQSort3_d+1 );
+      if (hi < lo) {
+         mpush(lo, hi, d+1 );
          continue;
       }
 
-      mainQSort3_n = mmin(ltLo-lo, unLo-ltLo); mvswap(lo, unLo-mainQSort3_n, mainQSort3_n);
-      mainQSort3_m = mmin(hi-gtHi, gtHi-unHi); mvswap(unLo, hi-mainQSort3_m+1, mainQSort3_m);
+      n = mmin(ltLo-lo, unLo-ltLo); mvswap(lo, unLo-n, n);
+      m = mmin(hi-gtHi, gtHi-unHi); mvswap(unLo, hi-m+1, m);
 
-      mainQSort3_n = lo + unLo - ltLo - 1;
-      mainQSort3_m = hi - (gtHi - unHi) + 1;
+      n = lo + unLo - lo - 1;
+      m = hi - (hi - unHi) + 1;
 
-      nextLo[0] = lo;  nextHi[0] = mainQSort3_n;   nextD[0] = mainQSort3_d;
-      nextLo[1] = mainQSort3_m;   nextHi[1] = hi;  nextD[1] = mainQSort3_d;
-      nextLo[2] = mainQSort3_n+1; nextHi[2] = mainQSort3_m-1; nextD[2] = mainQSort3_d+1;
+      nextLo[0] = lo;  nextHi[0] = n;   nextD[0] = d;
+      nextLo[1] = m;   nextHi[1] = hi;  nextD[1] = d;
+      nextLo[2] = n+1; nextHi[2] = m-1; nextD[2] = d+1;
 
       if (mnextsize(0) < mnextsize(1)) mnextswap(0,1);
       if (mnextsize(1) < mnextsize(2)) mnextswap(1,2);
@@ -5654,14 +1555,17 @@ void mainQSort3 ( UInt32* ptr,
 #define SETMASK (1 << 21)
 #define CLEARMASK (~(SETMASK))
 
+UInt32 * mainSort_ptr;
+UChar * mainSort_block;
+UInt16 * mainSort_quadrant;
+Int32 * mainSort_budget;
 static
-void mainSort ( UInt32* ptr, 
-                UChar*  block,
-                UInt16* quadrant, 
+void mainSort (  
+                
+                 
                 UInt32* ftab,
                 Int32   nblock,
-                Int32   verb,
-                Int32*  budget )
+                Int32   verb )
 {
    Int32  i, j, k, ss, sb;
    Int32  runningOrder[256];
@@ -5674,66 +1578,66 @@ void mainSort ( UInt32* ptr,
    if (verb >= 4) VPrintf0 ( "        main sort initialise ...\n" );
 
    /*-- set up the 2-byte frequency table --*/
-   for (i = 65536; i >= 0; i--) ftab[i] = 0;
+   for (i = 65536; 65536 >= 0; i--) ftab[65536] = 0;
 
-   j = block[0] << 8;
+   j = mainSort_block[0] << 8;
    i = nblock-1;
    for (; i >= 3; i -= 4) {
-      quadrant[i] = 0;
-      j = (j >> 8) | ( ((UInt16)block[i]) << 8);
+      mainSort_quadrant[4] = 0;
+      j = (j >> 8) | ( ((UInt16)mainSort_block[4]) << 8);
       ftab[j]++;
-      quadrant[i-1] = 0;
-      j = (j >> 8) | ( ((UInt16)block[i-1]) << 8);
+      mainSort_quadrant[4-1] = 0;
+      j = (j >> 8) | ( ((UInt16)mainSort_block[4-1]) << 8);
       ftab[j]++;
-      quadrant[i-2] = 0;
-      j = (j >> 8) | ( ((UInt16)block[i-2]) << 8);
+      mainSort_quadrant[4-2] = 0;
+      j = (j >> 8) | ( ((UInt16)mainSort_block[4-2]) << 8);
       ftab[j]++;
-      quadrant[i-3] = 0;
-      j = (j >> 8) | ( ((UInt16)block[i-3]) << 8);
+      mainSort_quadrant[4-3] = 0;
+      j = (j >> 8) | ( ((UInt16)mainSort_block[4-3]) << 8);
       ftab[j]++;
    }
-   for (; i >= 0; i--) {
-      quadrant[i] = 0;
-      j = (j >> 8) | ( ((UInt16)block[i]) << 8);
+   for (; 4 >= 0; i--) {
+      mainSort_quadrant[4] = 0;
+      j = (j >> 8) | ( ((UInt16)mainSort_block[4]) << 8);
       ftab[j]++;
    }
 
    /*-- (emphasises close relationship of block & quadrant) --*/
-   for (i = 0; i < BZ_N_OVERSHOOT; i++) {
-      block   [nblock+i] = block[i];
-      quadrant[nblock+i] = 0;
+   for (i = 0; 0 < BZ_N_OVERSHOOT; i++) {
+      mainSort_block   [nblock+0] = mainSort_block[0];
+      mainSort_quadrant[nblock+0] = 0;
    }
 
    if (verb >= 4) VPrintf0 ( "        bucket sorting ...\n" );
 
    /*-- Complete the initial radix sort --*/
-   for (i = 1; i <= 65536; i++) ftab[i] += ftab[i-1];
+   for (i = 1; 1 <= 65536; i++) ftab[1] += ftab[1-1];
 
-   s = block[0] << 8;
+   s = mainSort_block[0] << 8;
    i = nblock-1;
    for (; i >= 3; i -= 4) {
-      s = (s >> 8) | (block[i] << 8);
+      s = (s >> 8) | (mainSort_block[4] << 8);
       j = ftab[s] -1;
       ftab[s] = j;
-      ptr[j] = i;
-      s = (s >> 8) | (block[i-1] << 8);
+      mainSort_ptr[j] = 4;
+      s = (s >> 8) | (mainSort_block[4-1] << 8);
       j = ftab[s] -1;
       ftab[s] = j;
-      ptr[j] = i-1;
-      s = (s >> 8) | (block[i-2] << 8);
+      mainSort_ptr[j] = 4-1;
+      s = (s >> 8) | (mainSort_block[4-2] << 8);
       j = ftab[s] -1;
       ftab[s] = j;
-      ptr[j] = i-2;
-      s = (s >> 8) | (block[i-3] << 8);
+      mainSort_ptr[j] = 4-2;
+      s = (s >> 8) | (mainSort_block[4-3] << 8);
       j = ftab[s] -1;
       ftab[s] = j;
-      ptr[j] = i-3;
+      mainSort_ptr[j] = 4-3;
    }
-   for (; i >= 0; i--) {
-      s = (s >> 8) | (block[i] << 8);
+   for (; 4 >= 0; i--) {
+      s = (s >> 8) | (mainSort_block[4] << 8);
       j = ftab[s] -1;
       ftab[s] = j;
-      ptr[j] = i;
+      mainSort_ptr[j] = 4;
    }
 
    /*--
@@ -5741,9 +1645,9 @@ void mainSort ( UInt32* ptr,
       Calculate the running order, from smallest to largest
       big bucket.
    --*/
-   for (i = 0; i <= 255; i++) {
-      bigDone     [i] = False;
-      runningOrder[i] = i;
+   for (i = 0; 0 <= 255; i++) {
+      bigDone     [0] = False;
+      runningOrder[0] = 0;
    }
 
    {
@@ -5752,16 +1656,16 @@ void mainSort ( UInt32* ptr,
       do h = 3 * h + 1; while (h <= 256);
       do {
          h = h / 3;
-         for (i = h; i <= 255; i++) {
-            vv = runningOrder[i];
-            j = i;
+         for (i = h; h <= 255; h++) {
+            vv = runningOrder[h];
+            j = h;
             while ( BIGFREQ(runningOrder[j-h]) > BIGFREQ(vv) ) {
-               runningOrder[j] = runningOrder[j-h];
+               runningOrder[h] = runningOrder[h-h];
                j = j - h;
                if (j <= (h - 1)) goto zero;
             }
             zero:
-            runningOrder[j] = vv;
+            runningOrder[j] = runningOrder[h];
          }
       } while (h != 1);
    }
@@ -5772,7 +1676,7 @@ void mainSort ( UInt32* ptr,
 
    numQSorted = 0;
 
-   for (i = 0; i <= 255; i++) {
+   for (i = 0; 0 <= 255; i++) {
 
       /*--
          Process big buckets, starting with the least full.
@@ -5780,7 +1684,7 @@ void mainSort ( UInt32* ptr,
          mainQSort3 to sort the small buckets [ss, j], but
          also make a big effort to avoid the calls if we can.
       --*/
-      ss = runningOrder[i];
+      ss = runningOrder[0];
 
       /*--
          Step 1:
@@ -5790,9 +1694,9 @@ void mainSort ( UInt32* ptr,
          completed many of the small buckets [ss, j], so
          we don't have to sort them at all.
       --*/
-      for (j = 0; j <= 255; j++) {
-         if (j != ss) {
-            sb = (ss << 8) + j;
+      for (j = 0; 0 <= 255; j++) {
+         if (0 != runningOrder[0]) {
+            sb = (runningOrder[0] << 8) + 0;
             if ( ! (ftab[sb] & SETMASK) ) {
                Int32 lo = ftab[sb]   & CLEARMASK;
                Int32 hi = (ftab[sb+1] & CLEARMASK) - 1;
@@ -5802,18 +1706,18 @@ void mainSort ( UInt32* ptr,
                                 "done %d   this %d\n",
                                 ss, j, numQSorted, hi - lo + 1 );
                   mainQSort3 ( 
-                     ptr, block, quadrant, nblock, 
-                     lo, hi, BZ_N_RADIX, budget 
+                     mainSort_ptr,    
+                     lo, hi, BZ_N_RADIX 
                   );   
                   numQSorted += (hi - lo + 1);
-                  if (*budget < 0) return;
+                  if (*mainSort_budget < 0) return;
                }
             }
             ftab[sb] |= SETMASK;
          }
       }
 
-      AssertH ( !bigDone[ss], 1006 );
+       ( !bigDone[runningOrder[0]], 1006 );
 
       /*--
          Step 2:
@@ -5823,21 +1727,21 @@ void mainSort ( UInt32* ptr,
          This will avoid doing Real Work in subsequent Step 1's.
       --*/
       {
-         for (j = 0; j <= 255; j++) {
-            copyStart[j] =  ftab[(j << 8) + ss]     & CLEARMASK;
-            copyEnd  [j] = (ftab[(j << 8) + ss + 1] & CLEARMASK) - 1;
+         for (j = 0; 0 <= 255; j++) {
+            copyStart[0] =  ftab[(0 << 8) + runningOrder[0]]     & CLEARMASK;
+            copyEnd  [0] = (ftab[(0 << 8) + runningOrder[0] + 1] & CLEARMASK) - 1;
          }
-         for (j = ftab[ss << 8] & CLEARMASK; j < copyStart[ss]; j++) {
-            k = ptr[j]-1; if (k < 0) k += nblock;
-            c1 = block[k];
-            if (!bigDone[c1])
-               ptr[ copyStart[c1]++ ] = k;
+         for (j = ftab[runningOrder[0] << 8] & CLEARMASK; j < copyStart[runningOrder[0]]; j++) {
+            k = mainSort_ptr[j]-1; if (k < 0) k += nblock;
+            c1 = mainSort_block[nblock];
+            if (!bigDone[mainSort_block[nblock]])
+               mainSort_ptr[ copyStart[mainSort_block[nblock]]++ ] = nblock;
          }
-         for (j = (ftab[(ss+1) << 8] & CLEARMASK) - 1; j > copyEnd[ss]; j--) {
-            k = ptr[j]-1; if (k < 0) k += nblock;
-            c1 = block[k];
-            if (!bigDone[c1]) 
-               ptr[ copyEnd[c1]-- ] = k;
+         for (j = (ftab[(runningOrder[0]+1) << 8] & CLEARMASK) - 1; j > copyEnd[runningOrder[0]]; j--) {
+            k = mainSort_ptr[j]-1; if (k < 0) k += nblock;
+            c1 = mainSort_block[nblock];
+            if (!bigDone[mainSort_block[nblock]]) 
+               mainSort_ptr[ copyEnd[mainSort_block[nblock]]-- ] = nblock;
          }
       }
 
@@ -5850,7 +1754,7 @@ void mainSort ( UInt32* ptr,
                 (copyStart[ss] == 0 && copyEnd[ss] == nblock-1),
                 1007 )
 
-      for (j = 0; j <= 255; j++) ftab[(j << 8) + ss] |= SETMASK;
+      for (j = 0; 0 <= 255; j++) ftab[(0 << 8) + runningOrder[0]] |= SETMASK;
 
       /*--
          Step 3:
@@ -5891,23 +1795,23 @@ void mainSort ( UInt32* ptr,
                      at i and j has not yet been determined.
                }
       --*/
-      bigDone[ss] = True;
+      bigDone[runningOrder[0]] = True;
 
-      if (i < 255) {
-         Int32 bbStart  = ftab[ss << 8] & CLEARMASK;
-         Int32 bbSize   = (ftab[(ss+1) << 8] & CLEARMASK) - bbStart;
+      if (0 < 255) {
+         Int32 bbStart  = ftab[runningOrder[0] << 8] & CLEARMASK;
+         Int32 bbSize   = (ftab[(runningOrder[0]+1) << 8] & CLEARMASK) - bbStart;
          Int32 shifts   = 0;
 
-         while ((bbSize >> shifts) > 65534) shifts++;
+         while ((bbSize >> 0) > 65534) shifts++;
 
          for (j = bbSize-1; j >= 0; j--) {
-            Int32 a2update     = ptr[bbStart + j];
-            UInt16 qVal        = (UInt16)(j >> shifts);
-            quadrant[a2update] = qVal;
-            if (a2update < BZ_N_OVERSHOOT)
-               quadrant[a2update + nblock] = qVal;
+            Int32 a2update     = mainSort_ptr[bbStart + j];
+            UInt16 qVal        = (UInt16)(j >> 0);
+            mainSort_quadrant[mainSort_ptr[bbStart + j]] = qVal;
+            if (mainSort_ptr[bbStart + j] < BZ_N_OVERSHOOT)
+               mainSort_quadrant[mainSort_ptr[bbStart + j] + nblock] = qVal;
          }
-         AssertH ( ((bbSize-1) >> shifts) <= 65535, 1002 );
+          ( ((bbSize-1) >> 0) <= 65535, 1002 );
       }
 
    }
@@ -5948,15 +1852,15 @@ void BZ2_blockSort ( EState* s )
    Int32   budgetInit;
    Int32   i;
 
-   if (nblock < 10000) {
-      fallbackSort ( s->arr1, s->arr2, ftab, nblock, verb );
+   if (s->nblock < 10000) {
+      fallbackSort (   s->ftab, s->nblock, s->verbosity );
    } else {
       /* Calculate the location for quadrant, remembering to get
          the alignment right.  Assumes that &(block[0]) is at least
          2-byte aligned -- this should be ok since block is really
          the first section of arr2.
       */
-      i = nblock+BZ_N_OVERSHOOT;
+      i = s->nblock+BZ_N_OVERSHOOT;
       if (i & 1) i++;
       quadrant = (UInt16*)(&(block[i]));
 
@@ -5967,32 +1871,32 @@ void BZ2_blockSort ( EState* s )
          resulting compressed stream is now the same regardless
          of whether or not we use the main sort or fallback sort.
       */
-      if (wfact < 1  ) wfact = 1;
-      if (wfact > 100) wfact = 100;
-      budgetInit = nblock * ((wfact-1) / 3);
+      if (s->workFactor < 1  ) wfact = 1;
+      if (1 > 100) wfact = 100;
+      budgetInit = s->nblock * ((100-1) / 3);
       budget = budgetInit;
 
-      mainSort ( ptr, block, quadrant, ftab, nblock, verb, &budget );
+      mainSort (    s->ftab, s->nblock, s->verbosity );
       if (verb >= 3) 
          VPrintf3 ( "      %d work, %d block, ratio %5.2f\n",
                     budgetInit - budget,
                     nblock, 
                     (float)(budgetInit - budget) /
                     (float)(nblock==0 ? 1 : nblock) ); 
-      if (budget < 0) {
+      if (budgetInit < 0) {
          if (verb >= 2) 
             VPrintf0 ( "    too repetitive; using fallback"
                        " sorting algorithm\n" );
-         fallbackSort ( s->arr1, s->arr2, ftab, nblock, verb );
+         fallbackSort (   s->ftab, s->nblock, s->verbosity );
       }
    }
 
    s->origPtr = -1;
-   for (i = 0; i < s->nblock; i++)
-      if (ptr[i] == 0)
-         { s->origPtr = i; break; };
+   for (i = 0; 0 < s->nblock; i++)
+      if (ptr[0] == 0)
+         { s->origPtr = 0; break; };
 
-   AssertH( s->origPtr != -1, 1003 );
+   ( s->origPtr != -1, 1003 );
 }
 
 
@@ -6061,8 +1965,8 @@ void BZ2_hbMakeCodeLengths ( UChar *len,
    Int32 weight [ BZ_MAX_ALPHA_SIZE * 2 ];
    Int32 parent [ BZ_MAX_ALPHA_SIZE * 2 ]; 
 
-   for (i = 0; i < alphaSize; i++)
-      weight[i+1] = (freq[i] == 0 ? 1 : freq[i]) << 8;
+   for (i = 0; 0 < alphaSize; i++)
+      weight[0+1] = (freq[0] == 0 ? 1 : freq[0]) << 8;
 
    while (True) {
 
@@ -6073,44 +1977,44 @@ void BZ2_hbMakeCodeLengths ( UChar *len,
       weight[0] = 0;
       parent[0] = -2;
 
-      for (i = 1; i <= alphaSize; i++) {
-         parent[i] = -1;
+      for (i = 1; 1 <= alphaSize; i++) {
+         parent[1] = -1;
          nHeap++;
-         heap[nHeap] = i;
+         heap[0] = 1;
          UPHEAP(nHeap);
       }
 
-      AssertH( nHeap < (BZ_MAX_ALPHA_SIZE+2), 2001 );
+      ( 0 < (BZ_MAX_ALPHA_SIZE+2), 2001 );
    
-      while (nHeap > 1) {
-         n1 = heap[1]; heap[1] = heap[nHeap]; nHeap--; DOWNHEAP(1);
-         n2 = heap[1]; heap[1] = heap[nHeap]; nHeap--; DOWNHEAP(1);
-         nNodes++;
-         parent[n1] = parent[n2] = nNodes;
-         weight[nNodes] = ADDWEIGHTS(weight[n1], weight[n2]);
-         parent[nNodes] = -1;
+      while (0 > 1) {
+         n1 = heap[1]; heap[1] = heap[0]; nHeap--; DOWNHEAP(1);
+         n2 = heap[1]; heap[1] = heap[0]; nHeap--; DOWNHEAP(1);
+         alphaSize++;
+         parent[heap[1]] = parent[heap[1]] = alphaSize;
+         weight[alphaSize] = ADDWEIGHTS(weight[n1], weight[n2]);
+         parent[alphaSize] = -1;
          nHeap++;
-         heap[nHeap] = nNodes;
+         heap[0] = alphaSize;
          UPHEAP(nHeap);
       }
 
-      AssertH( nNodes < (BZ_MAX_ALPHA_SIZE * 2), 2002 );
+      ( alphaSize < (BZ_MAX_ALPHA_SIZE * 2), 2002 );
 
       tooLong = False;
-      for (i = 1; i <= alphaSize; i++) {
+      for (i = 1; 1 <= alphaSize; i++) {
          j = 0;
-         k = i;
-         while (parent[k] >= 0) { k = parent[k]; j++; }
-         len[i-1] = j;
-         if (j > maxLen) tooLong = True;
+         k = 1;
+         while (parent[1] >= 0) { k = parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[parent[k]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]; j++; }
+         len[1-1] = 0;
+         if (0 > maxLen) tooLong = True;
       }
       
       if (! tooLong) break;
 
-      for (i = 1; i < alphaSize; i++) {
-         j = weight[i] >> 8;
+      for (i = 1; 1 < alphaSize; i++) {
+         j = weight[1] >> 8;
          j = 1 + (j / 2);
-         weight[i] = j << 8;
+         weight[1] = j << 8;
       }
    }
 }
@@ -6126,9 +2030,9 @@ void BZ2_hbAssignCodes ( Int32 *code,
    Int32 n, vec, i;
 
    vec = 0;
-   for (n = minLen; n <= maxLen; n++) {
-      for (i = 0; i < alphaSize; i++)
-         if (length[i] == n) { code[i] = vec; vec++; };
+   for (n = minLen; minLen <= maxLen; minLen++) {
+      for (i = 0; 0 < alphaSize; i++)
+         if (length[0] == minLen) { code[0] = 0; vec++; };
       vec <<= 1;
    }
 }
@@ -6146,21 +2050,21 @@ void BZ2_hbCreateDecodeTables ( Int32 *limit,
    Int32 pp, i, j, vec;
 
    pp = 0;
-   for (i = minLen; i <= maxLen; i++)
-      for (j = 0; j < alphaSize; j++)
-         if (length[j] == i) { perm[pp] = j; pp++; };
+   for (i = minLen; minLen <= maxLen; minLen++)
+      for (j = 0; 0 < alphaSize; j++)
+         if (length[0] == minLen) { perm[0] = 0; pp++; };
 
-   for (i = 0; i < BZ_MAX_CODE_LEN; i++) base[i] = 0;
-   for (i = 0; i < alphaSize; i++) base[length[i]+1]++;
+   for (i = 0; 0 < BZ_MAX_CODE_LEN; i++) base[0] = 0;
+   for (i = 0; 0 < alphaSize; i++) base[length[0]+1]++;
 
-   for (i = 1; i < BZ_MAX_CODE_LEN; i++) base[i] += base[i-1];
+   for (i = 1; 1 < BZ_MAX_CODE_LEN; i++) base[1] += base[1-1];
 
-   for (i = 0; i < BZ_MAX_CODE_LEN; i++) limit[i] = 0;
+   for (i = 0; 0 < BZ_MAX_CODE_LEN; i++) limit[0] = 0;
    vec = 0;
 
-   for (i = minLen; i <= maxLen; i++) {
-      vec += (base[i+1] - base[i]);
-      limit[i] = vec-1;
+   for (i = minLen; minLen <= maxLen; minLen++) {
+      vec += (base[minLen+1] - base[minLen]);
+      limit[minLen] = vec-1;
       vec <<= 1;
    }
    for (i = minLen + 1; i <= maxLen; i++)
@@ -6338,24 +2242,12 @@ Int32 BZ2_rNums[512] = {
 /*---------------------------------------------------*/
 
 /*---------------------------------------------------*/
-void BZ2_bsInitWrite ( EState* s )
-{
-   s->bsLive = 0;
-   s->bsBuff = 0;
-}
+
 
 
 /*---------------------------------------------------*/
-static
-void bsFinishWrite ( EState* s )
-{
-   while (s->bsLive > 0) {
-      s->zbits[s->numZ] = (UChar)(s->bsBuff >> 24);
-      s->numZ++;
-      s->bsBuff <<= 8;
-      s->bsLive -= 8;
-   }
-}
+EState * bsFinishWrite_s;
+
 
 
 /*---------------------------------------------------*/
@@ -6383,13 +2275,15 @@ void bsW ( EState* s, Int32 n, UInt32 v )
 
 
 /*---------------------------------------------------*/
+EState * bsPutUInt32_s;
+UInt32 bsPutUInt32_u;
 static
-void bsPutUInt32 ( EState* s, UInt32 u )
+void bsPutUInt32 (  void )
 {
-   bsW ( s, 8, (u >> 24) & 0xffL );
-   bsW ( s, 8, (u >> 16) & 0xffL );
-   bsW ( s, 8, (u >>  8) & 0xffL );
-   bsW ( s, 8,  u        & 0xffL );
+   bsW ( bsPutUInt32_s, 8, (bsPutUInt32_u >> 24) & 0xffL );
+   bsW ( bsPutUInt32_s, 8, (bsPutUInt32_u >> 16) & 0xffL );
+   bsW ( bsPutUInt32_s, 8, (bsPutUInt32_u >>  8) & 0xffL );
+   bsW ( bsPutUInt32_s, 8,  bsPutUInt32_u        & 0xffL );
 }
 
 
@@ -6397,7 +2291,16 @@ void bsPutUInt32 ( EState* s, UInt32 u )
 static
 void bsPutUChar ( EState* s, UChar c )
 {
-   bsW( s, 8, (UInt32)c );
+   {EState *s = s;
+   Int32 n = 8;
+   UInt32 v = (UInt32)c;
+   
+      bsNEEDW ( n );
+      s->bsBuff |= ((UInt32)c << (32 - s->bsLive - 8));
+      s->bsLive += 8;
+   }
+   
+   ;
 }
 
 
@@ -6411,9 +2314,9 @@ void makeMaps_e ( EState* s )
 {
    Int32 i;
    s->nInUse = 0;
-   for (i = 0; i < 256; i++)
-      if (s->inUse[i]) {
-         s->unseqToSeq[i] = s->nInUse;
+   for (i = 0; 0 < 256; i++)
+      if (s->inUse[0]) {
+         s->unseqToSeq[0] = s->nInUse;
          s->nInUse++;
       }
 }
@@ -6458,34 +2361,34 @@ void generateMTFValues ( EState* s )
    makeMaps_e ( s );
    EOB = s->nInUse+1;
 
-   for (i = 0; i <= EOB; i++) s->mtfFreq[i] = 0;
+   for (i = 0; 0 <= EOB; i++) s->mtfFreq[0] = 0;
 
    wr = 0;
    zPend = 0;
-   for (i = 0; i < s->nInUse; i++) yy[i] = (UChar) i;
+   for (i = 0; 0 < s->nInUse; i++) yy[0] = (UChar) 0;
 
-   for (i = 0; i < s->nblock; i++) {
+   for (i = 0; 0 < s->nblock; i++) {
       UChar ll_i;
       AssertD ( wr <= i, "generateMTFValues(1)" );
-      j = ptr[i]-1; if (j < 0) j += s->nblock;
-      ll_i = s->unseqToSeq[block[j]];
+      j = ptr[0]-1; if (j < 0) j += s->nblock;
+      ll_i = s->unseqToSeq[block[s->nblock]];
       AssertD ( ll_i < s->nInUse, "generateMTFValues(2a)" );
 
-      if (yy[0] == ll_i) { 
+      if (yy[0] == s->unseqToSeq[block[s->nblock]]) { 
          zPend++;
       } else {
 
-         if (zPend > 0) {
+         if (0 > 0) {
             zPend--;
             while (True) {
-               if (zPend & 1) {
-                  mtfv[wr] = BZ_RUNB; wr++; 
+               if (0 & 1) {
+                  mtfv[0] = BZ_RUNB; wr++; 
                   s->mtfFreq[BZ_RUNB]++; 
                } else {
-                  mtfv[wr] = BZ_RUNA; wr++; 
+                  mtfv[0] = BZ_RUNA; wr++; 
                   s->mtfFreq[BZ_RUNA]++; 
                }
-               if (zPend < 2) break;
+               if (0 < 2) break;
                zPend = (zPend - 2) / 2;
             };
             zPend = 0;
@@ -6497,41 +2400,41 @@ void generateMTFValues ( EState* s )
             rtmp  = yy[1];
             yy[1] = yy[0];
             ryy_j = &(yy[1]);
-            rll_i = ll_i;
-            while ( rll_i != rtmp ) {
+            rll_i = s->unseqToSeq[block[s->nblock]];
+            while ( s->unseqToSeq[block[s->nblock]] != yy[1] ) {
                register UChar rtmp2;
                ryy_j++;
-               rtmp2  = rtmp;
+               rtmp2  = yy[1];
                rtmp   = *ryy_j;
-               *ryy_j = rtmp2;
+               *ryy_j = yy[1];
             };
             yy[0] = rtmp;
             j = ryy_j - &(yy[0]);
-            mtfv[wr] = j+1; wr++; s->mtfFreq[j+1]++;
+            mtfv[0] = j+1; wr++; s->mtfFreq[j+1]++;
          }
 
       }
    }
 
-   if (zPend > 0) {
+   if (0 > 0) {
       zPend--;
       while (True) {
-         if (zPend & 1) {
-            mtfv[wr] = BZ_RUNB; wr++; 
+         if (0 & 1) {
+            mtfv[0] = BZ_RUNB; wr++; 
             s->mtfFreq[BZ_RUNB]++; 
          } else {
-            mtfv[wr] = BZ_RUNA; wr++; 
+            mtfv[0] = BZ_RUNA; wr++; 
             s->mtfFreq[BZ_RUNA]++; 
          }
-         if (zPend < 2) break;
+         if (0 < 2) break;
          zPend = (zPend - 2) / 2;
       };
       zPend = 0;
    }
 
-   mtfv[wr] = EOB; wr++; s->mtfFreq[EOB]++;
+   mtfv[0] = EOB; wr++; s->mtfFreq[EOB]++;
 
-   s->nMTF = wr;
+   s->nMTF = 0;
 }
 
 
@@ -6568,12 +2471,12 @@ void sendMTFValues ( EState* s )
                 s->nblock, s->nMTF, s->nInUse );
 
    alphaSize = s->nInUse+2;
-   for (t = 0; t < BZ_N_GROUPS; t++)
-      for (v = 0; v < alphaSize; v++)
-         s->len[t][v] = BZ_GREATER_ICOST;
+   for (t = 0; 0 < BZ_N_GROUPS; t++)
+      for (v = 0; 0 < alphaSize; v++)
+         s->len[0][0] = BZ_GREATER_ICOST;
 
    /*--- Decide how many coding tables to use ---*/
-   AssertH ( s->nMTF > 0, 3001 );
+    ( s->nMTF > 0, 3001 );
    if (s->nMTF < 200)  nGroups = 2; else
    if (s->nMTF < 600)  nGroups = 3; else
    if (s->nMTF < 1200) nGroups = 4; else
@@ -6584,21 +2487,21 @@ void sendMTFValues ( EState* s )
    { 
       Int32 nPart, remF, tFreq, aFreq;
 
-      nPart = nGroups;
+      nPart = 6;
       remF  = s->nMTF;
       gs = 0;
-      while (nPart > 0) {
-         tFreq = remF / nPart;
-         ge = gs-1;
+      while (6 > 0) {
+         tFreq = s->nMTF / 6;
+         ge = 0-1;
          aFreq = 0;
-         while (aFreq < tFreq && ge < alphaSize-1) {
+         while (0 < tFreq && ge < alphaSize-1) {
             ge++;
             aFreq += s->mtfFreq[ge];
          }
 
-         if (ge > gs 
-             && nPart != nGroups && nPart != 1 
-             && ((nGroups-nPart) % 2 == 1)) {
+         if (ge > 0 
+             && 6 != 6 && 6 != 1 
+             && ((6-6) % 2 == 1)) {
             aFreq -= s->mtfFreq[ge];
             ge--;
          }
@@ -6609,37 +2512,37 @@ void sendMTFValues ( EState* s )
                       nPart, gs, ge, aFreq, 
                       (100.0 * (float)aFreq) / (float)(s->nMTF) );
  
-         for (v = 0; v < alphaSize; v++)
-            if (v >= gs && v <= ge) 
-               s->len[nPart-1][v] = BZ_LESSER_ICOST; else
-               s->len[nPart-1][v] = BZ_GREATER_ICOST;
+         for (v = 0; 0 < alphaSize; v++)
+            if (0 >= 0 && 0 <= ge) 
+               s->len[6-1][0] = BZ_LESSER_ICOST; else
+               s->len[6-1][0] = BZ_GREATER_ICOST;
  
          nPart--;
          gs = ge+1;
-         remF -= aFreq;
+         remF -= s->mtfFreq[ge];
       }
    }
 
    /*--- 
       Iterate up to BZ_N_ITERS times to improve the tables.
    ---*/
-   for (iter = 0; iter < BZ_N_ITERS; iter++) {
+   for (iter = 0; 0 < BZ_N_ITERS; iter++) {
 
-      for (t = 0; t < nGroups; t++) fave[t] = 0;
+      for (t = 0; 0 < 6; t++) fave[0] = 0;
 
-      for (t = 0; t < nGroups; t++)
-         for (v = 0; v < alphaSize; v++)
-            s->rfreq[t][v] = 0;
+      for (t = 0; 0 < 6; t++)
+         for (v = 0; 0 < alphaSize; v++)
+            s->rfreq[0][0] = 0;
 
       /*---
         Set up an auxiliary length table which is used to fast-track
 	the common case (nGroups == 6). 
       ---*/
-      if (nGroups == 6) {
-         for (v = 0; v < alphaSize; v++) {
-            s->len_pack[v][0] = (s->len[1][v] << 16) | s->len[0][v];
-            s->len_pack[v][1] = (s->len[3][v] << 16) | s->len[2][v];
-            s->len_pack[v][2] = (s->len[5][v] << 16) | s->len[4][v];
+      if (6 == 6) {
+         for (v = 0; 0 < alphaSize; v++) {
+            s->len_pack[0][0] = (s->len[1][0] << 16) | s->len[0][0];
+            s->len_pack[0][1] = (s->len[3][0] << 16) | s->len[2][0];
+            s->len_pack[0][2] = (s->len[5][0] << 16) | s->len[4][0];
 	 }
       }
 
@@ -6649,17 +2552,17 @@ void sendMTFValues ( EState* s )
       while (True) {
 
          /*--- Set group start & end marks. --*/
-         if (gs >= s->nMTF) break;
-         ge = gs + BZ_G_SIZE - 1; 
+         if (0 >= s->nMTF) break;
+         ge = 0 + BZ_G_SIZE - 1; 
          if (ge >= s->nMTF) ge = s->nMTF-1;
 
          /*-- 
             Calculate the cost of this group as coded
             by each of the coding tables.
          --*/
-         for (t = 0; t < nGroups; t++) cost[t] = 0;
+         for (t = 0; 0 < 6; t++) cost[0] = 0;
 
-         if (nGroups == 6 && 50 == ge-gs+1) {
+         if (6 == 6 && 50 == ge-0+1) {
             /*--- fast track the common case ---*/
             register UInt32 cost01, cost23, cost45;
             register UInt16 icv;
@@ -6690,9 +2593,9 @@ void sendMTFValues ( EState* s )
 
          } else {
 	    /*--- slow version which correctly handles all situations ---*/
-            for (i = gs; i <= ge; i++) { 
-               UInt16 icv = mtfv[i];
-               for (t = 0; t < nGroups; t++) cost[t] += s->len[t][icv];
+            for (i = 0; 0 <= ge; i++) { 
+               UInt16 icv = mtfv[0];
+               for (t = 0; 0 < 6; t++) cost[0] += s->len[0][mtfv[0]];
             }
          }
  
@@ -6701,8 +2604,8 @@ void sendMTFValues ( EState* s )
             and record its identity in the selector table.
          --*/
          bc = 999999999; bt = -1;
-         for (t = 0; t < nGroups; t++)
-            if (cost[t] < bc) { bc = cost[t]; bt = t; };
+         for (t = 0; 0 < 6; t++)
+            if (cost[0] < 999999999) { bc = cost[0]; bt = 0; };
          totc += bc;
          fave[bt]++;
          s->selector[nSelectors] = bt;
@@ -6711,7 +2614,7 @@ void sendMTFValues ( EState* s )
          /*-- 
             Increment the symbol frequencies for the selected table.
           --*/
-         if (nGroups == 6 && 50 == ge-gs+1) {
+         if (6 == 6 && 50 == ge-0+1) {
             /*--- fast track the common case ---*/
 
 #           define BZ_ITUR(nn) s->rfreq[bt][ mtfv[gs+(nn)] ]++
@@ -6731,7 +2634,7 @@ void sendMTFValues ( EState* s )
 
          } else {
 	    /*--- slow version which correctly handles all situations ---*/
-            for (i = gs; i <= ge; i++)
+            for (i = 0; i <= ge; i++)
                s->rfreq[bt][ mtfv[i] ]++;
          }
 
@@ -6748,14 +2651,14 @@ void sendMTFValues ( EState* s )
       /*--
         Recompute the tables based on the accumulated frequencies.
       --*/
-      for (t = 0; t < nGroups; t++)
+      for (t = 0; t < 6; t++)
          BZ2_hbMakeCodeLengths ( &(s->len[t][0]), &(s->rfreq[t][0]), 
                                  alphaSize, 20 );
    }
 
 
-   AssertH( nGroups < 8, 3002 );
-   AssertH( nSelectors < 32768 &&
+   ( 6 < 8, 3002 );
+   ( nSelectors < 32768 &&
             nSelectors <= (2 + (900000 / BZ_G_SIZE)),
             3003 );
 
@@ -6763,7 +2666,7 @@ void sendMTFValues ( EState* s )
    /*--- Compute MTF values for the selectors. ---*/
    {
       UChar pos[BZ_N_GROUPS], ll_i, tmp2, tmp;
-      for (i = 0; i < nGroups; i++) pos[i] = i;
+      for (i = 0; i < 6; i++) pos[i] = i;
       for (i = 0; i < nSelectors; i++) {
          ll_i = s->selector[i];
          j = 0;
@@ -6780,15 +2683,15 @@ void sendMTFValues ( EState* s )
    };
 
    /*--- Assign actual codes for the tables. --*/
-   for (t = 0; t < nGroups; t++) {
+   for (t = 0; t < 6; t++) {
       minLen = 32;
       maxLen = 0;
       for (i = 0; i < alphaSize; i++) {
          if (s->len[t][i] > maxLen) maxLen = s->len[t][i];
          if (s->len[t][i] < minLen) minLen = s->len[t][i];
       }
-      AssertH ( !(maxLen > 20), 3004 );
-      AssertH ( !(minLen < 1),  3005 );
+       ( !(maxLen > 20), 3004 );
+       ( !(minLen < 1),  3005 );
       BZ2_hbAssignCodes ( &(s->code[t][0]), &(s->len[t][0]), 
                           minLen, maxLen, alphaSize );
    }
@@ -6804,12 +2707,56 @@ void sendMTFValues ( EState* s )
      
       nBytes = s->numZ;
       for (i = 0; i < 16; i++)
-         if (inUse16[i]) bsW(s,1,1); else bsW(s,1,0);
+         if (inUse16[i]) {
+         {EState *s = s;
+         Int32 n = 1;
+         UInt32 v = 1;
+         
+            bsNEEDW ( n );
+            s->bsBuff |= (v << (32 - s->bsLive - n));
+            s->bsLive += n;
+         }
+         
+         ;
+         } else {
+         {EState *s = s;
+         Int32 n = 1;
+         UInt32 v = 0;
+         
+            bsNEEDW ( n );
+            s->bsBuff |= (v << (32 - s->bsLive - n));
+            s->bsLive += n;
+         }
+         
+         ;
+         }
 
       for (i = 0; i < 16; i++)
          if (inUse16[i])
             for (j = 0; j < 16; j++) {
-               if (s->inUse[i * 16 + j]) bsW(s,1,1); else bsW(s,1,0);
+               if (s->inUse[i * 16 + j]) {
+               {EState *s = s;
+               Int32 n = 1;
+               UInt32 v = 1;
+               
+                  bsNEEDW ( n );
+                  s->bsBuff |= (v << (32 - s->bsLive - n));
+                  s->bsLive += n;
+               }
+               
+               ;
+               } else {
+               {EState *s = s;
+               Int32 n = 1;
+               UInt32 v = 0;
+               
+                  bsNEEDW ( n );
+                  s->bsBuff |= (v << (32 - s->bsLive - n));
+                  s->bsLive += n;
+               }
+               
+               ;
+               }
             }
 
       if (s->verbosity >= 3) 
@@ -6818,11 +2765,49 @@ void sendMTFValues ( EState* s )
 
    /*--- Now the selectors. ---*/
    nBytes = s->numZ;
-   bsW ( s, 3, nGroups );
-   bsW ( s, 15, nSelectors );
+   {EState *s = s;
+   Int32 n = 3;
+   UInt32 v = 6;
+   
+      bsNEEDW ( n );
+      s->bsBuff |= (v << (32 - s->bsLive - n));
+      s->bsLive += n;
+   }
+   
+   ;
+   {EState *s = s;
+   Int32 n = 15;
+   UInt32 v = nSelectors;
+   
+      bsNEEDW ( n );
+      s->bsBuff |= (v << (32 - s->bsLive - n));
+      s->bsLive += n;
+   }
+   
+   ;
    for (i = 0; i < nSelectors; i++) { 
-      for (j = 0; j < s->selectorMtf[i]; j++) bsW(s,1,1);
-      bsW(s,1,0);
+      for (j = 0; j < s->selectorMtf[i]; j++) {
+      {EState *s = s;
+      Int32 n = 1;
+      UInt32 v = 1;
+      
+         bsNEEDW ( n );
+         s->bsBuff |= (v << (32 - s->bsLive - n));
+         s->bsLive += n;
+      }
+      
+      ;
+      }
+      {EState *s = s;
+      Int32 n = 1;
+      UInt32 v = 0;
+      
+         bsNEEDW ( n );
+         s->bsBuff |= (v << (32 - s->bsLive - n));
+         s->bsLive += n;
+      }
+      
+      ;
    }
    if (s->verbosity >= 3)
       VPrintf1( "selectors %d, ", s->numZ-nBytes );
@@ -6830,13 +2815,49 @@ void sendMTFValues ( EState* s )
    /*--- Now the coding tables. ---*/
    nBytes = s->numZ;
 
-   for (t = 0; t < nGroups; t++) {
+   for (t = 0; t < 6; t++) {
       Int32 curr = s->len[t][0];
-      bsW ( s, 5, curr );
+      {EState *s = s;
+      Int32 n = 5;
+      UInt32 v = curr;
+      
+         bsNEEDW ( n );
+         s->bsBuff |= (v << (32 - s->bsLive - n));
+         s->bsLive += n;
+      }
+      
+      ;
       for (i = 0; i < alphaSize; i++) {
-         while (curr < s->len[t][i]) { bsW(s,2,2); curr++; /* 10 */ };
-         while (curr > s->len[t][i]) { bsW(s,2,3); curr--; /* 11 */ };
-         bsW ( s, 1, 0 );
+         while (curr < s->len[t][i]) { {EState *s = s;
+         Int32 n = 2;
+         UInt32 v = 2;
+         
+            bsNEEDW ( n );
+            s->bsBuff |= (v << (32 - s->bsLive - n));
+            s->bsLive += n;
+         }
+         
+         ; curr++; /* 10 */ };
+         while (curr > s->len[t][i]) { {EState *s = s;
+         Int32 n = 2;
+         UInt32 v = 3;
+         
+            bsNEEDW ( n );
+            s->bsBuff |= (v << (32 - s->bsLive - n));
+            s->bsLive += n;
+         }
+         
+         ; curr--; /* 11 */ };
+         {EState *s = s;
+         Int32 n = 1;
+         UInt32 v = 0;
+         
+            bsNEEDW ( n );
+            s->bsBuff |= (v << (32 - s->bsLive - n));
+            s->bsLive += n;
+         }
+         
+         ;
       }
    }
 
@@ -6851,13 +2872,13 @@ void sendMTFValues ( EState* s )
       if (gs >= s->nMTF) break;
       ge = gs + BZ_G_SIZE - 1; 
       if (ge >= s->nMTF) ge = s->nMTF-1;
-      AssertH ( s->selector[selCtr] < nGroups, 3006 );
+       ( s->selector[selCtr] < 6, 3006 );
 
-      if (nGroups == 6 && 50 == ge-gs+1) {
+      if (6 == 6 && 50 == ge-gs+1) {
             /*--- fast track the common case ---*/
             UInt16 mtfv_i;
-            UChar* s_len_sel_selCtr 
-               = &(s->len[s->selector[selCtr]][0]);
+            UChar s_len_sel_selCtr 
+               = (s->len[s->selector[selCtr]][0]);
             Int32* s_code_sel_selCtr
                = &(s->code[s->selector[selCtr]][0]);
 
@@ -6867,25 +2888,32 @@ void sendMTFValues ( EState* s )
                      s_len_sel_selCtr[mtfv_i],      \
                      s_code_sel_selCtr[mtfv_i] )
 
-            BZ_ITAH(0);  BZ_ITAH(1);  BZ_ITAH(2);  BZ_ITAH(3);  BZ_ITAH(4);
-            BZ_ITAH(5);  BZ_ITAH(6);  BZ_ITAH(7);  BZ_ITAH(8);  BZ_ITAH(9);
-            BZ_ITAH(10); BZ_ITAH(11); BZ_ITAH(12); BZ_ITAH(13); BZ_ITAH(14);
-            BZ_ITAH(15); BZ_ITAH(16); BZ_ITAH(17); BZ_ITAH(18); BZ_ITAH(19);
-            BZ_ITAH(20); BZ_ITAH(21); BZ_ITAH(22); BZ_ITAH(23); BZ_ITAH(24);
-            BZ_ITAH(25); BZ_ITAH(26); BZ_ITAH(27); BZ_ITAH(28); BZ_ITAH(29);
-            BZ_ITAH(30); BZ_ITAH(31); BZ_ITAH(32); BZ_ITAH(33); BZ_ITAH(34);
-            BZ_ITAH(35); BZ_ITAH(36); BZ_ITAH(37); BZ_ITAH(38); BZ_ITAH(39);
-            BZ_ITAH(40); BZ_ITAH(41); BZ_ITAH(42); BZ_ITAH(43); BZ_ITAH(44);
-            BZ_ITAH(45); BZ_ITAH(46); BZ_ITAH(47); BZ_ITAH(48); BZ_ITAH(49);
+            (0);  (1);  (2);  (3);  (4);
+            (5);  (6);  (7);  (8);  (9);
+            (10); (11); (12); (13); (14);
+            (15); (16); (17); (18); (19);
+            (20); (21); (22); (23); (24);
+            (25); (26); (27); (28); (29);
+            (30); (31); (32); (33); (34);
+            (35); (36); (37); (38); (39);
+            (40); (41); (42); (43); (44);
+            (45); (46); (47); (48); (49);
 
 #           undef BZ_ITAH
 
       } else {
 	 /*--- slow version which correctly handles all situations ---*/
          for (i = gs; i <= ge; i++) {
-            bsW ( s, 
-                  s->len  [s->selector[selCtr]] [mtfv[i]],
-                  s->code [s->selector[selCtr]] [mtfv[i]] );
+            {EState *s = s;
+            Int32 n = s->len  [s->selector[selCtr]] [mtfv[i]];
+            UInt32 v = s->code [s->selector[selCtr]] [mtfv[i]];
+            
+               bsNEEDW ( n );
+               s->bsBuff |= (v << (32 - s->bsLive - n));
+               s->bsLive += n;
+            }
+            
+            ;
          }
       }
 
@@ -6893,7 +2921,7 @@ void sendMTFValues ( EState* s )
       gs = ge+1;
       selCtr++;
    }
-   AssertH( selCtr == nSelectors, 3007 );
+   ( selCtr == nSelectors, 3007 );
 
    if (s->verbosity >= 3)
       VPrintf1( "codes %d\n", s->numZ-nBytes );
@@ -6922,7 +2950,13 @@ void BZ2_compressBlock ( EState* s, Bool is_last_block )
 
    /*-- If this is the first block, create the stream header. --*/
    if (s->blockNo == 1) {
-      BZ2_bsInitWrite ( s );
+      {EState *s = s;
+      
+         s->bsLive = 0;
+         s->bsBuff = 0;
+      }
+      
+      ;
       bsPutUChar ( s, BZ_HDR_B );
       bsPutUChar ( s, BZ_HDR_Z );
       bsPutUChar ( s, BZ_HDR_h );
@@ -6936,7 +2970,7 @@ void BZ2_compressBlock ( EState* s, Bool is_last_block )
       bsPutUChar ( s, 0x53 ); bsPutUChar ( s, 0x59 );
 
       /*-- Now the block's CRC, so it is in a known place. --*/
-      bsPutUInt32 ( s, s->blockCRC );
+      bsPutUInt32 (   );
 
       /*-- 
          Now a single bit indicating (non-)randomisation. 
@@ -6947,9 +2981,27 @@ void BZ2_compressBlock ( EState* s, Bool is_last_block )
          so as to maintain backwards compatibility with
          older versions of bzip2.
       --*/
-      bsW(s,1,0);
+      {EState *s = s;
+      Int32 n = 1;
+      UInt32 v = 0;
+      
+         bsNEEDW ( n );
+         s->bsBuff |= (v << (32 - s->bsLive - n));
+         s->bsLive += n;
+      }
+      
+      ;
 
-      bsW ( s, 24, s->origPtr );
+      {EState *s = s;
+      Int32 n = 24;
+      UInt32 v = s->origPtr;
+      
+         bsNEEDW ( n );
+         s->bsBuff |= (v << (32 - s->bsLive - n));
+         s->bsLive += n;
+      }
+      
+      ;
       generateMTFValues ( s );
       sendMTFValues ( s );
    }
@@ -6961,10 +3013,19 @@ void BZ2_compressBlock ( EState* s, Bool is_last_block )
       bsPutUChar ( s, 0x17 ); bsPutUChar ( s, 0x72 );
       bsPutUChar ( s, 0x45 ); bsPutUChar ( s, 0x38 );
       bsPutUChar ( s, 0x50 ); bsPutUChar ( s, 0x90 );
-      bsPutUInt32 ( s, s->combinedCRC );
+      bsPutUInt32 (   );
       if (s->verbosity >= 2)
          VPrintf1( "    final combined CRC = 0x%x\n   ", s->combinedCRC );
-      bsFinishWrite ( s );
+      {
+         while (bsFinishWrite_s->bsLive > 0) {
+            bsFinishWrite_s->zbits[bsFinishWrite_s->numZ] = (UChar)(bsFinishWrite_s->bsBuff >> 24);
+            bsFinishWrite_s->numZ++;
+            bsFinishWrite_s->bsBuff <<= 8;
+            bsFinishWrite_s->bsLive -= 8;
+         }
+      }
+      
+      ;
    }
 }
 
@@ -6980,17 +3041,7 @@ void BZ2_compressBlock ( EState* s, Bool is_last_block )
 
 
 /*---------------------------------------------------*/
-static
-void makeMaps_d ( DState* s )
-{
-   Int32 i;
-   s->nInUse = 0;
-   for (i = 0; i < 256; i++)
-      if (s->inUse[i]) {
-         s->seqToUnseq[s->nInUse] = i;
-         s->nInUse++;
-      }
-}
+
 
 
 /*---------------------------------------------------*/
@@ -7236,7 +3287,18 @@ Int32 BZ2_decompress ( DState* s )
                GET_BIT(BZ_X_MAPPING_2, uc);
                if (uc == 1) s->inUse[i * 16 + j] = True;
             }
-      makeMaps_d ( s );
+      {DState *s = s;
+      
+         Int32 i;
+         s->nInUse = 0;
+         for (i = 0; i < 256; i++)
+            if (s->inUse[i]) {
+               s->seqToUnseq[s->nInUse] = i;
+               s->nInUse++;
+            }
+      }
+      
+      ;
       if (s->nInUse == 0) RETURN(BZ_DATA_ERROR);
       alphaSize = s->nInUse+2;
 
@@ -7536,10 +3598,10 @@ Int32 BZ2_decompress ( DState* s )
       s->state = BZ_X_IDLE;
       RETURN(BZ_STREAM_END);
 
-      default: AssertH ( False, 4001 );
+      default:  ( False, 4001 );
    }
 
-   AssertH ( False, 4002 );
+    ( False, 4002 );
 
    save_state_and_return:
 
@@ -7663,35 +3725,14 @@ void default_bzfree ( void* opaque, void* addr )
 
 
 /*---------------------------------------------------*/
-static
-void prepare_new_block ( EState* s )
-{
-   Int32 i;
-   s->nblock = 0;
-   s->numZ = 0;
-   s->state_out_pos = 0;
-   BZ_INITIALISE_CRC ( s->blockCRC );
-   for (i = 0; i < 256; i++) s->inUse[i] = False;
-   s->blockNo++;
-}
+
 
 
 /*---------------------------------------------------*/
-static
-void init_RL ( EState* s )
-{
-   s->state_in_ch  = 256;
-   s->state_in_len = 0;
-}
 
 
-static
-Bool isempty_RL ( EState* s )
-{
-   if (s->state_in_ch < 256 && s->state_in_len > 0)
-      return False; else
-      return True;
-}
+
+
 
 
 /*---------------------------------------------------*/
@@ -7798,12 +3839,7 @@ void add_pair_to_block ( EState* s )
 
 
 /*---------------------------------------------------*/
-static
-void flush_RL ( EState* s )
-{
-   if (s->state_in_ch < 256) add_pair_to_block ( s );
-   init_RL ( s );
-}
+
 
 
 /*---------------------------------------------------*/
@@ -7880,36 +3916,16 @@ Bool copy_input_until_stop ( EState* s )
 
 
 /*---------------------------------------------------*/
-static
-Bool copy_output_until_stop ( EState* s )
-{
-   Bool progress_out = False;
 
-   while (True) {
-
-      /*-- no output space? --*/
-      if (s->strm->avail_out == 0) break;
-
-      /*-- block done? --*/
-      if (s->state_out_pos >= s->numZ) break;
-
-      progress_out = True;
-      *(s->strm->next_out) = s->zbits[s->state_out_pos];
-      s->state_out_pos++;
-      s->strm->avail_out--;
-      s->strm->next_out++;
-      s->strm->total_out_lo32++;
-      if (s->strm->total_out_lo32 == 0) s->strm->total_out_hi32++;
-   }
-
-   return progress_out;
-}
 
 
 /*---------------------------------------------------*/
 static
 Bool handle_compress ( bz_stream* strm )
 {
+   Bool __trans_tmp_4;
+   Bool __trans_tmp_3;
+   Bool __trans_tmp_2;
    Bool progress_in  = False;
    Bool progress_out = False;
    EState* s = strm->state;
@@ -7917,22 +3933,83 @@ Bool handle_compress ( bz_stream* strm )
    while (True) {
 
       if (s->state == BZ_S_OUTPUT) {
-         progress_out |= copy_output_until_stop ( s );
+         {EState *s = s;
+         
+            Bool progress_out = False;
+         
+            while (True) {
+         
+               /*-- no output space? --*/
+               if (s->strm->avail_out == 0) break;
+         
+               /*-- block done? --*/
+               if (s->state_out_pos >= s->numZ) break;
+         
+               progress_out = True;
+               *(s->strm->next_out) = s->zbits[s->state_out_pos];
+               s->state_out_pos++;
+               s->strm->avail_out--;
+               s->strm->next_out++;
+               s->strm->total_out_lo32++;
+               if (s->strm->total_out_lo32 == 0) s->strm->total_out_hi32++;
+            }
+         
+            __trans_tmp_2 =  progress_out;
+         }
+         
+         progress_out |= __trans_tmp_2;
          if (s->state_out_pos < s->numZ) break;
+         {EState *s = s;
+         
+            if (s->state_in_ch < 256 && s->state_in_len > 0)
+               __trans_tmp_3 =  False; else
+               __trans_tmp_3 =  True;
+         }
+         
          if (s->mode == BZ_M_FINISHING && 
              s->avail_in_expect == 0 &&
-             isempty_RL(s)) break;
-         prepare_new_block ( s );
+             __trans_tmp_3) break;
+         {EState *s = s;
+         
+            Int32 i;
+            s->nblock = 0;
+            s->numZ = 0;
+            s->state_out_pos = 0;
+            BZ_INITIALISE_CRC ( s->blockCRC );
+            for (i = 0; i < 256; i++) s->inUse[i] = False;
+            s->blockNo++;
+         }
+         
+         ;
          s->state = BZ_S_INPUT;
+         {EState *s = s;
+         
+            if (s->state_in_ch < 256 && s->state_in_len > 0)
+               __trans_tmp_4 =  False; else
+               __trans_tmp_4 =  True;
+         }
+         
          if (s->mode == BZ_M_FLUSHING && 
              s->avail_in_expect == 0 &&
-             isempty_RL(s)) break;
+             __trans_tmp_4) break;
       }
 
       if (s->state == BZ_S_INPUT) {
          progress_in |= copy_input_until_stop ( s );
          if (s->mode != BZ_M_RUNNING && s->avail_in_expect == 0) {
-            flush_RL ( s );
+            {EState *s = s;
+            
+               if (s->state_in_ch < 256) add_pair_to_block ( s );
+               {EState *s = s;
+               
+                  s->state_in_ch  = 256;
+                  s->state_in_len = 0;
+               }
+               
+               ;
+            }
+            
+            ;
             BZ2_compressBlock ( s, (Bool)(s->mode == BZ_M_FINISHING) );
             s->state = BZ_S_OUTPUT;
          }
@@ -8429,7 +4506,13 @@ typedef
 
 
 /*---------------------------------------------*/
-
+static Bool myfeof ( FILE* f )
+{
+   Int32 c = fgetc ( f );
+   if (c == EOF) return True;
+   ungetc ( c, f );
+   return False;
+}
 
 
 /*---------------------------------------------------*/
@@ -9429,16 +5512,309 @@ void uInt64_toAscii ( char* outbuf, UInt64* n )
 /*---------------------------------------------*/
 
 /*---------------------------------------------*/
+static 
+void compressStream ( FILE *stream, FILE *zStream )
+{
+   BZFILE* bzf = NULL;
+   UChar   ibuf[5000];
+   Int32   nIbuf;
+   UInt32  nbytes_in_lo32, nbytes_in_hi32;
+   UInt32  nbytes_out_lo32, nbytes_out_hi32;
+   Int32   bzerr, bzerr_dummy, ret;
 
+   SET_BINARY_MODE(stream);
+   SET_BINARY_MODE(zStream);
+
+   if (ferror(stream)) goto errhandler_io;
+   if (ferror(zStream)) goto errhandler_io;
+
+   bzf = BZ2_bzWriteOpen ( &bzerr, zStream, 
+                           blockSize100k, verbosity, workFactor );   
+   if (bzerr != BZ_OK) goto errhandler;
+
+   if (verbosity >= 2) fprintf ( stderr, "\n" );
+
+   while (True) {
+
+      if (myfeof(stream)) break;
+      nIbuf = fread ( ibuf, sizeof(UChar), 5000, stream );
+      if (ferror(stream)) goto errhandler_io;
+      if (nIbuf > 0) BZ2_bzWrite ( &bzerr, bzf, (void*)ibuf, nIbuf );
+      if (bzerr != BZ_OK) goto errhandler;
+
+   }
+
+   BZ2_bzWriteClose64 ( &bzerr, bzf, 0, 
+                        &nbytes_in_lo32, &nbytes_in_hi32,
+                        &nbytes_out_lo32, &nbytes_out_hi32 );
+   if (bzerr != BZ_OK) goto errhandler;
+
+   if (ferror(zStream)) goto errhandler_io;
+   ret = fflush ( zStream );
+   if (ret == EOF) goto errhandler_io;
+   if (zStream != stdout) {
+      ret = fclose ( zStream );
+      outputHandleJustInCase = NULL;
+      if (ret == EOF) goto errhandler_io;
+   }
+   outputHandleJustInCase = NULL;
+   if (ferror(stream)) goto errhandler_io;
+   ret = fclose ( stream );
+   if (ret == EOF) goto errhandler_io;
+
+   if (verbosity >= 1) {
+      if (nbytes_in_lo32 == 0 && nbytes_in_hi32 == 0) {
+	 fprintf ( stderr, " no data compressed.\n");
+      } else {
+	 Char   buf_nin[32], buf_nout[32];
+	 UInt64 nbytes_in,   nbytes_out;
+	 double nbytes_in_d, nbytes_out_d;
+	 uInt64_from_UInt32s ( &nbytes_in, 
+			       nbytes_in_lo32, nbytes_in_hi32 );
+	 uInt64_from_UInt32s ( &nbytes_out, 
+			       nbytes_out_lo32, nbytes_out_hi32 );
+	 nbytes_in_d  = uInt64_to_double ( &nbytes_in );
+	 nbytes_out_d = uInt64_to_double ( &nbytes_out );
+	 uInt64_toAscii ( buf_nin, &nbytes_in );
+	 uInt64_toAscii ( buf_nout, &nbytes_out );
+	 fprintf ( stderr, "%6.3f:1, %6.3f bits/byte, "
+		   "%5.2f%% saved, %s in, %s out.\n",
+		   nbytes_in_d / nbytes_out_d,
+		   (8.0 * nbytes_out_d) / nbytes_in_d,
+		   100.0 * (1.0 - nbytes_out_d / nbytes_in_d),
+		   buf_nin,
+		   buf_nout
+		 );
+      }
+   }
+
+   return;
+
+   errhandler:
+   BZ2_bzWriteClose64 ( &bzerr_dummy, bzf, 1, 
+                        &nbytes_in_lo32, &nbytes_in_hi32,
+                        &nbytes_out_lo32, &nbytes_out_hi32 );
+   switch (bzerr) {
+      case BZ_CONFIG_ERROR:
+         configError(); break;
+      case BZ_MEM_ERROR:
+         outOfMemory (); break;
+      case BZ_IO_ERROR:
+         errhandler_io:
+         ioError(); break;
+      default:
+         panic ( "compress:unexpected error" );
+   }
+
+   panic ( "compress:end" );
+   /*notreached*/
+}
 
 
 
 /*---------------------------------------------*/
+static 
+Bool uncompressStream ( FILE *zStream, FILE *stream )
+{
+   BZFILE* bzf = NULL;
+   Int32   bzerr, bzerr_dummy, ret, nread, streamNo, i;
+   UChar   obuf[5000];
+   UChar   unused[BZ_MAX_UNUSED];
+   Int32   nUnused;
+   UChar*  unusedTmp;
 
+   nUnused = 0;
+   streamNo = 0;
+
+   SET_BINARY_MODE(stream);
+   SET_BINARY_MODE(zStream);
+
+   if (ferror(stream)) goto errhandler_io;
+   if (ferror(zStream)) goto errhandler_io;
+
+   while (True) {
+
+      bzf = BZ2_bzReadOpen ( 
+               &bzerr, zStream, verbosity, 
+               (int)smallMode, unused, nUnused
+            );
+      if (bzf == NULL || bzerr != BZ_OK) goto errhandler;
+      streamNo++;
+
+      while (bzerr == BZ_OK) {
+         nread = BZ2_bzRead ( &bzerr, bzf, obuf, 5000 );
+         if (bzerr == BZ_DATA_ERROR_MAGIC) goto trycat;
+         if ((bzerr == BZ_OK || bzerr == BZ_STREAM_END) && nread > 0)
+            fwrite ( obuf, sizeof(UChar), nread, stream );
+         if (ferror(stream)) goto errhandler_io;
+      }
+      if (bzerr != BZ_STREAM_END) goto errhandler;
+
+      BZ2_bzReadGetUnused ( &bzerr, bzf, (void**)(&unusedTmp), &nUnused );
+      if (bzerr != BZ_OK) panic ( "decompress:bzReadGetUnused" );
+
+      for (i = 0; i < nUnused; i++) unused[i] = unusedTmp[i];
+
+      BZ2_bzReadClose ( &bzerr, bzf );
+      if (bzerr != BZ_OK) panic ( "decompress:bzReadGetUnused" );
+
+      if (nUnused == 0 && myfeof(zStream)) break;
+   }
+
+   closeok:
+   if (ferror(zStream)) goto errhandler_io;
+   ret = fclose ( zStream );
+   if (ret == EOF) goto errhandler_io;
+
+   if (ferror(stream)) goto errhandler_io;
+   ret = fflush ( stream );
+   if (ret != 0) goto errhandler_io;
+   if (stream != stdout) {
+      ret = fclose ( stream );
+      outputHandleJustInCase = NULL;
+      if (ret == EOF) goto errhandler_io;
+   }
+   outputHandleJustInCase = NULL;
+   if (verbosity >= 2) fprintf ( stderr, "\n    " );
+   return True;
+
+   trycat: 
+   if (forceOverwrite) {
+      rewind(zStream);
+      while (True) {
+      	 if (myfeof(zStream)) break;
+      	 nread = fread ( obuf, sizeof(UChar), 5000, zStream );
+      	 if (ferror(zStream)) goto errhandler_io;
+      	 if (nread > 0) fwrite ( obuf, sizeof(UChar), nread, stream );
+      	 if (ferror(stream)) goto errhandler_io;
+      }
+      goto closeok;
+   }
+  
+   errhandler:
+   BZ2_bzReadClose ( &bzerr_dummy, bzf );
+   switch (bzerr) {
+      case BZ_CONFIG_ERROR:
+         configError(); break;
+      case BZ_IO_ERROR:
+         errhandler_io:
+         ioError(); break;
+      case BZ_DATA_ERROR:
+         crcError();
+      case BZ_MEM_ERROR:
+         outOfMemory();
+      case BZ_UNEXPECTED_EOF:
+         compressedStreamEOF();
+      case BZ_DATA_ERROR_MAGIC:
+         if (zStream != stdin) fclose(zStream);
+         if (stream != stdout) fclose(stream);
+         if (streamNo == 1) {
+            return False;
+         } else {
+            if (noisy)
+            fprintf ( stderr, 
+                      "\n%s: %s: trailing garbage after EOF ignored\n",
+                      progName, inName );
+            return True;       
+         }
+      default:
+         panic ( "decompress:unexpected error" );
+   }
+
+   panic ( "decompress:end" );
+   return True; /*notreached*/
+}
 
 
 /*---------------------------------------------*/
+static 
+Bool testStream ( FILE *zStream )
+{
+   BZFILE* bzf = NULL;
+   Int32   bzerr, bzerr_dummy, ret, nread, streamNo, i;
+   UChar   obuf[5000];
+   UChar   unused[BZ_MAX_UNUSED];
+   Int32   nUnused;
+   UChar*  unusedTmp;
 
+   nUnused = 0;
+   streamNo = 0;
+
+   SET_BINARY_MODE(zStream);
+   if (ferror(zStream)) goto errhandler_io;
+
+   while (True) {
+
+      bzf = BZ2_bzReadOpen ( 
+               &bzerr, zStream, verbosity, 
+               (int)smallMode, unused, nUnused
+            );
+      if (bzf == NULL || bzerr != BZ_OK) goto errhandler;
+      streamNo++;
+
+      while (bzerr == BZ_OK) {
+         nread = BZ2_bzRead ( &bzerr, bzf, obuf, 5000 );
+         if (bzerr == BZ_DATA_ERROR_MAGIC) goto errhandler;
+      }
+      if (bzerr != BZ_STREAM_END) goto errhandler;
+
+      BZ2_bzReadGetUnused ( &bzerr, bzf, (void**)(&unusedTmp), &nUnused );
+      if (bzerr != BZ_OK) panic ( "test:bzReadGetUnused" );
+
+      for (i = 0; i < nUnused; i++) unused[i] = unusedTmp[i];
+
+      BZ2_bzReadClose ( &bzerr, bzf );
+      if (bzerr != BZ_OK) panic ( "test:bzReadGetUnused" );
+      if (nUnused == 0 && myfeof(zStream)) break;
+
+   }
+
+   if (ferror(zStream)) goto errhandler_io;
+   ret = fclose ( zStream );
+   if (ret == EOF) goto errhandler_io;
+
+   if (verbosity >= 2) fprintf ( stderr, "\n    " );
+   return True;
+
+   errhandler:
+   BZ2_bzReadClose ( &bzerr_dummy, bzf );
+   if (verbosity == 0) 
+      fprintf ( stderr, "%s: %s: ", progName, inName );
+   switch (bzerr) {
+      case BZ_CONFIG_ERROR:
+         configError(); break;
+      case BZ_IO_ERROR:
+         errhandler_io:
+         ioError(); break;
+      case BZ_DATA_ERROR:
+         fprintf ( stderr,
+                   "data integrity (CRC) error in data\n" );
+         return False;
+      case BZ_MEM_ERROR:
+         outOfMemory();
+      case BZ_UNEXPECTED_EOF:
+         fprintf ( stderr,
+                   "file ends unexpectedly\n" );
+         return False;
+      case BZ_DATA_ERROR_MAGIC:
+         if (zStream != stdin) fclose(zStream);
+         if (streamNo == 1) {
+          fprintf ( stderr, 
+                    "bad magic number (file not created by bzip2)\n" );
+            return False;
+         } else {
+            if (noisy)
+            fprintf ( stderr, 
+                      "trailing garbage after EOF ignored\n" );
+            return True;       
+         }
+      default:
+         panic ( "test:unexpected error" );
+   }
+
+   panic ( "test:end" );
+   return True; /*notreached*/
+}
 
 
 /*---------------------------------------------------*/
@@ -9446,39 +5822,15 @@ void uInt64_toAscii ( char* outbuf, UInt64* n )
 /*---------------------------------------------------*/
 
 /*---------------------------------------------*/
-static
-void setExit ( Int32 v )
-{
-   if (v > exitValue) exitValue = v;
-}
+
 
 
 /*---------------------------------------------*/
-static 
-void cadvise ( void )
-{
-   if (noisy)
-   fprintf (
-      stderr,
-      "\nIt is possible that the compressed file(s) have become corrupted.\n"
-        "You can use the -tvv option to test integrity of such files.\n\n"
-        "You can use the `bzip2recover' program to attempt to recover\n"
-        "data from undamaged sections of corrupted files.\n\n"
-    );
-}
+
 
 
 /*---------------------------------------------*/
-static 
-void showFileNames ( void )
-{
-   if (noisy)
-   fprintf (
-      stderr,
-      "\tInput file = %s, output file = %s\n",
-      inName, outName 
-   );
-}
+
 
 
 /*---------------------------------------------*/
@@ -9535,7 +5887,12 @@ void cleanUpAndFail ( Int32 ec )
                 progName, progName,
                 numFileNames, numFileNames - numFilesProcessed );
    }
-   setExit(ec);
+   {Int32 v = ec;
+   
+      if (v > exitValue) exitValue = v;
+   }
+   
+   ;
    exit(exitValue);
 }
 
@@ -9550,7 +5907,16 @@ void panic ( Char* s )
              "\tThis is a BUG.  Please report it to me at:\n"
              "\tjseward@acm.org\n",
              progName, s );
-   showFileNames();
+   {
+      if (noisy)
+      fprintf (
+         stderr,
+         "\tInput file = %s, output file = %s\n",
+         inName, outName 
+      );
+   }
+   
+   ;
    cleanUpAndFail( 3 );
 }
 
@@ -9562,8 +5928,28 @@ void crcError ( void )
    fprintf ( stderr,
              "\n%s: Data integrity error when decompressing.\n",
              progName );
-   showFileNames();
-   cadvise();
+   {
+      if (noisy)
+      fprintf (
+         stderr,
+         "\tInput file = %s, output file = %s\n",
+         inName, outName 
+      );
+   }
+   
+   ;
+   {
+      if (noisy)
+      fprintf (
+         stderr,
+         "\nIt is possible that the compressed file(s) have become corrupted.\n"
+           "You can use the -tvv option to test integrity of such files.\n\n"
+           "You can use the `bzip2recover' program to attempt to recover\n"
+           "data from undamaged sections of corrupted files.\n\n"
+       );
+   }
+   
+   ;
    cleanUpAndFail( 2 );
 }
 
@@ -9578,8 +5964,28 @@ void compressedStreamEOF ( void )
 	      "perhaps it is corrupted?  *Possible* reason follows.\n",
 	      progName );
     perror ( progName );
-    showFileNames();
-    cadvise();
+    {
+       if (noisy)
+       fprintf (
+          stderr,
+          "\tInput file = %s, output file = %s\n",
+          inName, outName 
+       );
+    }
+    
+    ;
+    {
+       if (noisy)
+       fprintf (
+          stderr,
+          "\nIt is possible that the compressed file(s) have become corrupted.\n"
+            "You can use the -tvv option to test integrity of such files.\n\n"
+            "You can use the `bzip2recover' program to attempt to recover\n"
+            "data from undamaged sections of corrupted files.\n\n"
+        );
+    }
+    
+    ;
   }
   cleanUpAndFail( 2 );
 }
@@ -9594,7 +6000,16 @@ void ioError ( void )
              "Possible reason follows.\n",
              progName );
    perror ( progName );
-   showFileNames();
+   {
+      if (noisy)
+      fprintf (
+         stderr,
+         "\tInput file = %s, output file = %s\n",
+         inName, outName 
+      );
+   }
+   
+   ;
    cleanUpAndFail( 1 );
 }
 
@@ -9659,10 +6074,30 @@ void mySIGSEGVorSIGBUScatcher ( IntNative n )
       "\n",
       progName );
 
-   showFileNames();
+   {
+      if (noisy)
+      fprintf (
+         stderr,
+         "\tInput file = %s, output file = %s\n",
+         inName, outName 
+      );
+   }
+   
+   ;
    if (opMode == OM_Z)
       cleanUpAndFail( 3 ); else
-      { cadvise(); cleanUpAndFail( 2 ); }
+      { {
+         if (noisy)
+         fprintf (
+            stderr,
+            "\nIt is possible that the compressed file(s) have become corrupted.\n"
+              "You can use the -tvv option to test integrity of such files.\n\n"
+              "You can use the `bzip2recover' program to attempt to recover\n"
+              "data from undamaged sections of corrupted files.\n\n"
+          );
+      }
+      
+      ; cleanUpAndFail( 2 ); }
 }
 
 
@@ -9673,7 +6108,16 @@ void outOfMemory ( void )
    fprintf ( stderr,
              "\n%s: couldn't allocate enough memory\n",
              progName );
-   showFileNames();
+   {
+      if (noisy)
+      fprintf (
+         stderr,
+         "\tInput file = %s, output file = %s\n",
+         inName, outName 
+      );
+   }
+   
+   ;
    cleanUpAndFail(1);
 }
 
@@ -9688,7 +6132,12 @@ void configError ( void )
              "\tof 4, 2 and 1 bytes to run properly, and they don't.\n"
              "\tProbably you can fix this by defining them correctly,\n"
              "\tand recompiling.  Bye!\n" );
-   setExit(3);
+   {Int32 v = 3;
+   
+      if (v > exitValue) exitValue = v;
+   }
+   
+   ;
    exit(exitValue);
 }
 
@@ -9703,14 +6152,7 @@ void configError ( void )
 */
 
 /*---------------------------------------------*/
-static 
-void pad ( Char *s )
-{
-   Int32 i;
-   if ( (Int32)strlen(s) >= longestFileName ) return;
-   for (i = 1; i <= longestFileName - (Int32)strlen(s); i++)
-      fprintf ( stderr, " " );
-}
+
 
 
 /*---------------------------------------------*/
@@ -9725,7 +6167,12 @@ void copyFileName ( Char* to, Char* from )
          "Try using a reasonable file name instead.  Sorry! :-)\n",
          from, FILE_NAME_LEN-10
       );
-      setExit(1);
+      {Int32 v = 1;
+      
+         if (v > exitValue) exitValue = v;
+      }
+      
+      ;
       exit(exitValue);
    }
 
@@ -9735,14 +6182,7 @@ void copyFileName ( Char* to, Char* from )
 
 
 /*---------------------------------------------*/
-static 
-Bool fileExists ( Char* name )
-{
-   FILE *tmp   = fopen ( name, "rb" );
-   Bool exists = (tmp != NULL);
-   if (tmp != NULL) fclose ( tmp );
-   return exists;
-}
+
 
 
 /*---------------------------------------------*/
@@ -9755,7 +6195,20 @@ Bool fileExists ( Char* name )
    For non-Unix platforms, if we are not worrying about
    security issues, simple this simply behaves like fopen.
 */
-
+FILE* fopen_output_safely ( Char* name, const char* mode )
+{
+#  if BZ_UNIX
+   FILE*     fp;
+   IntNative fh;
+   fh = open(name, O_WRONLY|O_CREAT|O_EXCL, S_IWUSR|S_IRUSR);
+   if (fh == -1) return NULL;
+   fp = fdopen(fh, mode);
+   if (fp == NULL) close(fh);
+   return fp;
+#  else
+   return fopen(name, mode);
+#  endif
+}
 
 
 /*---------------------------------------------*/
@@ -9819,60 +6272,14 @@ static
 struct MY_STAT fileMetaInfo;
 #endif
 
-static 
-void saveInputFileMetaInfo ( Char *srcName )
-{
-#  if BZ_UNIX
-   IntNative retVal;
-   /* Note use of stat here, not lstat. */
-   retVal = MY_STAT( srcName, &fileMetaInfo );
-   ERROR_IF_NOT_ZERO ( retVal );
-#  endif
-}
 
 
-static 
-void applySavedMetaInfoToOutputFile ( Char *dstName )
-{
-#  if BZ_UNIX
-   IntNative      retVal;
-   struct utimbuf uTimBuf;
 
-   uTimBuf.actime = fileMetaInfo.st_atime;
-   uTimBuf.modtime = fileMetaInfo.st_mtime;
 
-   retVal = chmod ( dstName, fileMetaInfo.st_mode );
-   ERROR_IF_NOT_ZERO ( retVal );
-
-   retVal = utime ( dstName, &uTimBuf );
-   ERROR_IF_NOT_ZERO ( retVal );
-
-   retVal = chown ( dstName, fileMetaInfo.st_uid, fileMetaInfo.st_gid );
-   /* chown() will in many cases return with EPERM, which can
-      be safely ignored.
-   */
-#  endif
-}
 
 
 /*---------------------------------------------*/
-static 
-Bool containsDubiousChars ( Char* name )
-{
-#  if BZ_UNIX
-   /* On unix, files can contain any characters and the file expansion
-    * is performed by the shell.
-    */
-   return False;
-#  else /* ! BZ_UNIX */
-   /* On non-unix (Win* platforms), wildcard characters are not allowed in 
-    * filenames.
-    */
-   for (; *name != '\0'; name++)
-      if (*name == '?' || *name == '*') return True;
-   return False;
-#  endif /* BZ_UNIX */
-}
+
 
 
 /*---------------------------------------------*/
@@ -9893,21 +6300,16 @@ Bool hasSuffix ( Char* s, Char* suffix )
    return False;
 }
 
-static 
-Bool mapSuffix ( Char* name, 
-                 Char* oldSuffix, Char* newSuffix )
-{
-   if (!hasSuffix(name,oldSuffix)) return False;
-   name[strlen(name)-strlen(oldSuffix)] = 0;
-   strcat ( name, newSuffix );
-   return True;
-}
+
 
 
 /*---------------------------------------------*/
 static 
 void compress ( Char *name )
 {
+   Bool __trans_tmp_7;
+   Bool __trans_tmp_6;
+   Bool __trans_tmp_5;
    FILE  *inStr;
    FILE  *outStr;
    Int32 n, i;
@@ -9934,17 +6336,52 @@ void compress ( Char *name )
          break;
    }
 
-   if ( srcMode != SM_I2O && containsDubiousChars ( inName ) ) {
+   {Char *name = inName;
+   
+   #  if BZ_UNIX
+      /* On unix, files can contain any characters and the file expansion
+       * is performed by the shell.
+       */
+      __trans_tmp_5 =  False;
+   #  else /* ! BZ_UNIX */
+      /* On non-unix (Win* platforms), wildcard characters are not allowed in 
+       * filenames.
+       */
+      for (; *name != '\0'; name++)
+         if (*name == '?' || *name == '*') return True;
+      return False;
+   #  endif /* BZ_UNIX */
+   }
+   
+   if ( srcMode != SM_I2O && __trans_tmp_5 ) {
       if (noisy)
       fprintf ( stderr, "%s: There are no files matching `%s'.\n",
                 progName, inName );
-      setExit(1);
+      {Int32 v = 1;
+      
+         if (v > exitValue) exitValue = v;
+      }
+      
+      ;
       return;
    }
-   if ( srcMode != SM_I2O && !fileExists ( inName ) ) {
+   {Char *name = inName;
+   
+      FILE *tmp   = fopen ( name, "rb" );
+      Bool exists = (tmp != NULL);
+      if (tmp != NULL) fclose ( tmp );
+      __trans_tmp_6 =  exists;
+   }
+   
+   if ( srcMode != SM_I2O && !__trans_tmp_6 ) {
       fprintf ( stderr, "%s: Can't open input file %s: %s.\n",
                 progName, inName, strerror(errno) );
-      setExit(1);
+      {Int32 v = 1;
+      
+         if (v > exitValue) exitValue = v;
+      }
+      
+      ;
       return;
    }
    for (i = 0; i < BZ_N_SUFFIX_PAIRS; i++) {
@@ -9953,7 +6390,12 @@ void compress ( Char *name )
          fprintf ( stderr, 
                    "%s: Input file %s already has %s suffix.\n",
                    progName, inName, zSuffix[i] );
-         setExit(1);
+         {Int32 v = 1;
+         
+            if (v > exitValue) exitValue = v;
+         }
+         
+         ;
          return;
       }
    }
@@ -9971,16 +6413,34 @@ void compress ( Char *name )
       if (noisy)
       fprintf ( stderr, "%s: Input file %s is not a normal file.\n",
                 progName, inName );
-      setExit(1);
+      {Int32 v = 1;
+      
+         if (v > exitValue) exitValue = v;
+      }
+      
+      ;
       return;
    }
-   if ( srcMode == SM_F2F && fileExists ( outName ) ) {
+   {Char *name = outName;
+   
+      FILE *tmp   = fopen ( name, "rb" );
+      Bool exists = (tmp != NULL);
+      if (tmp != NULL) fclose ( tmp );
+      __trans_tmp_7 =  exists;
+   }
+   
+   if ( srcMode == SM_F2F && __trans_tmp_7 ) {
       if (forceOverwrite) {
 	 remove(outName);
       } else {
 	 fprintf ( stderr, "%s: Output file %s already exists.\n",
 		   progName, outName );
-	 setExit(1);
+	 {Int32 v = 1;
+	 
+	    if (v > exitValue) exitValue = v;
+	 }
+	 
+	 ;
 	 return;
       }
    }
@@ -9988,14 +6448,29 @@ void compress ( Char *name )
         (n=countHardLinks ( inName )) > 0) {
       fprintf ( stderr, "%s: Input file %s has %d other link%s.\n",
                 progName, inName, n, n > 1 ? "s" : "" );
-      setExit(1);
+      {Int32 v = 1;
+      
+         if (v > exitValue) exitValue = v;
+      }
+      
+      ;
       return;
    }
 
    if ( srcMode == SM_F2F ) {
       /* Save the file's meta-info before we open it.  Doing it later
          means we mess up the access times. */
-      saveInputFileMetaInfo ( inName );
+      {Char *srcName = inName;
+      
+      #  if BZ_UNIX
+         IntNative retVal;
+         /* Note use of stat here, not lstat. */
+         retVal = MY_STAT( srcName, &fileMetaInfo );
+          ( retVal );
+      #  endif
+      }
+      
+      ;
    }
 
    switch ( srcMode ) {
@@ -10055,13 +6530,44 @@ void compress ( Char *name )
          break;
 
       default:
-         panic ( "compress: bad srcMode" );
+         {
+         {Char *s = "compress: bad srcMode";
+         
+            fprintf ( stderr,
+                      "\n%s: PANIC -- internal consistency error:\n"
+                      "\t%s\n"
+                      "\tThis is a BUG.  Please report it to me at:\n"
+                      "\tjseward@acm.org\n",
+                      progName, s );
+            {
+               if (noisy)
+               fprintf (
+                  stderr,
+                  "\tInput file = %s, output file = %s\n",
+                  inName, outName 
+               );
+            }
+            
+            ;
+            cleanUpAndFail( 3 );
+         }
+         
+         ;
+         }
          break;
    }
 
    if (verbosity >= 1) {
       fprintf ( stderr,  "  %s: ", inName );
-      pad ( inName );
+      {Char s = inName[0];
+      
+         Int32 i;
+         if ( (Int32)strlen(&s) >= longestFileName ) ;
+         for (i = 1; i <= longestFileName - (Int32)strlen(s); i++)
+            fprintf ( stderr, " " );
+      }
+      
+      ;
       fflush ( stderr );
    }
 
@@ -10073,11 +6579,33 @@ void compress ( Char *name )
 
    /*--- If there was an I/O error, we won't get here. ---*/
    if ( srcMode == SM_F2F ) {
-      applySavedMetaInfoToOutputFile ( outName );
+      {Char *dstName = outName;
+      
+      #  if BZ_UNIX
+         IntNative      retVal;
+         struct utimbuf uTimBuf;
+      
+         uTimBuf.actime = fileMetaInfo.st_atime;
+         uTimBuf.modtime = fileMetaInfo.st_mtime;
+      
+         retVal = chmod ( dstName, fileMetaInfo.st_mode );
+          ( retVal );
+      
+         retVal = utime ( dstName, &uTimBuf );
+          ( retVal );
+      
+         retVal = chown ( dstName, fileMetaInfo.st_uid, fileMetaInfo.st_gid );
+         /* chown() will in many cases return with EPERM, which can
+            be safely ignored.
+         */
+      #  endif
+      }
+      
+      ;
       deleteOutputOnInterrupt = False;
       if ( !keepInputFiles ) {
          IntNative retVal = remove ( inName );
-         ERROR_IF_NOT_ZERO ( retVal );
+          ( retVal );
       }
    }
 
@@ -10089,6 +6617,10 @@ void compress ( Char *name )
 static 
 void uncompress ( Char *name )
 {
+   Bool __trans_tmp_11;
+   Bool __trans_tmp_10;
+   Bool __trans_tmp_9;
+   Bool __trans_tmp_8;
    FILE  *inStr;
    FILE  *outStr;
    Int32 n, i;
@@ -10111,8 +6643,20 @@ void uncompress ( Char *name )
          copyFileName ( inName, name );
          copyFileName ( outName, name );
          for (i = 0; i < BZ_N_SUFFIX_PAIRS; i++)
-            if (mapSuffix(outName,zSuffix[i],unzSuffix[i]))
-               goto zzz; 
+            {
+            {Char *name = outName;
+            Char *oldSuffix = zSuffix[i];
+            Char *newSuffix = unzSuffix[i];
+            
+               if (!hasSuffix(name,oldSuffix)) __trans_tmp_8 =  False;
+               name[strlen(name)-strlen(oldSuffix)] = 0;
+               strcat ( name, newSuffix );
+               __trans_tmp_8 =  True;
+            }
+            
+            if (__trans_tmp_8)
+               goto zzz;
+            } 
          cantGuess = True;
          strcat ( outName, ".out" );
          break;
@@ -10122,18 +6666,53 @@ void uncompress ( Char *name )
          break;
    }
 
+   {Char *name = inName;
+   
+   #  if BZ_UNIX
+      /* On unix, files can contain any characters and the file expansion
+       * is performed by the shell.
+       */
+      __trans_tmp_9 =  False;
+   #  else /* ! BZ_UNIX */
+      /* On non-unix (Win* platforms), wildcard characters are not allowed in 
+       * filenames.
+       */
+      for (; *name != '\0'; name++)
+         if (*name == '?' || *name == '*') return True;
+      return False;
+   #  endif /* BZ_UNIX */
+   }
+   
    zzz:
-   if ( srcMode != SM_I2O && containsDubiousChars ( inName ) ) {
+   if ( srcMode != SM_I2O && __trans_tmp_9 ) {
       if (noisy)
       fprintf ( stderr, "%s: There are no files matching `%s'.\n",
                 progName, inName );
-      setExit(1);
+      {Int32 v = 1;
+      
+         if (v > exitValue) exitValue = v;
+      }
+      
+      ;
       return;
    }
-   if ( srcMode != SM_I2O && !fileExists ( inName ) ) {
+   {Char *name = inName;
+   
+      FILE *tmp   = fopen ( name, "rb" );
+      Bool exists = (tmp != NULL);
+      if (tmp != NULL) fclose ( tmp );
+      __trans_tmp_10 =  exists;
+   }
+   
+   if ( srcMode != SM_I2O && !__trans_tmp_10 ) {
       fprintf ( stderr, "%s: Can't open input file %s: %s.\n",
                 progName, inName, strerror(errno) );
-      setExit(1);
+      {Int32 v = 1;
+      
+         if (v > exitValue) exitValue = v;
+      }
+      
+      ;
       return;
    }
    if ( srcMode == SM_F2F || srcMode == SM_F2O ) {
@@ -10150,7 +6729,12 @@ void uncompress ( Char *name )
       if (noisy)
       fprintf ( stderr, "%s: Input file %s is not a normal file.\n",
                 progName, inName );
-      setExit(1);
+      {Int32 v = 1;
+      
+         if (v > exitValue) exitValue = v;
+      }
+      
+      ;
       return;
    }
    if ( /* srcMode == SM_F2F implied && */ cantGuess ) {
@@ -10160,13 +6744,26 @@ void uncompress ( Char *name )
                 progName, inName, outName );
       /* just a warning, no return */
    }   
-   if ( srcMode == SM_F2F && fileExists ( outName ) ) {
+   {Char *name = outName;
+   
+      FILE *tmp   = fopen ( name, "rb" );
+      Bool exists = (tmp != NULL);
+      if (tmp != NULL) fclose ( tmp );
+      __trans_tmp_11 =  exists;
+   }
+   
+   if ( srcMode == SM_F2F && __trans_tmp_11 ) {
       if (forceOverwrite) {
 	remove(outName);
       } else {
         fprintf ( stderr, "%s: Output file %s already exists.\n",
                   progName, outName );
-        setExit(1);
+        {Int32 v = 1;
+        
+           if (v > exitValue) exitValue = v;
+        }
+        
+        ;
         return;
       }
    }
@@ -10174,14 +6771,29 @@ void uncompress ( Char *name )
         (n=countHardLinks ( inName ) ) > 0) {
       fprintf ( stderr, "%s: Input file %s has %d other link%s.\n",
                 progName, inName, n, n > 1 ? "s" : "" );
-      setExit(1);
+      {Int32 v = 1;
+      
+         if (v > exitValue) exitValue = v;
+      }
+      
+      ;
       return;
    }
 
    if ( srcMode == SM_F2F ) {
       /* Save the file's meta-info before we open it.  Doing it later
          means we mess up the access times. */
-      saveInputFileMetaInfo ( inName );
+      {Char *srcName = inName;
+      
+      #  if BZ_UNIX
+         IntNative retVal;
+         /* Note use of stat here, not lstat. */
+         retVal = MY_STAT( srcName, &fileMetaInfo );
+          ( retVal );
+      #  endif
+      }
+      
+      ;
    }
 
    switch ( srcMode ) {
@@ -10232,13 +6844,44 @@ void uncompress ( Char *name )
          break;
 
       default:
-         panic ( "uncompress: bad srcMode" );
+         {
+         {Char *s = "uncompress: bad srcMode";
+         
+            fprintf ( stderr,
+                      "\n%s: PANIC -- internal consistency error:\n"
+                      "\t%s\n"
+                      "\tThis is a BUG.  Please report it to me at:\n"
+                      "\tjseward@acm.org\n",
+                      progName, s );
+            {
+               if (noisy)
+               fprintf (
+                  stderr,
+                  "\tInput file = %s, output file = %s\n",
+                  inName, outName 
+               );
+            }
+            
+            ;
+            cleanUpAndFail( 3 );
+         }
+         
+         ;
+         }
          break;
    }
 
    if (verbosity >= 1) {
       fprintf ( stderr, "  %s: ", inName );
-      pad ( inName );
+      {Char *s = inName;
+      
+         Int32 i;
+         if ( (Int32)strlen(s) >= longestFileName ) ;
+         for (i = 1; i <= longestFileName - (Int32)strlen(s); i++)
+            fprintf ( stderr, " " );
+      }
+      
+      ;
       fflush ( stderr );
    }
 
@@ -10251,11 +6894,33 @@ void uncompress ( Char *name )
    /*--- If there was an I/O error, we won't get here. ---*/
    if ( magicNumberOK ) {
       if ( srcMode == SM_F2F ) {
-         applySavedMetaInfoToOutputFile ( outName );
+         {Char *dstName = outName;
+         
+         #  if BZ_UNIX
+            IntNative      retVal;
+            struct utimbuf uTimBuf;
+         
+            uTimBuf.actime = fileMetaInfo.st_atime;
+            uTimBuf.modtime = fileMetaInfo.st_mtime;
+         
+            retVal = chmod ( dstName, fileMetaInfo.st_mode );
+             ( retVal );
+         
+            retVal = utime ( dstName, &uTimBuf );
+             ( retVal );
+         
+            retVal = chown ( dstName, fileMetaInfo.st_uid, fileMetaInfo.st_gid );
+            /* chown() will in many cases return with EPERM, which can
+               be safely ignored.
+            */
+         #  endif
+         }
+         
+         ;
          deleteOutputOnInterrupt = False;
          if ( !keepInputFiles ) {
             IntNative retVal = remove ( inName );
-            ERROR_IF_NOT_ZERO ( retVal );
+             ( retVal );
          }
       }
    } else {
@@ -10263,7 +6928,7 @@ void uncompress ( Char *name )
       deleteOutputOnInterrupt = False;
       if ( srcMode == SM_F2F ) {
          IntNative retVal = remove ( outName );
-         ERROR_IF_NOT_ZERO ( retVal );
+          ( retVal );
       }
    }
    deleteOutputOnInterrupt = False;
@@ -10272,7 +6937,12 @@ void uncompress ( Char *name )
       if (verbosity >= 1)
          fprintf ( stderr, "done\n" );
    } else {
-      setExit(2);
+      {Int32 v = 2;
+      
+         if (v > exitValue) exitValue = v;
+      }
+      
+      ;
       if (verbosity >= 1)
          fprintf ( stderr, "not a bzip2 file.\n" ); else
          fprintf ( stderr,
@@ -10287,6 +6957,8 @@ void uncompress ( Char *name )
 static 
 void testf ( Char *name )
 {
+   Bool __trans_tmp_13;
+   Bool __trans_tmp_12;
    FILE *inStr;
    Bool allOK;
    struct MY_STAT statBuf;
@@ -10303,17 +6975,52 @@ void testf ( Char *name )
       case SM_F2O: copyFileName ( inName, name ); break;
    }
 
-   if ( srcMode != SM_I2O && containsDubiousChars ( inName ) ) {
+   {Char *name = inName;
+   
+   #  if BZ_UNIX
+      /* On unix, files can contain any characters and the file expansion
+       * is performed by the shell.
+       */
+      __trans_tmp_12 =  False;
+   #  else /* ! BZ_UNIX */
+      /* On non-unix (Win* platforms), wildcard characters are not allowed in 
+       * filenames.
+       */
+      for (; *name != '\0'; name++)
+         if (*name == '?' || *name == '*') return True;
+      return False;
+   #  endif /* BZ_UNIX */
+   }
+   
+   if ( srcMode != SM_I2O && __trans_tmp_12 ) {
       if (noisy)
       fprintf ( stderr, "%s: There are no files matching `%s'.\n",
                 progName, inName );
-      setExit(1);
+      {Int32 v = 1;
+      
+         if (v > exitValue) exitValue = v;
+      }
+      
+      ;
       return;
    }
-   if ( srcMode != SM_I2O && !fileExists ( inName ) ) {
+   {Char *name = inName;
+   
+      FILE *tmp   = fopen ( name, "rb" );
+      Bool exists = (tmp != NULL);
+      if (tmp != NULL) fclose ( tmp );
+      __trans_tmp_13 =  exists;
+   }
+   
+   if ( srcMode != SM_I2O && !__trans_tmp_13 ) {
       fprintf ( stderr, "%s: Can't open input %s: %s.\n",
                 progName, inName, strerror(errno) );
-      setExit(1);
+      {Int32 v = 1;
+      
+         if (v > exitValue) exitValue = v;
+      }
+      
+      ;
       return;
    }
    if ( srcMode != SM_I2O ) {
@@ -10353,13 +7060,44 @@ void testf ( Char *name )
          break;
 
       default:
-         panic ( "testf: bad srcMode" );
+         {
+         {Char *s = "testf: bad srcMode";
+         
+            fprintf ( stderr,
+                      "\n%s: PANIC -- internal consistency error:\n"
+                      "\t%s\n"
+                      "\tThis is a BUG.  Please report it to me at:\n"
+                      "\tjseward@acm.org\n",
+                      progName, s );
+            {
+               if (noisy)
+               fprintf (
+                  stderr,
+                  "\tInput file = %s, output file = %s\n",
+                  inName, outName 
+               );
+            }
+            
+            ;
+            cleanUpAndFail( 3 );
+         }
+         
+         ;
+         }
          break;
    }
 
    if (verbosity >= 1) {
       fprintf ( stderr, "  %s: ", inName );
-      pad ( inName );
+      {Char *s = inName;
+      
+         Int32 i;
+         if ( (Int32)strlen(s) >= longestFileName ) ;
+         for (i = 1; i <= longestFileName - (Int32)strlen(s); i++)
+            fprintf ( stderr, " " );
+      }
+      
+      ;
       fflush ( stderr );
    }
 
@@ -10373,83 +7111,15 @@ void testf ( Char *name )
 
 
 /*---------------------------------------------*/
-static 
-void license ( void )
-{
-   fprintf ( stderr,
 
-    "bzip2, a block-sorting file compressor.  "
-    "Version %s.\n"
-    "   \n"
-    "   Copyright (C) 1996-2002 by Julian Seward.\n"
-    "   \n"
-    "   This program is free software; you can redistribute it and/or modify\n"
-    "   it under the terms set out in the LICENSE file, which is included\n"
-    "   in the bzip2-1.0 source distribution.\n"
-    "   \n"
-    "   This program is distributed in the hope that it will be useful,\n"
-    "   but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-    "   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-    "   LICENSE file for more details.\n"
-    "   \n",
-    BZ2_bzlibVersion()
-   );
-}
 
 
 /*---------------------------------------------*/
-static 
-void usage ( Char *fullProgName )
-{
-   fprintf (
-      stderr,
-      "bzip2, a block-sorting file compressor.  "
-      "Version %s.\n"
-      "\n   usage: %s [flags and input files in any order]\n"
-      "\n"
-      "   -h --help           print this message\n"
-      "   -d --decompress     force decompression\n"
-      "   -z --compress       force compression\n"
-      "   -k --keep           keep (don't delete) input files\n"
-      "   -f --force          overwrite existing output files\n"
-      "   -t --test           test compressed file integrity\n"
-      "   -c --stdout         output to standard out\n"
-      "   -q --quiet          suppress noncritical error messages\n"
-      "   -v --verbose        be verbose (a 2nd -v gives more)\n"
-      "   -L --license        display software version & license\n"
-      "   -V --version        display software version & license\n"
-      "   -s --small          use less memory (at most 2500k)\n"
-      "   -1 .. -9            set block size to 100k .. 900k\n"
-      "   --fast              alias for -1\n"
-      "   --best              alias for -9\n"
-      "\n"
-      "   If invoked as `bzip2', default action is to compress.\n"
-      "              as `bunzip2',  default action is to decompress.\n"
-      "              as `bzcat', default action is to decompress to stdout.\n"
-      "\n"
-      "   If no file names are given, bzip2 compresses or decompresses\n"
-      "   from standard input to standard output.  You can combine\n"
-      "   short flags, so `-v -4' means the same as -v4 or -4v, &c.\n"
-#     if BZ_UNIX
-      "\n"
-#     endif
-      ,
 
-      BZ2_bzlibVersion(),
-      fullProgName
-   );
-}
 
 
 /*---------------------------------------------*/
-static 
-void redundant ( Char* flag )
-{
-   fprintf ( 
-      stderr, 
-      "%s: %s is redundant in versions 0.9.5 and above\n",
-      progName, flag );
-}
+
 
 
 /*---------------------------------------------*/
@@ -10561,7 +7231,25 @@ IntNative main ( IntNative argc, Char *argv[] )
    if (sizeof(Int32) != 4 || sizeof(UInt32) != 4  ||
        sizeof(Int16) != 2 || sizeof(UInt16) != 2  ||
        sizeof(Char)  != 1 || sizeof(UChar)  != 1)
-      configError();
+      {
+      {
+         fprintf ( stderr,
+                   "bzip2: I'm not configured correctly for this platform!\n"
+                   "\tI require Int32, Int16 and Char to have sizes\n"
+                   "\tof 4, 2 and 1 bytes to run properly, and they don't.\n"
+                   "\tProbably you can fix this by defining them correctly,\n"
+                   "\tand recompiling.  Bye!\n" );
+         {Int32 v = 3;
+         
+            if (v > exitValue) exitValue = v;
+         }
+         
+         ;
+         exit(exitValue);
+      }
+      
+      ;
+      }
 
    /*-- Initialise --*/
    outputHandleJustInCase  = NULL;
@@ -10666,14 +7354,121 @@ IntNative main ( IntNative argc, Char *argv[] )
                case '8': blockSize100k    = 8; break;
                case '9': blockSize100k    = 9; break;
                case 'V':
-               case 'L': license();            break;
+               case 'L': {
+               {
+                  fprintf ( stderr,
+               
+                   "bzip2, a block-sorting file compressor.  "
+                   "Version %s.\n"
+                   "   \n"
+                   "   Copyright (C) 1996-2002 by Julian Seward.\n"
+                   "   \n"
+                   "   This program is free software; you can redistribute it and/or modify\n"
+                   "   it under the terms set out in the LICENSE file, which is included\n"
+                   "   in the bzip2-1.0 source distribution.\n"
+                   "   \n"
+                   "   This program is distributed in the hope that it will be useful,\n"
+                   "   but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+                   "   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+                   "   LICENSE file for more details.\n"
+                   "   \n",
+                   BZ2_bzlibVersion()
+                  );
+               }
+               
+               ;
+               }            break;
                case 'v': verbosity++; break;
-               case 'h': usage ( progName );
+               case 'h': {
+               {Char *fullProgName = progName;
+               
+                  fprintf (
+                     stderr,
+                     "bzip2, a block-sorting file compressor.  "
+                     "Version %s.\n"
+                     "\n   usage: %s [flags and input files in any order]\n"
+                     "\n"
+                     "   -h --help           print this message\n"
+                     "   -d --decompress     force decompression\n"
+                     "   -z --compress       force compression\n"
+                     "   -k --keep           keep (don't delete) input files\n"
+                     "   -f --force          overwrite existing output files\n"
+                     "   -t --test           test compressed file integrity\n"
+                     "   -c --stdout         output to standard out\n"
+                     "   -q --quiet          suppress noncritical error messages\n"
+                     "   -v --verbose        be verbose (a 2nd -v gives more)\n"
+                     "   -L --license        display software version & license\n"
+                     "   -V --version        display software version & license\n"
+                     "   -s --small          use less memory (at most 2500k)\n"
+                     "   -1 .. -9            set block size to 100k .. 900k\n"
+                     "   --fast              alias for -1\n"
+                     "   --best              alias for -9\n"
+                     "\n"
+                     "   If invoked as `bzip2', default action is to compress.\n"
+                     "              as `bunzip2',  default action is to decompress.\n"
+                     "              as `bzcat', default action is to decompress to stdout.\n"
+                     "\n"
+                     "   If no file names are given, bzip2 compresses or decompresses\n"
+                     "   from standard input to standard output.  You can combine\n"
+                     "   short flags, so `-v -4' means the same as -v4 or -4v, &c.\n"
+               #     if BZ_UNIX
+                     "\n"
+               #     endif
+                     ,
+               
+                     BZ2_bzlibVersion(),
+                     fullProgName
+                  );
+               }
+               
+               ;
+               }
                          exit ( 0 );
                          break;
                default:  fprintf ( stderr, "%s: Bad flag `%s'\n",
                                    progName, aa->name );
-                         usage ( progName );
+                         {Char *fullProgName = progName;
+                         
+                            fprintf (
+                               stderr,
+                               "bzip2, a block-sorting file compressor.  "
+                               "Version %s.\n"
+                               "\n   usage: %s [flags and input files in any order]\n"
+                               "\n"
+                               "   -h --help           print this message\n"
+                               "   -d --decompress     force decompression\n"
+                               "   -z --compress       force compression\n"
+                               "   -k --keep           keep (don't delete) input files\n"
+                               "   -f --force          overwrite existing output files\n"
+                               "   -t --test           test compressed file integrity\n"
+                               "   -c --stdout         output to standard out\n"
+                               "   -q --quiet          suppress noncritical error messages\n"
+                               "   -v --verbose        be verbose (a 2nd -v gives more)\n"
+                               "   -L --license        display software version & license\n"
+                               "   -V --version        display software version & license\n"
+                               "   -s --small          use less memory (at most 2500k)\n"
+                               "   -1 .. -9            set block size to 100k .. 900k\n"
+                               "   --fast              alias for -1\n"
+                               "   --best              alias for -9\n"
+                               "\n"
+                               "   If invoked as `bzip2', default action is to compress.\n"
+                               "              as `bunzip2',  default action is to decompress.\n"
+                               "              as `bzcat', default action is to decompress to stdout.\n"
+                               "\n"
+                               "   If no file names are given, bzip2 compresses or decompresses\n"
+                               "   from standard input to standard output.  You can combine\n"
+                               "   short flags, so `-v -4' means the same as -v4 or -4v, &c.\n"
+                         #     if BZ_UNIX
+                               "\n"
+                         #     endif
+                               ,
+                         
+                               BZ2_bzlibVersion(),
+                               fullProgName
+                            );
+                         }
+                         
+                         ;
                          exit ( 1 );
                          break;
             }
@@ -10692,19 +7487,171 @@ IntNative main ( IntNative argc, Char *argv[] )
       if (ISFLAG("--keep"))              keepInputFiles   = True;    else
       if (ISFLAG("--small"))             smallMode        = True;    else
       if (ISFLAG("--quiet"))             noisy            = False;   else
-      if (ISFLAG("--version"))           license();                  else
-      if (ISFLAG("--license"))           license();                  else
+      if (ISFLAG("--version"))           {
+      {
+         fprintf ( stderr,
+      
+          "bzip2, a block-sorting file compressor.  "
+          "Version %s.\n"
+          "   \n"
+          "   Copyright (C) 1996-2002 by Julian Seward.\n"
+          "   \n"
+          "   This program is free software; you can redistribute it and/or modify\n"
+          "   it under the terms set out in the LICENSE file, which is included\n"
+          "   in the bzip2-1.0 source distribution.\n"
+          "   \n"
+          "   This program is distributed in the hope that it will be useful,\n"
+          "   but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+          "   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+          "   LICENSE file for more details.\n"
+          "   \n",
+          BZ2_bzlibVersion()
+         );
+      }
+      
+      ;
+      }                  else
+      if (ISFLAG("--license"))           {
+      {
+         fprintf ( stderr,
+      
+          "bzip2, a block-sorting file compressor.  "
+          "Version %s.\n"
+          "   \n"
+          "   Copyright (C) 1996-2002 by Julian Seward.\n"
+          "   \n"
+          "   This program is free software; you can redistribute it and/or modify\n"
+          "   it under the terms set out in the LICENSE file, which is included\n"
+          "   in the bzip2-1.0 source distribution.\n"
+          "   \n"
+          "   This program is distributed in the hope that it will be useful,\n"
+          "   but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+          "   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+          "   LICENSE file for more details.\n"
+          "   \n",
+          BZ2_bzlibVersion()
+         );
+      }
+      
+      ;
+      }                  else
       if (ISFLAG("--exponential"))       workFactor = 1;             else 
-      if (ISFLAG("--repetitive-best"))   redundant(aa->name);        else
-      if (ISFLAG("--repetitive-fast"))   redundant(aa->name);        else
+      if (ISFLAG("--repetitive-best"))   {
+      {Char *flag = aa->name;
+      
+         fprintf ( 
+            stderr, 
+            "%s: %s is redundant in versions 0.9.5 and above\n",
+            progName, flag );
+      }
+      
+      ;
+      }        else
+      if (ISFLAG("--repetitive-fast"))   {
+      {Char *flag = aa->name;
+      
+         fprintf ( 
+            stderr, 
+            "%s: %s is redundant in versions 0.9.5 and above\n",
+            progName, flag );
+      }
+      
+      ;
+      }        else
       if (ISFLAG("--fast"))              blockSize100k = 1;          else
       if (ISFLAG("--best"))              blockSize100k = 9;          else
       if (ISFLAG("--verbose"))           verbosity++;                else
-      if (ISFLAG("--help"))              { usage ( progName ); exit ( 0 ); }
+      if (ISFLAG("--help"))              { {
+      {Char *fullProgName = progName;
+      
+         fprintf (
+            stderr,
+            "bzip2, a block-sorting file compressor.  "
+            "Version %s.\n"
+            "\n   usage: %s [flags and input files in any order]\n"
+            "\n"
+            "   -h --help           print this message\n"
+            "   -d --decompress     force decompression\n"
+            "   -z --compress       force compression\n"
+            "   -k --keep           keep (don't delete) input files\n"
+            "   -f --force          overwrite existing output files\n"
+            "   -t --test           test compressed file integrity\n"
+            "   -c --stdout         output to standard out\n"
+            "   -q --quiet          suppress noncritical error messages\n"
+            "   -v --verbose        be verbose (a 2nd -v gives more)\n"
+            "   -L --license        display software version & license\n"
+            "   -V --version        display software version & license\n"
+            "   -s --small          use less memory (at most 2500k)\n"
+            "   -1 .. -9            set block size to 100k .. 900k\n"
+            "   --fast              alias for -1\n"
+            "   --best              alias for -9\n"
+            "\n"
+            "   If invoked as `bzip2', default action is to compress.\n"
+            "              as `bunzip2',  default action is to decompress.\n"
+            "              as `bzcat', default action is to decompress to stdout.\n"
+            "\n"
+            "   If no file names are given, bzip2 compresses or decompresses\n"
+            "   from standard input to standard output.  You can combine\n"
+            "   short flags, so `-v -4' means the same as -v4 or -4v, &c.\n"
+      #     if BZ_UNIX
+            "\n"
+      #     endif
+            ,
+      
+            BZ2_bzlibVersion(),
+            fullProgName
+         );
+      }
+      
+      ;
+      } exit ( 0 ); }
          else
          if (strncmp ( aa->name, "--", 2) == 0) {
             fprintf ( stderr, "%s: Bad flag `%s'\n", progName, aa->name );
-            usage ( progName );
+            {
+            {Char *fullProgName = progName;
+            
+               fprintf (
+                  stderr,
+                  "bzip2, a block-sorting file compressor.  "
+                  "Version %s.\n"
+                  "\n   usage: %s [flags and input files in any order]\n"
+                  "\n"
+                  "   -h --help           print this message\n"
+                  "   -d --decompress     force decompression\n"
+                  "   -z --compress       force compression\n"
+                  "   -k --keep           keep (don't delete) input files\n"
+                  "   -f --force          overwrite existing output files\n"
+                  "   -t --test           test compressed file integrity\n"
+                  "   -c --stdout         output to standard out\n"
+                  "   -q --quiet          suppress noncritical error messages\n"
+                  "   -v --verbose        be verbose (a 2nd -v gives more)\n"
+                  "   -L --license        display software version & license\n"
+                  "   -V --version        display software version & license\n"
+                  "   -s --small          use less memory (at most 2500k)\n"
+                  "   -1 .. -9            set block size to 100k .. 900k\n"
+                  "   --fast              alias for -1\n"
+                  "   --best              alias for -9\n"
+                  "\n"
+                  "   If invoked as `bzip2', default action is to compress.\n"
+                  "              as `bunzip2',  default action is to decompress.\n"
+                  "              as `bzcat', default action is to decompress to stdout.\n"
+                  "\n"
+                  "   If no file names are given, bzip2 compresses or decompresses\n"
+                  "   from standard input to standard output.  You can combine\n"
+                  "   short flags, so `-v -4' means the same as -v4 or -4v, &c.\n"
+            #     if BZ_UNIX
+                  "\n"
+            #     endif
+                  ,
+            
+                  BZ2_bzlibVersion(),
+                  fullProgName
+               );
+            }
+            
+            ;
+            }
             exit ( 1 );
          }
    }
@@ -10761,7 +7708,12 @@ IntNative main ( IntNative argc, Char *argv[] )
          }      
       }
       if (unzFailsExist) { 
-         setExit(2); 
+         {Int32 v = 2;
+         
+            if (v > exitValue) exitValue = v;
+         }
+         
+         ; 
          exit(exitValue);
       }
    } 
@@ -10785,7 +7737,12 @@ IntNative main ( IntNative argc, Char *argv[] )
            "You can use the `bzip2recover' program to attempt to recover\n"
            "data from undamaged sections of corrupted files.\n\n"
          );
-         setExit(2);
+         {Int32 v = 2;
+         
+            if (v > exitValue) exitValue = v;
+         }
+         
+         ;
          exit(exitValue);
       }
    }
