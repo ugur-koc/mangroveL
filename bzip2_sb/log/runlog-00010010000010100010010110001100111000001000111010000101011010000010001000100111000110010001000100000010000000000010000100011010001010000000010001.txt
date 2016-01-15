@@ -1,4 +1,0 @@
-test script '/home/ukoc/mangroveL/bzip2_sb/pass_clang' not found
-usage: creduce [options] interestingness_test file_to_reduce [optionally, more files to reduce]
-       creduce --help for more information
-
