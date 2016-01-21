@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gcc -c bzip2.c > tmp 2>&1;
+gcc bzip2.c > tmp 2>&1;
 var=$(cat tmp);
 if [[ "$var" == *"error: "* ]]; then
    #echo "Does not compile!";

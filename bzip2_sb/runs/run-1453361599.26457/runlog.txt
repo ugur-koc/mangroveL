@@ -1,4 +1,4 @@
-===< 15736 >===
+===< 21770 >===
 running 2 interestingness tests in parallel
 ===< pass_includes :: 0 >===
 (0.0 %, 204912 bytes)
@@ -783,19 +783,11 @@ running 2 interestingness tests in parallel
 (99.7 %, 630 bytes)
 ===< pass_clang_binsrch :: replace-function-def-with-decl >===
 ===< pass_clang_binsrch :: remove-unused-function >===
-===< pass_lines :: 0 >===
-(99.7 %, 634 bytes)
-===< pass_lines :: 1 >===
-(99.7 %, 647 bytes)
-===< pass_lines :: 2 >===
-(99.7 %, 663 bytes)
-===< pass_lines :: 10 >===
-(99.7 %, 688 bytes)
 ===< pass_clang :: remove-unused-function >===
 ===< pass_balanced :: curly >===
-(99.7 %, 571 bytes)
+(99.7 %, 518 bytes)
 ===< pass_balanced :: curly2 >===
-(99.8 %, 503 bytes)
+(99.8 %, 454 bytes)
 ===< pass_balanced :: curly3 >===
 ===< pass_clang :: callexpr-to-value >===
 ===< pass_clang :: replace-callexpr >===
@@ -803,482 +795,352 @@ running 2 interestingness tests in parallel
 ===< pass_clang :: remove-unused-enum-member >===
 ===< pass_clang :: remove-enum-member-value >===
 ===< pass_clang :: remove-unused-var >===
-(99.8 %, 500 bytes)
-(99.8 %, 486 bytes)
+(99.8 %, 451 bytes)
+(99.8 %, 437 bytes)
 ===< pass_special :: a >===
 ===< pass_special :: b >===
 ===< pass_special :: c >===
-===< pass_include_includes :: 0 >===
-===< pass_clang :: replace-derived-class >===
-===< pass_clang :: remove-unused-outer-class >===
-===< pass_balanced :: curly >===
-===< pass_clex :: rm-toks-11 >===
-===< pass_balanced :: curly3 >===
-===< pass_clex :: rm-toks-13 >===
-===< pass_balanced :: angles >===
-===< pass_clang :: replace-dependent-typedef >===
-===< pass_clang :: rename-class >===
-===< pass_balanced :: angles-only >===
-===< pass_balanced :: parens >===
-(99.8 %, 477 bytes)
 ===< pass_peep :: a >===
-(99.8 %, 476 bytes)
-===< pass_clang :: local-to-global >===
-(99.7 %, 547 bytes)
-(99.7 %, 584 bytes)
-===< pass_clex :: rm-toks-10 >===
-===< pass_clang :: param-to-local >===
-===< pass_clang :: remove-nested-function >===
-===< pass_indent :: final >===
-(99.8 %, 396 bytes)
-(99.8 %, 418 bytes)
-(99.8 %, 393 bytes)
-===< pass_lines :: 10 >===
-(99.8 %, 407 bytes)
-(99.8 %, 394 bytes)
-(99.8 %, 366 bytes)
-===< pass_balanced :: curly2 >===
-===< pass_include_includes :: 0 >===
-===< pass_clang :: lift-assignment-expr >===
-(99.8 %, 396 bytes)
-===< pass_clang :: copy-propagation >===
-(99.8 %, 360 bytes)
-===< pass_clang :: callexpr-to-value >===
-===< pass_clang :: replace-callexpr >===
-===< pass_clang :: remove-nested-function >===
-===< pass_clang :: remove-unused-function >===
-===< pass_clang :: remove-unused-enum-member >===
-===< pass_clang :: remove-unresolved-base >===
-===< pass_lines :: 10 >===
-(99.8 %, 375 bytes)
-(99.8 %, 345 bytes)
-===< pass_clang :: simplify-if >===
-(99.8 %, 351 bytes)
-===< pass_clex :: rm-toks-8 >===
-===< pass_clang :: reduce-array-size >===
-(99.8 %, 349 bytes)
-===< pass_clang :: move-function-body >===
-===< pass_clang :: simplify-comma-expr >===
-===< pass_clang :: simplify-dependent-typedef >===
-===< pass_clang :: reduce-array-size >===
-===< pass_clang :: replace-dependent-typedef >===
-===< pass_clang :: replace-one-level-typedef-type >===
-===< pass_clang :: remove-unused-field >===
-===< pass_special :: c >===
-===< pass_clang :: instantiate-template-param >===
-===< pass_clang :: replace-undefined-function >===
-===< pass_clang :: aggregate-to-scalar >===
-(99.8 %, 364 bytes)
-===< pass_clang :: reduce-class-template-param >===
-===< pass_clang :: remove-trivial-base-template >===
-===< pass_clang :: class-template-to-class >===
+(99.8 %, 428 bytes)
+(99.8 %, 427 bytes)
+===< pass_ternary :: b >===
 ===< pass_clang :: remove-base-class >===
-===< pass_clang :: replace-derived-class >===
-===< pass_clang :: remove-unresolved-base >===
-===< pass_clang :: remove-ctor-initializer >===
-===< pass_clang :: replace-callexpr >===
-===< pass_blank :: 0 >===
-(99.8 %, 356 bytes)
-===< pass_clang :: param-to-local >===
-===< pass_clex :: rm-toks-8 >===
-===< pass_includes :: 0 >===
-===< pass_clang :: rename-var >===
-(99.9 %, 271 bytes)
-===< pass_clang :: local-to-global >===
-(99.9 %, 290 bytes)
-===< pass_clang :: simplify-comma-expr >===
-===< pass_clang :: template-arg-to-int >===
-===< pass_clex :: rm-toks-3 >===
-(99.9 %, 261 bytes)
-(99.9 %, 258 bytes)
-(99.9 %, 234 bytes)
-===< pass_clex :: rm-toks-8 >===
-===< pass_clang :: callexpr-to-value >===
-===< pass_ints :: a >===
-===< pass_ints :: e >===
-===< pass_lines :: 1 >===
-(99.9 %, 245 bytes)
-===< pass_clang :: rename-var >===
-===< pass_lines :: 10 >===
-(99.9 %, 259 bytes)
-(99.9 %, 248 bytes)
-===< pass_unifdef :: 0 >===
-===< pass_clang :: rename-param >===
-(99.9 %, 250 bytes)
-===< pass_clang :: remove-trivial-base-template >===
-===< pass_clang :: move-global-var >===
-===< pass_special :: c >===
-===< pass_ints :: a >===
-===< pass_clex :: rm-toks-16 >===
-===< pass_special :: c >===
-===< pass_clex :: rm-toks-8 >===
-===< pass_ints :: e >===
-===< pass_blank :: 0 >===
-===< pass_clex :: rm-toks-13 >===
-(99.9 %, 206 bytes)
-===< pass_clang :: simplify-callexpr >===
-===< pass_lines :: 10 >===
-(99.9 %, 217 bytes)
-(99.9 %, 203 bytes)
-===< pass_clex :: rm-toks-11 >===
-===< pass_clang :: rename-cxx-method >===
-===< pass_lines :: 1 >===
-(99.9 %, 211 bytes)
-===< pass_ints :: d >===
-===< pass_clex :: rm-toks-9 >===
-(99.9 %, 151 bytes)
-===< pass_clang :: remove-array >===
-===< pass_clang :: instantiate-template-type-param-to-int >===
-===< pass_clang_binsrch :: replace-function-def-with-decl >===
-===< pass_clex :: rm-toks-5 >===
-===< pass_clex :: rm-toks-4 >===
-===< pass_clang :: lift-assignment-expr >===
-===< pass_clang :: replace-callexpr >===
-===< pass_clang :: local-to-global >===
-===< pass_clex :: rm-tok-pattern-4 >===
-(99.9 %, 143 bytes)
-(99.9 %, 139 bytes)
-(99.9 %, 134 bytes)
-(99.9 %, 127 bytes)
-Termination check: size was 204936; now 127
-===< pass_include_includes :: 0 >===
-===< pass_lines :: 10 >===
-(99.9 %, 134 bytes)
-(99.9 %, 111 bytes)
-===< pass_clang :: remove-unused-outer-class >===
-===< pass_clex :: rm-toks-16 >===
+===< pass_balanced :: curly >===
+===< pass_clang :: replace-undefined-function >===
 ===< pass_clang :: copy-propagation >===
-===< pass_clex :: rm-toks-13 >===
-===< pass_balanced :: parens >===
-===< pass_clang :: reduce-array-size >===
-===< pass_clang :: simple-inliner >===
+(99.8 %, 427 bytes)
+===< pass_lines :: 0 >===
+(99.8 %, 430 bytes)
+(99.8 %, 415 bytes)
+(99.8 %, 384 bytes)
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_balanced :: curly-only >===
 ===< pass_balanced :: parens-only >===
-===< pass_unifdef :: 0 >===
-===< pass_unifdef :: 0 >===
-===< pass_ternary :: c >===
-===< pass_clang :: replace-simple-typedef >===
-(100.0 %, 93 bytes)
-===< pass_clang :: remove-enum-member-value >===
+===< pass_balanced :: angles-only >===
+===< pass_clang :: remove-namespace >===
+===< pass_clang :: aggregate-to-scalar >===
+(99.8 %, 403 bytes)
+===< pass_clang :: local-to-global >===
+(99.8 %, 420 bytes)
+(99.8 %, 473 bytes)
+(99.8 %, 510 bytes)
+===< pass_lines :: 1 >===
+(99.7 %, 523 bytes)
+(99.8 %, 481 bytes)
+===< pass_lines :: 2 >===
+(99.8 %, 495 bytes)
+===< pass_balanced :: angles-only >===
+===< pass_clang :: union-to-struct >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: remove-unused-var >===
+===< pass_clang :: reduce-pointer-level >===
+===< pass_clang :: remove-unused-enum-member >===
+===< pass_clex :: rm-toks-6 >===
+===< pass_clang :: callexpr-to-value >===
+===< pass_clang :: remove-unused-field >===
+===< pass_lines :: 10 >===
+(99.8 %, 509 bytes)
+===< pass_clang :: remove-unused-function >===
+===< pass_clang :: simplify-dependent-typedef >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: copy-propagation >===
+===< pass_clang :: remove-unused-function >===
+===< pass_clang :: template-non-type-arg-to-int >===
+===< pass_clang :: replace-dependent-name >===
+===< pass_lines :: 10 >===
+(99.7 %, 523 bytes)
+===< pass_clex :: rm-toks-6 >===
+===< pass_lines :: 0 >===
+(99.7 %, 529 bytes)
+===< pass_comments :: 0 >===
+===< pass_special :: c >===
+===< pass_clang :: replace-one-level-typedef-type >===
+===< pass_balanced :: parens >===
+===< pass_clang :: move-function-body >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: simplify-comma-expr >===
+===< pass_clex :: rm-toks-11 >===
+===< pass_clang :: rename-var >===
+(99.8 %, 427 bytes)
+===< pass_clang :: remove-ctor-initializer >===
+===< pass_clang :: class-template-to-class >===
+===< pass_ints :: d >===
+===< pass_clang :: replace-derived-class >===
+===< pass_clang :: union-to-struct >===
+===< pass_clex :: rm-toks-3 >===
+(99.8 %, 397 bytes)
+(99.8 %, 392 bytes)
+===< pass_clang :: replace-class-with-base-template-spec >===
+===< pass_clang :: simplify-nested-class >===
+===< pass_clang :: param-to-global >===
+(99.8 %, 403 bytes)
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang :: remove-pointer >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: remove-array >===
+===< pass_clang :: callexpr-to-value >===
+===< pass_clang :: replace-array-index-var >===
+===< pass_clang :: simplify-nested-class >===
+===< pass_clang :: remove-unused-field >===
+===< pass_clang :: replace-dependent-name >===
+===< pass_clang :: simplify-recursive-template-instantiation >===
+===< pass_lines :: 0 >===
+(99.8 %, 409 bytes)
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_lines :: 2 >===
+(99.8 %, 423 bytes)
+===< pass_lines :: 10 >===
+(99.8 %, 437 bytes)
+===< pass_clex :: rm-toks-14 >===
+===< pass_comments :: 0 >===
+===< pass_peep :: a >===
+===< pass_special :: b >===
+===< pass_clang :: param-to-global >===
+===< pass_clex :: rm-toks-9 >===
+===< pass_peep :: a >===
+===< pass_ints :: c >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: lift-assignment-expr >===
+===< pass_clang :: combine-global-var >===
+===< pass_clex :: rm-toks-16 >===
+===< pass_clex :: rm-toks-15 >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: remove-unused-field >===
+===< pass_clex :: rm-toks-12 >===
+(99.8 %, 384 bytes)
+===< pass_clang :: replace-undefined-function >===
+===< pass_clex :: rm-toks-10 >===
+===< pass_clang :: simple-inliner >===
+===< pass_clex :: rm-toks-8 >===
+(99.8 %, 339 bytes)
+===< pass_clex :: rm-toks-7 >===
+(99.9 %, 245 bytes)
+===< pass_balanced :: curly3 >===
+===< pass_clex :: rm-toks-16 >===
+===< pass_clang :: simplify-comma-expr >===
+===< pass_clang_binsrch :: remove-unused-function >===
 ===< pass_clang :: param-to-local >===
-(99.9 %, 121 bytes)
+===< pass_clang :: simplify-if >===
+(99.9 %, 295 bytes)
+===< pass_lines :: 10 >===
+(99.9 %, 303 bytes)
+(99.9 %, 246 bytes)
+(99.9 %, 198 bytes)
+Termination check: size was 204936; now 198
+===< pass_include_includes :: 0 >===
+===< pass_ternary :: b >===
+===< pass_blank :: 0 >===
+===< pass_clang :: remove-base-class >===
+===< pass_lines :: 2 >===
+(99.9 %, 204 bytes)
+===< pass_balanced :: curly3 >===
+===< pass_balanced :: parens >===
+===< pass_balanced :: angles >===
+===< pass_balanced :: curly-only >===
+(99.9 %, 203 bytes)
+===< pass_lines :: 0 >===
+(99.9 %, 203 bytes)
+===< pass_clang :: simplify-struct >===
+===< pass_balanced :: curly3 >===
+===< pass_clang :: remove-unused-field >===
+===< pass_ints :: b >===
+===< pass_clang :: param-to-global >===
+===< pass_clex :: rm-toks-7 >===
 ===< pass_clang :: remove-nested-function >===
 ===< pass_clang :: union-to-struct >===
 ===< pass_clang :: return-void >===
-===< pass_clex :: rm-toks-4 >===
-(99.9 %, 111 bytes)
+(99.9 %, 203 bytes)
+===< pass_clang :: remove-unused-enum-member >===
 ===< pass_clang :: reduce-pointer-level >===
 ===< pass_clang :: lift-assignment-expr >===
-===< pass_ints :: e >===
-===< pass_clang_binsrch :: replace-function-def-with-decl >===
-===< pass_lines :: 10 >===
-(99.9 %, 117 bytes)
-(100.0 %, 100 bytes)
-===< pass_clex :: rm-tok-pattern-4 >===
-(100.0 %, 96 bytes)
-===< pass_clang :: replace-undefined-function >===
-===< pass_indent :: final >===
-(100.0 %, 40 bytes)
-(100.0 %, 50 bytes)
-(100.0 %, 31 bytes)
-===< pass_clang :: remove-enum-member-value >===
-===< pass_clang :: remove-unused-var >===
-===< pass_ints :: e >===
-===< pass_clang :: reduce-array-dim >===
-===< pass_clang :: remove-unresolved-base >===
-===< pass_clang :: move-function-body >===
-===< pass_ints :: a >===
-===< pass_clang :: simplify-dependent-typedef >===
-===< pass_balanced :: parens >===
-===< pass_clang :: replace-dependent-typedef >===
-===< pass_balanced :: parens >===
-===< pass_clang_binsrch :: remove-unused-function >===
-===< pass_clang :: instantiate-template-type-param-to-int >===
-===< pass_clang :: instantiate-template-param >===
-===< pass_clex :: rm-toks-4 >===
-===< pass_clang :: template-non-type-arg-to-int >===
-===< pass_clex :: rm-toks-7 >===
-===< pass_lines :: 2 >===
-(100.0 %, 36 bytes)
-===< pass_lines :: 0 >===
-(100.0 %, 36 bytes)
-===< pass_clang :: simplify-if >===
-===< pass_clang :: replace-derived-class >===
-===< pass_clang :: remove-unresolved-base >===
-===< pass_clang :: remove-ctor-initializer >===
-===< pass_clang :: replace-class-with-base-template-spec >===
-===< pass_clang :: rename-cxx-method >===
-===< pass_clang :: remove-unused-outer-class >===
-===< pass_clang :: empty-struct-to-int >===
-===< pass_clang :: remove-pointer >===
-===< pass_clang :: remove-pointer-pairs >===
-===< pass_clang :: move-global-var >===
-===< pass_clang :: remove-addr-taken >===
-===< pass_clang :: remove-unused-function >===
-===< pass_ints :: a >===
-===< pass_special :: b >===
-===< pass_clang :: rename-var >===
-===< pass_clang :: simplify-recursive-template-instantiation >===
-===< pass_lines :: 0 >===
-(100.0 %, 37 bytes)
-(100.0 %, 36 bytes)
-===< pass_balanced :: parens-only >===
-===< pass_clang :: rename-param >===
-===< pass_comments :: 0 >===
-===< pass_clex :: rm-toks-10 >===
-===< pass_comments :: 0 >===
-===< pass_peep :: a >===
-===< pass_clang :: copy-propagation >===
-===< pass_clex :: rm-toks-15 >===
-===< pass_ints :: a >===
-===< pass_ints :: b >===
-===< pass_balanced :: parens-only >===
-===< pass_ternary :: b >===
-===< pass_ints :: e >===
-===< pass_clang :: replace-undefined-function >===
-===< pass_lines :: 10 >===
-(100.0 %, 41 bytes)
-===< pass_clang :: union-to-struct >===
-===< pass_clang :: rename-cxx-method >===
-===< pass_ints :: b >===
-===< pass_clex :: rm-toks-12 >===
-===< pass_clex :: rm-toks-16 >===
-===< pass_clang :: empty-struct-to-int >===
-===< pass_clex :: rm-toks-9 >===
-===< pass_clang :: replace-simple-typedef >===
-===< pass_ints :: c >===
-===< pass_lines :: 0 >===
-(100.0 %, 41 bytes)
-===< pass_special :: c >===
-===< pass_clex :: rm-toks-4 >===
-===< pass_clex :: rm-toks-6 >===
-===< pass_clang :: unify-function-decl >===
-===< pass_clex :: rm-toks-1 >===
-===< pass_comments :: 0 >===
-Termination check: size was 127; now 41
-===< pass_include_includes :: 0 >===
-===< pass_clex :: rm-toks-3 >===
-===< pass_clex :: rm-toks-2 >===
-===< pass_balanced :: curly >===
-===< pass_balanced :: curly2 >===
-===< pass_balanced :: curly3 >===
-===< pass_balanced :: parens >===
-===< pass_clex :: rm-toks-2 >===
-===< pass_balanced :: curly-only >===
-(100.0 %, 41 bytes)
-===< pass_clang :: reduce-array-size >===
-===< pass_balanced :: angles-only >===
-===< pass_lines :: 10 >===
-(100.0 %, 43 bytes)
-===< pass_clang :: remove-pointer >===
-===< pass_clang :: local-to-global >===
-===< pass_ternary :: b >===
-===< pass_clang :: param-to-local >===
-===< pass_clang_binsrch :: replace-function-def-with-decl >===
-===< pass_clex :: rm-toks-3 >===
-===< pass_clang_binsrch :: remove-unused-function >===
-===< pass_clang :: simple-inliner >===
-===< pass_balanced :: curly >===
-===< pass_balanced :: angles-only >===
-===< pass_clang :: copy-propagation >===
+===< pass_lines :: 1 >===
+(99.9 %, 207 bytes)
 ===< pass_clang :: callexpr-to-value >===
 ===< pass_clang :: replace-callexpr >===
-===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: param-to-global >===
 ===< pass_clang :: remove-unused-function >===
 ===< pass_clang :: remove-unused-enum-member >===
-===< pass_clang :: remove-enum-member-value >===
-===< pass_clang :: remove-unused-var >===
-===< pass_balanced :: curly-only >===
-===< pass_clang :: reduce-array-dim >===
-===< pass_include_includes :: 0 >===
-===< pass_clang :: replace-derived-class >===
-===< pass_clang_binsrch :: remove-unused-function >===
-===< pass_balanced :: curly >===
-===< pass_clang :: replace-simple-typedef >===
-===< pass_clang :: replace-dependent-typedef >===
-===< pass_clang :: template-non-type-arg-to-int >===
-===< pass_clang :: move-global-var >===
-===< pass_clang :: replace-dependent-typedef >===
-===< pass_clang :: rename-var >===
-===< pass_balanced :: curly >===
-===< pass_clex :: rm-toks-10 >===
-===< pass_lines :: 10 >===
-(100.0 %, 46 bytes)
-===< pass_clang :: remove-trivial-base-template >===
-===< pass_clex :: rm-toks-1 >===
-===< pass_clang :: remove-base-class >===
-===< pass_clang :: replace-derived-class >===
-===< pass_clang :: remove-unresolved-base >===
-===< pass_clang :: return-void >===
-===< pass_ints :: a >===
 ===< pass_clang :: instantiate-template-type-param-to-int >===
-===< pass_clang :: remove-unused-outer-class >===
-===< pass_lines :: 1 >===
-(100.0 %, 49 bytes)
-===< pass_comments :: 0 >===
-===< pass_clang :: remove-pointer-pairs >===
-===< pass_balanced :: angles-only >===
-===< pass_clang :: replace-dependent-typedef >===
-===< pass_clang :: simplify-struct >===
-===< pass_indent :: regular >===
-(100.0 %, 27 bytes)
-===< pass_clang :: empty-struct-to-int >===
-===< pass_clang :: param-to-global >===
-===< pass_clang :: simplify-recursive-template-instantiation >===
-===< pass_clang :: replace-one-level-typedef-type >===
-===< pass_lines :: 1 >===
-(100.0 %, 30 bytes)
-===< pass_clang :: param-to-local >===
-===< pass_lines :: 10 >===
-(100.0 %, 33 bytes)
-===< pass_ints :: d >===
-===< pass_comments :: 0 >===
-===< pass_clex :: rm-toks-6 >===
-===< pass_clang :: remove-unused-field >===
-===< pass_clang :: union-to-struct >===
-===< pass_ints :: a >===
-===< pass_clang :: remove-addr-taken >===
-===< pass_ints :: c >===
 ===< pass_clang :: remove-unused-var >===
-===< pass_comments :: 0 >===
-===< pass_blank :: 0 >===
-===< pass_clex :: rm-toks-16 >===
-===< pass_clex :: rm-toks-15 >===
-===< pass_indent :: final >===
-(100.0 %, 30 bytes)
-(100.0 %, 34 bytes)
-(100.0 %, 27 bytes)
-===< pass_special :: a >===
-===< pass_clang :: reduce-array-size >===
-===< pass_clex :: rm-toks-11 >===
-===< pass_clang_binsrch :: replace-function-def-with-decl >===
-===< pass_clex :: rm-toks-9 >===
-===< pass_clex :: rm-toks-14 >===
-===< pass_clex :: rm-toks-7 >===
-===< pass_clex :: rm-toks-6 >===
-===< pass_clang :: remove-pointer-pairs >===
-===< pass_clang :: remove-unresolved-base >===
-===< pass_clex :: rm-toks-3 >===
-===< pass_special :: b >===
-===< pass_balanced :: curly3 >===
-===< pass_clex :: rm-tok-pattern-4 >===
-Termination check: size was 41; now 27
-===< pass_clang :: instantiate-template-param >===
-===< pass_clang :: remove-ctor-initializer >===
-===< pass_clex :: rm-toks-8 >===
-===< pass_clang :: rename-fun >===
-(100.0 %, 31 bytes)
-===< pass_clex :: rm-toks-4 >===
+===< pass_balanced :: parens >===
+===< pass_clex :: rm-toks-10 >===
+===< pass_clang :: replace-derived-class >===
+===< pass_clang :: remove-unused-var >===
 ===< pass_clang :: simplify-comma-expr >===
-===< pass_ints :: d >===
-===< pass_clang :: simplify-recursive-template-instantiation >===
-===< pass_lines :: 0 >===
-(100.0 %, 31 bytes)
-===< pass_clang :: remove-unused-var >===
-===< pass_clang :: remove-pointer-pairs >===
-===< pass_clang :: remove-namespace >===
-===< pass_clang :: remove-enum-member-value >===
-===< pass_clang :: local-to-global >===
-===< pass_clang :: param-to-local >===
-===< pass_indent :: final >===
-(100.0 %, 34 bytes)
-(100.0 %, 38 bytes)
-(100.0 %, 31 bytes)
-===< pass_clang :: remove-nested-function >===
-===< pass_clang :: union-to-struct >===
-===< pass_lines :: 0 >===
-(100.0 %, 31 bytes)
-===< pass_clang_binsrch :: replace-function-def-with-decl >===
-===< pass_clang :: simplify-struct >===
-===< pass_clang :: lift-assignment-expr >===
-===< pass_clang :: remove-unused-enum-member >===
-===< pass_clex :: rm-toks-5 >===
-===< pass_lines :: 2 >===
-(100.0 %, 34 bytes)
-===< pass_clang :: replace-simple-typedef >===
-===< pass_clang :: remove-unused-function >===
-===< pass_clang :: remove-unused-enum-member >===
-===< pass_clang :: remove-enum-member-value >===
-===< pass_clang :: remove-unused-var >===
-===< pass_clang :: simplify-if >===
-===< pass_clang :: param-to-global >===
-===< pass_lines :: 10 >===
-(100.0 %, 37 bytes)
-===< pass_clex :: rm-tok-pattern-4 >===
-===< pass_clang :: replace-dependent-name >===
-===< pass_clex :: rm-toks-1 >===
-===< pass_clang :: replace-simple-typedef >===
-===< pass_clang :: replace-dependent-typedef >===
+===< pass_clang :: simplify-dependent-typedef >===
+===< pass_special :: b >===
+===< pass_clang :: rename-cxx-method >===
 ===< pass_clang :: replace-one-level-typedef-type >===
-===< pass_clang :: remove-unused-field >===
-===< pass_comments :: 0 >===
-===< pass_clex :: rm-toks-15 >===
-===< pass_clang :: combine-local-var >===
-===< pass_clang :: template-non-type-arg-to-int >===
-===< pass_clang :: copy-propagation >===
-===< pass_clex :: rm-toks-9 >===
+(99.9 %, 185 bytes)
+===< pass_clang :: replace-callexpr >===
+===< pass_clang :: instantiate-template-type-param-to-int >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_ternary :: b >===
+===< pass_clang :: remove-enum-member-value >===
+===< pass_clang :: instantiate-template-type-param-to-int >===
 ===< pass_clang :: class-template-to-class >===
 ===< pass_clang :: remove-base-class >===
 ===< pass_clang :: replace-derived-class >===
 ===< pass_clang :: remove-unresolved-base >===
-===< pass_clang :: union-to-struct >===
-===< pass_lines :: 2 >===
-(100.0 %, 40 bytes)
+===< pass_lines :: 1 >===
+(99.9 %, 188 bytes)
+===< pass_ints :: d >===
 ===< pass_clang :: simplify-nested-class >===
-===< pass_clang :: remove-unused-outer-class >===
-===< pass_lines :: 2 >===
-(100.0 %, 43 bytes)
-===< pass_unifdef :: 0 >===
-===< pass_blank :: 0 >===
-===< pass_clex :: rm-toks-3 >===
+===< pass_clex :: delete-string >===
+===< pass_clang :: remove-base-class >===
+===< pass_clang :: simplify-struct >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: return-void >===
 ===< pass_clang :: remove-addr-taken >===
-===< pass_indent :: regular >===
-(100.0 %, 31 bytes)
-===< pass_clang :: replace-undefined-function >===
-===< pass_clex :: rm-toks-3 >===
-===< pass_clex :: rm-toks-9 >===
-===< pass_lines :: 1 >===
-(100.0 %, 34 bytes)
-===< pass_lines :: 0 >===
-(100.0 %, 34 bytes)
-===< pass_lines :: 1 >===
-(100.0 %, 37 bytes)
+===< pass_ints :: d >===
 ===< pass_lines :: 2 >===
-(100.0 %, 40 bytes)
-===< pass_lines :: 10 >===
-(100.0 %, 43 bytes)
-===< pass_clang :: replace-dependent-typedef >===
-===< pass_comments :: 0 >===
+(99.9 %, 191 bytes)
+===< pass_clang :: remove-ctor-initializer >===
+===< pass_blank :: 0 >===
+===< pass_clang :: simplify-recursive-template-instantiation >===
+===< pass_lines :: 0 >===
+(99.9 %, 191 bytes)
+===< pass_lines :: 1 >===
+(99.9 %, 194 bytes)
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: local-to-global >===
+===< pass_clang :: replace-undefined-function >===
+===< pass_clang :: remove-unused-enum-member >===
 ===< pass_peep :: a >===
-===< pass_lines :: 10 >===
-(100.0 %, 46 bytes)
+===< pass_special :: b >===
 ===< pass_special :: c >===
 ===< pass_ints :: a >===
 ===< pass_ints :: b >===
-===< pass_ints :: c >===
+===< pass_clang :: remove-unused-outer-class >===
 ===< pass_ints :: d >===
-===< pass_ints :: e >===
-===< pass_indent :: regular >===
-(100.0 %, 31 bytes)
-===< pass_clang :: aggregate-to-scalar >===
-===< pass_indent :: regular >===
-===< pass_clex :: rm-toks-14 >===
-===< pass_clex :: rm-toks-6 >===
-===< pass_lines :: 0 >===
-(100.0 %, 31 bytes)
-===< pass_clex :: rm-toks-6 >===
-===< pass_clang :: unify-function-decl >===
+===< pass_include_includes :: 0 >===
+===< pass_clang :: move-global-var >===
+===< pass_balanced :: curly3 >===
+===< pass_clang :: remove-trivial-base-template >===
+===< pass_clang :: rename-param >===
+===< pass_clex :: rm-toks-13 >===
+===< pass_clex :: rm-toks-12 >===
+===< pass_clex :: rm-toks-11 >===
+===< pass_clex :: rm-toks-10 >===
 ===< pass_clex :: rm-toks-9 >===
-===< pass_clex :: rm-toks-8 >===
-===< pass_clang :: unify-function-decl >===
-===< pass_clex :: rm-toks-6 >===
-===< pass_clang :: param-to-global >===
-===< pass_clex :: rm-toks-4 >===
-===< pass_clex :: rm-toks-3 >===
-===< pass_lines :: 1 >===
-(100.0 %, 34 bytes)
 ===< pass_clex :: rm-toks-15 >===
+===< pass_clang :: remove-base-class >===
+===< pass_clex :: rm-toks-6 >===
+===< pass_clang :: replace-array-index-var >===
+===< pass_clang :: replace-dependent-typedef >===
+===< pass_clex :: rm-toks-7 >===
+===< pass_clex :: rm-toks-10 >===
+===< pass_clex :: rm-toks-1 >===
+(99.9 %, 188 bytes)
+(99.9 %, 183 bytes)
+(99.9 %, 174 bytes)
+===< pass_clang :: class-template-to-class >===
+Termination check: size was 198; now 174
+===< pass_include_includes :: 0 >===
+===< pass_clang :: simplify-recursive-template-instantiation >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_clang :: local-to-global >===
+===< pass_ints :: b >===
+===< pass_lines :: 10 >===
+(99.9 %, 177 bytes)
+===< pass_clex :: rm-toks-15 >===
+===< pass_balanced :: angles >===
+===< pass_balanced :: curly-only >===
+===< pass_balanced :: parens-only >===
+===< pass_clang_binsrch :: replace-function-def-with-decl >===
+===< pass_clang :: combine-local-var >===
+===< pass_clang :: aggregate-to-scalar >===
+===< pass_clex :: rm-toks-10 >===
+===< pass_clang :: template-non-type-arg-to-int >===
+===< pass_clang :: callexpr-to-value >===
+===< pass_clang :: remove-nested-function >===
+===< pass_clang :: union-to-struct >===
+===< pass_clang :: return-void >===
+===< pass_clang :: simple-inliner >===
+===< pass_clex :: rm-toks-11 >===
+===< pass_clang :: lift-assignment-expr >===
+===< pass_clang :: union-to-struct >===
+===< pass_clex :: rm-toks-1 >===
+===< pass_clex :: rm-toks-6 >===
+===< pass_lines :: 2 >===
+(99.9 %, 180 bytes)
+===< pass_balanced :: curly-only >===
+===< pass_clang :: remove-unused-enum-member >===
+===< pass_blank :: 0 >===
+===< pass_clang :: remove-unused-var >===
+===< pass_lines :: 1 >===
+(99.9 %, 183 bytes)
+===< pass_clang :: rename-fun >===
+(99.9 %, 187 bytes)
+===< pass_clang :: replace-derived-class >===
+===< pass_clang_binsrch :: remove-unused-function >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: lift-assignment-expr >===
+===< pass_clang :: replace-simple-typedef >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: replace-one-level-typedef-type >===
+===< pass_balanced :: curly2 >===
+===< pass_clang :: remove-pointer >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: local-to-global >===
+===< pass_clex :: rm-toks-4 >===
+===< pass_clang :: remove-trivial-base-template >===
+===< pass_clang :: class-template-to-class >===
+===< pass_clang :: instantiate-template-param >===
+===< pass_clang :: replace-derived-class >===
 ===< pass_clex :: rm-tok-pattern-4 >===
-Termination check: size was 27; now 34
+===< pass_clex :: rm-toks-10 >===
+===< pass_clex :: rm-toks-13 >===
+===< pass_includes :: 0 >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_clang :: empty-struct-to-int >===
+===< pass_clang :: remove-pointer >===
+===< pass_clang :: remove-pointer-pairs >===
+===< pass_clang :: remove-array >===
+===< pass_clang :: remove-addr-taken >===
+===< pass_clang :: remove-unused-outer-class >===
+===< pass_lines :: 1 >===
+(99.9 %, 190 bytes)
+===< pass_clex :: rm-toks-12 >===
+===< pass_clang :: replace-dependent-name >===
+===< pass_clang :: remove-unused-field >===
+===< pass_balanced :: parens-only >===
+===< pass_lines :: 1 >===
+(99.9 %, 193 bytes)
+===< pass_lines :: 2 >===
+(99.9 %, 196 bytes)
+===< pass_clang :: simplify-recursive-template-instantiation >===
+===< pass_unifdef :: 0 >===
+===< pass_comments :: 0 >===
+===< pass_special :: b >===
+===< pass_clang :: replace-array-index-var >===
+===< pass_special :: c >===
+===< pass_ints :: a >===
+===< pass_clang :: remove-unresolved-base >===
+===< pass_ints :: c >===
+===< pass_clang :: union-to-struct >===
+===< pass_ints :: e >===
+===< pass_clex :: rm-toks-14 >===
+===< pass_clang :: remove-namespace >===
+===< pass_clex :: rm-toks-15 >===
+===< pass_balanced :: curly2 >===
+===< pass_ints :: c >===
+===< pass_clex :: rm-toks-12 >===
+===< pass_balanced :: curly-only >===
+===< pass_clang :: template-arg-to-int >===
+===< pass_clang :: template-non-type-arg-to-int >===
+===< pass_clang :: simplify-callexpr >===
+===< pass_clex :: rm-toks-7 >===
+===< pass_clang :: simplify-dependent-typedef >===
+===< pass_clex :: rm-toks-5 >===
+===< pass_special :: b >===
+===< pass_clex :: rm-toks-3 >===
+===< pass_clang :: remove-nested-function >===
+===< pass_clang :: union-to-struct >===
+===< pass_clang_binsrch :: remove-unused-function >===
+Termination check: size was 174; now 196
 ===< pass_clang :: rename-fun >===
 ===< pass_clang :: rename-param >===
 ===< pass_clang :: rename-var >===
@@ -1290,24 +1152,24 @@ Termination check: size was 27; now 34
 ===< pass_clang :: move-global-var >===
 ===< pass_clang :: unify-function-decl >===
 ===< pass_lines :: 0 >===
-(100.0 %, 34 bytes)
+(99.9 %, 196 bytes)
 ===< pass_clex :: delete-string >===
 ===< pass_indent :: final >===
-(100.0 %, 34 bytes)
-(100.0 %, 38 bytes)
-(100.0 %, 31 bytes)
+(100.0 %, 35 bytes)
+(100.0 %, 39 bytes)
+(100.0 %, 32 bytes)
 ===================== done ====================
 
 pass statistics:
-  method pass_balanced :: angles worked 0 times and failed 1 times
-  method pass_balanced :: angles-only worked 0 times and failed 1 times
-  method pass_balanced :: curly worked 1 times and failed 13 times
-  method pass_balanced :: curly-only worked 1 times and failed 2 times
-  method pass_balanced :: curly2 worked 1 times and failed 8 times
+  method pass_balanced :: angles worked 0 times and failed 0 times
+  method pass_balanced :: angles-only worked 0 times and failed 2 times
+  method pass_balanced :: curly worked 1 times and failed 8 times
+  method pass_balanced :: curly-only worked 1 times and failed 7 times
+  method pass_balanced :: curly2 worked 1 times and failed 5 times
   method pass_balanced :: curly3 worked 0 times and failed 0 times
-  method pass_balanced :: parens worked 1 times and failed 7 times
-  method pass_balanced :: parens-only worked 0 times and failed 3 times
-  method pass_blank :: 0 worked 1 times and failed 1 times
+  method pass_balanced :: parens worked 0 times and failed 5 times
+  method pass_balanced :: parens-only worked 0 times and failed 5 times
+  method pass_blank :: 0 worked 0 times and failed 1 times
   method pass_clang :: aggregate-to-scalar worked 1 times and failed 0 times
   method pass_clang :: callexpr-to-value worked 0 times and failed 0 times
   method pass_clang :: class-template-to-class worked 0 times and failed 0 times
@@ -1317,14 +1179,14 @@ pass statistics:
   method pass_clang :: empty-struct-to-int worked 0 times and failed 0 times
   method pass_clang :: instantiate-template-param worked 0 times and failed 0 times
   method pass_clang :: instantiate-template-type-param-to-int worked 0 times and failed 0 times
-  method pass_clang :: lift-assignment-expr worked 1 times and failed 0 times
-  method pass_clang :: local-to-global worked 3 times and failed 5 times
+  method pass_clang :: lift-assignment-expr worked 0 times and failed 0 times
+  method pass_clang :: local-to-global worked 3 times and failed 4 times
   method pass_clang :: move-function-body worked 0 times and failed 0 times
   method pass_clang :: move-global-var worked 0 times and failed 0 times
-  method pass_clang :: param-to-global worked 0 times and failed 0 times
-  method pass_clang :: param-to-local worked 1 times and failed 2 times
+  method pass_clang :: param-to-global worked 1 times and failed 0 times
+  method pass_clang :: param-to-local worked 0 times and failed 0 times
   method pass_clang :: reduce-array-dim worked 0 times and failed 0 times
-  method pass_clang :: reduce-array-size worked 1 times and failed 0 times
+  method pass_clang :: reduce-array-size worked 0 times and failed 0 times
   method pass_clang :: reduce-class-template-param worked 0 times and failed 0 times
   method pass_clang :: reduce-pointer-level worked 0 times and failed 0 times
   method pass_clang :: remove-addr-taken worked 0 times and failed 0 times
@@ -1340,13 +1202,13 @@ pass statistics:
   method pass_clang :: remove-unresolved-base worked 0 times and failed 0 times
   method pass_clang :: remove-unused-enum-member worked 0 times and failed 0 times
   method pass_clang :: remove-unused-field worked 0 times and failed 0 times
-  method pass_clang :: remove-unused-function worked 0 times and failed 2 times
+  method pass_clang :: remove-unused-function worked 0 times and failed 3 times
   method pass_clang :: remove-unused-outer-class worked 0 times and failed 0 times
   method pass_clang :: remove-unused-var worked 2 times and failed 0 times
   method pass_clang :: rename-class worked 0 times and failed 0 times
   method pass_clang :: rename-cxx-method worked 0 times and failed 0 times
   method pass_clang :: rename-fun worked 1 times and failed 0 times
-  method pass_clang :: rename-param worked 1 times and failed 0 times
+  method pass_clang :: rename-param worked 0 times and failed 0 times
   method pass_clang :: rename-var worked 1 times and failed 0 times
   method pass_clang :: replace-array-index-var worked 0 times and failed 0 times
   method pass_clang :: replace-callexpr worked 0 times and failed 0 times
@@ -1354,10 +1216,10 @@ pass statistics:
   method pass_clang :: replace-dependent-name worked 0 times and failed 0 times
   method pass_clang :: replace-dependent-typedef worked 0 times and failed 0 times
   method pass_clang :: replace-derived-class worked 0 times and failed 0 times
-  method pass_clang :: replace-one-level-typedef-type worked 0 times and failed 1 times
-  method pass_clang :: replace-simple-typedef worked 1 times and failed 0 times
+  method pass_clang :: replace-one-level-typedef-type worked 1 times and failed 1 times
+  method pass_clang :: replace-simple-typedef worked 0 times and failed 0 times
   method pass_clang :: replace-undefined-function worked 0 times and failed 0 times
-  method pass_clang :: return-void worked 0 times and failed 0 times
+  method pass_clang :: return-void worked 1 times and failed 0 times
   method pass_clang :: simple-inliner worked 0 times and failed 0 times
   method pass_clang :: simplify-callexpr worked 0 times and failed 0 times
   method pass_clang :: simplify-comma-expr worked 0 times and failed 0 times
@@ -1373,49 +1235,45 @@ pass statistics:
   method pass_clang :: union-to-struct worked 0 times and failed 0 times
   method pass_clang_binsrch :: remove-unused-function worked 1 times and failed 1 times
   method pass_clang_binsrch :: remove-unused-function worked 1 times and failed 1 times
-  method pass_clang_binsrch :: replace-function-def-with-decl worked 3 times and failed 12 times
-  method pass_clang_binsrch :: replace-function-def-with-decl worked 3 times and failed 12 times
+  method pass_clang_binsrch :: replace-function-def-with-decl worked 3 times and failed 9 times
+  method pass_clang_binsrch :: replace-function-def-with-decl worked 3 times and failed 9 times
   method pass_clex :: delete-string worked 0 times and failed 0 times
-  method pass_clex :: rm-tok-pattern-4 worked 5 times and failed 568 times
-  method pass_clex :: rm-toks-1 worked 0 times and failed 38 times
-  method pass_clex :: rm-toks-10 worked 0 times and failed 99 times
-  method pass_clex :: rm-toks-11 worked 0 times and failed 127 times
-  method pass_clex :: rm-toks-12 worked 0 times and failed 14 times
-  method pass_clex :: rm-toks-13 worked 1 times and failed 136 times
-  method pass_clex :: rm-toks-14 worked 0 times and failed 24 times
-  method pass_clex :: rm-toks-15 worked 0 times and failed 50 times
-  method pass_clex :: rm-toks-16 worked 0 times and failed 95 times
-  method pass_clex :: rm-toks-2 worked 0 times and failed 28 times
-  method pass_clex :: rm-toks-3 worked 3 times and failed 126 times
-  method pass_clex :: rm-toks-4 worked 1 times and failed 94 times
-  method pass_clex :: rm-toks-5 worked 0 times and failed 38 times
-  method pass_clex :: rm-toks-6 worked 0 times and failed 74 times
-  method pass_clex :: rm-toks-7 worked 0 times and failed 26 times
-  method pass_clex :: rm-toks-8 worked 0 times and failed 249 times
-  method pass_clex :: rm-toks-9 worked 1 times and failed 88 times
+  method pass_clex :: rm-tok-pattern-4 worked 0 times and failed 96 times
+  method pass_clex :: rm-toks-1 worked 3 times and failed 24 times
+  method pass_clex :: rm-toks-10 worked 0 times and failed 116 times
+  method pass_clex :: rm-toks-11 worked 0 times and failed 86 times
+  method pass_clex :: rm-toks-12 worked 1 times and failed 82 times
+  method pass_clex :: rm-toks-13 worked 0 times and failed 27 times
+  method pass_clex :: rm-toks-14 worked 0 times and failed 67 times
+  method pass_clex :: rm-toks-15 worked 0 times and failed 94 times
+  method pass_clex :: rm-toks-16 worked 0 times and failed 83 times
+  method pass_clex :: rm-toks-2 worked 0 times and failed 0 times
+  method pass_clex :: rm-toks-3 worked 2 times and failed 65 times
+  method pass_clex :: rm-toks-4 worked 0 times and failed 12 times
+  method pass_clex :: rm-toks-5 worked 0 times and failed 12 times
+  method pass_clex :: rm-toks-6 worked 0 times and failed 145 times
+  method pass_clex :: rm-toks-7 worked 1 times and failed 74 times
+  method pass_clex :: rm-toks-8 worked 1 times and failed 35 times
+  method pass_clex :: rm-toks-9 worked 0 times and failed 70 times
   method pass_comments :: 0 worked 1 times and failed 0 times
   method pass_include_includes :: 0 worked 0 times and failed 0 times
   method pass_includes :: 0 worked 20 times and failed 6 times
-  method pass_indent :: final worked 15 times and failed 0 times
-  method pass_indent :: regular worked 3 times and failed 0 times
+  method pass_indent :: final worked 3 times and failed 0 times
+  method pass_indent :: regular worked 0 times and failed 0 times
   method pass_ints :: a worked 0 times and failed 0 times
   method pass_ints :: b worked 0 times and failed 0 times
   method pass_ints :: c worked 0 times and failed 0 times
   method pass_ints :: d worked 0 times and failed 0 times
   method pass_ints :: e worked 0 times and failed 0 times
-  method pass_lines :: 0 worked 722 times and failed 2275 times
-  method pass_lines :: 0 worked 722 times and failed 2275 times
-  method pass_lines :: 0 worked 722 times and failed 2275 times
-  method pass_lines :: 1 worked 21 times and failed 215 times
-  method pass_lines :: 1 worked 21 times and failed 215 times
-  method pass_lines :: 1 worked 21 times and failed 215 times
-  method pass_lines :: 10 worked 23 times and failed 374 times
-  method pass_lines :: 10 worked 23 times and failed 374 times
-  method pass_lines :: 10 worked 23 times and failed 374 times
-  method pass_lines :: 2 worked 8 times and failed 172 times
-  method pass_lines :: 2 worked 8 times and failed 172 times
-  method pass_lines :: 2 worked 8 times and failed 172 times
-  method pass_peep :: a worked 1 times and failed 31 times
+  method pass_lines :: 0 worked 720 times and failed 2292 times
+  method pass_lines :: 0 worked 720 times and failed 2292 times
+  method pass_lines :: 1 worked 21 times and failed 172 times
+  method pass_lines :: 1 worked 21 times and failed 172 times
+  method pass_lines :: 10 worked 9 times and failed 209 times
+  method pass_lines :: 10 worked 9 times and failed 209 times
+  method pass_lines :: 2 worked 8 times and failed 177 times
+  method pass_lines :: 2 worked 8 times and failed 177 times
+  method pass_peep :: a worked 2 times and failed 68 times
   method pass_special :: a worked 0 times and failed 0 times
   method pass_special :: b worked 0 times and failed 0 times
   method pass_special :: c worked 0 times and failed 0 times
@@ -1424,10 +1282,10 @@ pass statistics:
   method pass_unifdef :: 0 worked 13 times and failed 3 times
 
 
-          '/home/ukoc/mangroveL/bzip2_sb/runs/run-1452981766.20327/bzip2.c' reduced to:
+          '/home/ukoc/mangroveL/bzip2_sb/runs/run-1453361599.26457/bzip2.c' reduced to:
 fn1() {
-  int d;
-  d == fn1;
+  char c;
+  c == fn1;
 }
-1540.61user 253.20system 22:02.02elapsed 135%CPU (0avgtext+0avgdata 173400maxresident)k
-8inputs+9954360outputs (0major+95215072minor)pagefaults 0swaps
+1558.50user 224.47system 21:24.01elapsed 138%CPU (0avgtext+0avgdata 173984maxresident)k
+0inputs+9911928outputs (0major+86890466minor)pagefaults 0swaps
