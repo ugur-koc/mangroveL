@@ -39,4 +39,4 @@ my $logFile="runlog.txt";
 #`cd runs/run-$id && echo "$runId" > runlog.txt 2>&1`;
 #`cd runs/run-$id && echo "$passesStr" >> runlog.txt 2>&1`;
 #--no-default-passes $passesStr
-`cd runs/run-$id && time creduce $interestingness $program >> runlog.txt 2>&1`;
+`cd runs/run-$id && time creduce --print-diff --debug --save-temps $interestingness $program >> runlog.txt 2>&1`;
