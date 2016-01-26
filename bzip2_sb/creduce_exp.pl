@@ -17,7 +17,7 @@ for (1..10) {
     `cp $program $runDir/$program`;
     `cp $interestingness $runDir/$interestingness`;
 
-    `cd $runDir && time creduce --debug --print-diff $interestingness $program >> runlog.txt 2>&1`;
+    `cd $runDir && time creduce $interestingness $program >> runlog.txt 2>&1`;
     `cd $runDir && rm -f $program.orig $interestingness`;
 
     `rm -fr /tmp/scan-build-2016-*`;
