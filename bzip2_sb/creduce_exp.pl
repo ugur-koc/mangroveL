@@ -21,4 +21,5 @@ for (1..10) {
     `cd $runDir && rm -f $program.orig $interestingness`;
 
     `rm -fr /tmp/scan-build-2016-*`;
+    `rm -fr /tmp/cc*`;
 }
