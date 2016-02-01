@@ -9,7 +9,7 @@ my $program=$ARGV[0];
 my $tool=$ARGV[1]; #"cppcheck";
 my $interestingness=$ARGV[2];#"./test_interest.sh";
 
-for (1..10) {
+for (1..2) {
     my $id=Time::HiRes::time();
     my $runDir="runs/run-$id";
 
@@ -17,7 +17,7 @@ for (1..10) {
     `cp $program $runDir/$program`;
     `cp $interestingness $runDir/$interestingness`;
 
-    `cd $runDir && time creduce $interestingness $program >> runlog.txt 2>&1`;
+    `cd $runDir && time creduce --save-temps $interestingness $program >> runlog.txt 2>&1`;
     `cd $runDir && rm -f $program.orig $interestingness`;
 
     `rm -fr /tmp/scan-build-2016-*`;

@@ -1,22 +1,6 @@
-#include <stdlib.h>
-#include <stdio.h>
-
-void foo() {
-   int * p = (int *)malloc(10 * sizeof(int));
-   int r = rand() % 10;
-   if (r>10){
-      free(p);
-  	}
-   free(p);
-   printf("Done!\n");
+foo() {
+  int *p = malloc(10);
+  free(p);
+  free(p);
 }
-
-void bar() {
-   printf("Done!\n");
-}
-
-int main() {
-   foo();
-   //bar();
-   return 0;
-}
+main() {}

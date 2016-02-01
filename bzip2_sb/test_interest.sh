@@ -15,3 +15,10 @@ if [[ "$var" != *": warning: The left operand of '==' is a garbage value"* ]]; t
 fi
 
 exit 0;
+
+
+#bzip2.c:2350:17: warning: The left operand of '==' is a garbage value
+#if (yy[0] == ll_i) {
+
+#bzip2.c:2373:19: warning: Assigned value is garbage or undefined
+#rtmp  = yy[1];
