@@ -3,11 +3,9 @@
 use strict;
 use 5.014;
 use warnings;
-use Time::HiRes;
 
-my $program=$ARGV[0];
-my $tool=$ARGV[1]; #"cppcheck";
-my $interestingness=$ARGV[2];#"./test_interest.sh";
+my $program=$ARGV[0]; # sample.c
+my $interestingness=$ARGV[1];#"./test_interest.sh";
 
 for (1..10) {
     my $id=Time::HiRes::time();
@@ -20,5 +18,5 @@ for (1..10) {
     `cd $runDir && time creduce $interestingness $program >> runlog.txt 2>&1`;
     `cd $runDir && rm -f $program.orig $interestingness`;
 
-    `rm -fr /tmp/scan-build-2016-*`;
+   `rm -fr /tmp/scan-build-2016-*`; #update according to evnironment
 }

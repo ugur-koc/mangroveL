@@ -13,7 +13,7 @@ my $interestingness="./run_script.sh";
 my @passes = ();
 #"pass_clang remove-unused-function 10", "pass_clang unify-function-decl 10", "pass_clex rm-tok-pattern-4 10", "pass_lines 0 10"
 
-open ALL_PASSES,"<all_passes.txt" or die $!;
+open ALL_PASSES,"<../all_passes.txt" or die $!;
 while (my $line = <ALL_PASSES>){ push(@passes, $line); }
 close ALL_PASSES;
 

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#update according to your enviroment.
 cp /Users/ugurmeryem/Dropbox/mangroveL/cppcheck/std_testcase_io.h . > tmp 2>&1;
 cp /Users/ugurmeryem/Dropbox/mangroveL/cppcheck/std_testcase.h . > tmp 2>&1;
 gcc -c CWE401_Memory_Leak__wchar_t_realloc_18.c > tmp 2>&1;
