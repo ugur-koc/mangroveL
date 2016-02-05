@@ -8,7 +8,7 @@ use Time::HiRes;
 my $program=$ARGV[0]; # bzip2.c
 my $interestingness=$ARGV[1];#"./test_interest.sh";
 
-for (1..1) {
+for (1..10) {
     my $id=Time::HiRes::time();
     my $runDir="runs/run-$id";
 
