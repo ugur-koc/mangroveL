@@ -1,0 +1,21 @@
+creduce 2.5.0
+9c13dff
+Linux
+ukoc.cs.umd.edu
+3.13.0-52-generic
+#86-Ubuntu SMP Mon May 4 04:32:59 UTC 2015
+x86_64
+
+***************************************************
+
+pass_clang::move-global-var has encountered a bug:
+crashed: "/usr/local/libexec/clang_delta" --transformation=move-global-var --counter=1 /tmp/creduce-kaVJq2/bzip2.c
+
+Please consider tarring up /home/ukoc/mangroveL/sut-bzip2/runs/run-1454701805.14103/creduce_bug_001
+and mailing it to creduce-bugs@flux.utah.edu and we will try to fix
+the bug.
+
+This bug is not fatal, C-Reduce will continue to execute.
+
+***************************************************
+
