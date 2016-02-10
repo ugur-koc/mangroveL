@@ -1,18 +1,25 @@
-#include <stdlib.h>
 #include <stdio.h>
 
-#define LB 256
-
-
+void f_helper(int *s){
+   for (int i = 0; i < 256; i++)  (*s)++;
+}
 
 int main() {
    int yy[256];
-   int ll_i=0,i;
-   for (i=0; i<LB; i++)   yy[i] = (unsigned char) i;
-   for (i=0; i<LB; i++) {
-      if (yy[0]==ll_i) {
-         printf("hi");
-      }
+   int tmp = 0;
+   int *p_tmp = &tmp;
+   
+   f_helper(p_tmp);
+   for (int i = 0; i <= *p_tmp; i++)   yy[i] = i;
+
+   /* The false warning:
+    smple-useofgarbageval.c:20:13: warning: The left operand of '==' is a garbage value
+               if (yy[1]==1) {
+    */
+   
+   if (yy[1]==1) {
+      printf("hi\n");
    }
+
    return 0;
 }
