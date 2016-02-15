@@ -7,6 +7,7 @@ use Time::HiRes;
 use File::Slurp qw(read_file write_file);
 
 my $workDir = $ARGV[0];
+my $logDir="/home/ukoc/juliet-logs/";
 my $sbLog = $ARGV[1];
 my $testScript_gen = "test_interest_gen.sh";
 my $testScript = "test_interest.sh";
@@ -14,23 +15,24 @@ my $flags="--no-default-passes --add-pass pass_includes 0 0 --add-pass pass_blan
 my %warnings = ();
 my $keepNextLine=0;
 
-open SUMM,"<$workDir/$sbLog" or die $!;
+open SUMM,"<$sbLog" or die $!;
 my @locDesPair = ();
 while (my $line = <SUMM>){
    chomp $line;
    if ($line =~/: warning:/){
       @locDesPair = split(": warning: ", $line);
-      $warnings{$locDesPair[0]}=$locDesPair[1];
-      $keepNextLine=1;
+      $warnings{$locDesPair[0]} = $locDesPair[1];
+      $keepNextLine = 1;
       next;
    }
-   if($keepNextLine==1){
+   if($keepNextLine == 1){
       $line=~ s/\"/\\\"/g;
-      $warnings{$locDesPair[0]}=$warnings{$locDesPair[0]} ."------". $line;
+      $warnings{$locDesPair[0]} = $warnings{$locDesPair[0]} ."------". $line;
       $keepNextLine=0;
    }
 }
 
+my $logFile=$logDir.substr($sbLog, 23, -14)."-creduce.log";
 while(my($k, $v) = each %warnings) {
    if ($v =~ /is never rea/){ next;}
    
@@ -41,12 +43,17 @@ while(my($k, $v) = each %warnings) {
    
    my $data = read_file $testScript_gen, {binmode => ':utf8'};
    $data =~ s/warning-description-line1/$descriptionLines[0]/g;
-   $data =~ s/warning-description-line2/$descriptionLines[1]/g;
+   if( length $descriptionLines[1] ) {
+       $data =~ s/warning-description-line2/$descriptionLines[1]/g;
+   }else{
+       $data =~ s/warning-description-line2/warning/g;
+   }
    $data =~ s/file-name/$fileName/g;
-   write_file "$workDir/000$testScript", {binmode => ':utf8'}, $data;
+   write_file "$workDir/a_$testScript", {binmode => ':utf8'}, $data;
    
    if (-e "$fileName.orig"){
       `cd $workDir && mv $fileName $fileName.$fileLine[1].c && mv $fileName.orig $fileName`;
    }
-   `cd $workDir && chmod +x 000$testScript && creduce $flags ./000$testScript $fileName >> acreduce-runlog.txt 2>&1`;
+   `cd $workDir && chmod +x a_$testScript && creduce $flags ./a_$testScript $fileName >> $logFile 2>&1`;
 }
+`rm -fr /tmp/*`;
