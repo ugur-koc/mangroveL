@@ -16,21 +16,31 @@ while (my $folder = readdir(DIR)) {
 }
 
 foreach my $folder (@CWEFolders){
-   my $logfile=$logDir.substr($folder, 0, 6)."-scanbuild.log"; 
+   my $logfile=$logDir.substr($folder, 0, 6)."-scanbuild.log";
    if (-d "$workDir/$folder/s01") {
       opendir(DIR, "$workDir/$folder") or die $!;
       while (my $subfolder = readdir(DIR)) {
          if($subfolder eq ".." or $subfolder eq "."){ next; }
-	 if (-e "$workDir/$folder/$subfolder/Makefile"){
-	     $logfile=$logDir.substr($folder, 0, 6).$subfolder."-scanbuild.log";
-	     `cd $workDir/$folder/$subfolder && scan-build gcc -c -I ~/juliet/testcasesupport -D OMITBAD *.c > $logfile 2>&1`;
-	     `./run_creduce_forJuliet.pl $workDir/$folder/$subfolder $logfile`;
-	     `cd $workDir/$folder/$subfolder && rm -fr *.o *.orig`;
-	 }
+         if (-e "$workDir/$folder/$subfolder/Makefile"){
+            $logfile=$logDir.substr($folder, 0, 6).$subfolder."-scanbuild.log";
+            if(-e "$workDir/$folder/*.cpp"){
+               `cd $workDir/$folder/$subfolder && scan-build gcc -c -I ~/juliet/testcasesupport -D OMITBAD *.cpp > $logfile 2>&1`;
+            }
+            if(-e "$workDir/$folder/*.c"){
+               `cd $workDir/$folder/$subfolder && scan-build gcc -c -I ~/juliet/testcasesupport -D OMITBAD *.c >> $logfile 2>&1`;
+            }
+
+            `./run_creduce_forJuliet.pl $workDir/$folder/$subfolder $logfile`;
+            `cd $workDir/$folder/$subfolder && rm -fr *.o *.orig`;
+         }
       }
    } elsif (-e "$workDir/$folder/Makefile"){
-       next;
-      `cd $workDir/$folder && scan-build gcc -c -I ~/juliet/testcasesupport -D OMITBAD *.c > $logfile 2>&1`;
+      if(-e "$workDir/$folder/*.cpp"){
+         `cd $workDir/$folder && scan-build gcc -c -I ~/juliet/testcasesupport -D OMITBAD *.cpp > $logfile 2>&1`;
+      }
+      if(-e "$workDir/$folder/*.c"){
+         `cd $workDir/$folder && scan-build gcc -c -I ~/juliet/testcasesupport -D OMITBAD *.c >> $logfile 2>&1`;
+      }
       `./run_creduce_forJuliet.pl $workDir/$folder $logfile`;
       `cd $workDir/$folder && rm -fr *.o *.orig`;
    }
