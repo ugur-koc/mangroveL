@@ -23,24 +23,18 @@ foreach my $folder (@CWEFolders){
          if($subfolder eq ".." or $subfolder eq "."){ next; }
          if (-e "$workDir/$folder/$subfolder/Makefile"){
             $logfile=$logDir.substr($folder, 0, 6).$subfolder."-scanbuild.log";
-            if(-e "$workDir/$folder/*.cpp"){
-               `cd $workDir/$folder/$subfolder && scan-build gcc -c -I ~/juliet/testcasesupport -D OMITBAD *.cpp > $logfile 2>&1`;
-            }
-            if(-e "$workDir/$folder/*.c"){
-               `cd $workDir/$folder/$subfolder && scan-build gcc -c -I ~/juliet/testcasesupport -D OMITBAD *.c >> $logfile 2>&1`;
-            }
+	    `echo "Runing under $folder" > $logfile`;
+            `cd $workDir/$folder/$subfolder && scan-build gcc -c -I ~/juliet/testcasesupport -D OMITBAD *.cpp >> $logfile 2>&1`;
+            `cd $workDir/$folder/$subfolder && scan-build gcc -c -I ~/juliet/testcasesupport -D OMITBAD *.c >> $logfile 2>&1`;
 
             `./run_creduce_forJuliet.pl $workDir/$folder/$subfolder $logfile`;
             `cd $workDir/$folder/$subfolder && rm -fr *.o *.orig`;
          }
       }
    } elsif (-e "$workDir/$folder/Makefile"){
-      if(-e "$workDir/$folder/*.cpp"){
-         `cd $workDir/$folder && scan-build gcc -c -I ~/juliet/testcasesupport -D OMITBAD *.cpp > $logfile 2>&1`;
-      }
-      if(-e "$workDir/$folder/*.c"){
-         `cd $workDir/$folder && scan-build gcc -c -I ~/juliet/testcasesupport -D OMITBAD *.c >> $logfile 2>&1`;
-      }
+      `echo "Runing under $folder" > $logfile`;
+      `cd $workDir/$folder && scan-build gcc -c -I ~/juliet/testcasesupport -D OMITBAD *.cpp >> $logfile 2>&1`;
+      `cd $workDir/$folder && scan-build gcc -c -I ~/juliet/testcasesupport -D OMITBAD *.c >> $logfile 2>&1`;
       `./run_creduce_forJuliet.pl $workDir/$folder $logfile`;
       `cd $workDir/$folder && rm -fr *.o *.orig`;
    }
