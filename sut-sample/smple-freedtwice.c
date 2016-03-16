@@ -1,22 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void foo() {
+int main(int argc, char** argv) {
+   int z=atoi(argv[1]);
    int * p = (int *)malloc(10 * sizeof(int));
-   int r = rand() % 10;
-   if (r>10){
-      free(p);
-  	}
+   if ((z % 10) >= 11){ free(p); }
    free(p);
    printf("Done!\n");
-}
-
-void bar() {
-   printf("Done!\n");
-}
-
-int main() {
-   foo();
-   //bar();
    return 0;
 }
