@@ -27,26 +27,36 @@ sub selectNSnippets($$){
    my $len=scalar @snippetList;
    
    my %selectedLines = ();
+   my %selectedWarnings = ();
    while(keys %selectedLines < $n){
       my $randLine = int(rand($len));
-      $selectedLines{$randLine}=$snippetList[$randLine];
+      #selecting files only with one warning
+      my @tmp_arr=split("/",$snippetList[$randLine]);
+      my $tmp_arr_len=scalar @tmp_arr;
+      my $fileName=$tmp_arr[$tmp_arr_len-1];
+      my $result=`grep "$fileName:" /Users/ugurmeryem/juliet-logs/*-creduce.log`;
+      my @resultArr=split("\n",$result);
+      
+      if( 1 == scalar @resultArr){
+         $selectedLines{$randLine}=$snippetList[$randLine];
+         my @desc=split("[c|cpp]:",$resultArr[0]);
+         $selectedWarnings{$randLine}=$desc[1];
+      }
    }
-   
    foreach (sort keys %selectedLines) {
-      my $fileName=$selectedLines{$_};
-      `cp $fileName labeled-to-be/`;
-      $find="t-testcases";
+      my $fileDir=$selectedLines{$_};
+      `cp $fileDir labeled-reduced/`;
+      $find="r-testcases";
       $find = quotemeta $find;
       $replace="testcases";
-      $fileName =~ s/$find/$replace/g;
-      my $destFileName=$fileName;
-      $find=".c";
-      $find = quotemeta $find;
-      $replace="_orig.c";
-      $$destFileName =~ s/$find/$replace/g;
-      print $fileName."\n";
-      `cp $fileName .`;
-      #print "$_ : $selectedLines{$_}\n";
+      $fileDir =~ s/$find/$replace/g;
+      `cp $fileDir labeled-orig/`;
+      my @tmp_arr=split("/",$fileDir);
+      my $tmp_arr_len=scalar @tmp_arr;
+      my $fileName=$tmp_arr[$tmp_arr_len-1];
+      `cd labeled-reduced && echo "$selectedWarnings{$_}" >> $fileName 2>&1`;
+      `open -a TextWrangler labeled-reduced/*`;
+      `open -a TextWrangler labeled-orig/*`;
    }
    return %selectedLines;
 }

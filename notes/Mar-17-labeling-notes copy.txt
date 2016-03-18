@@ -1,0 +1,8 @@
+Labeling following Files is critical. The warning is about security;
+CWE134_Uncontrolled_Format_String__char_console_printf_54e.c
+CWE134_Uncontrolled_Format_String__char_file_fprintf_32.c
+CWE134_Uncontrolled_Format_String__char_file_fprintf_34.c
+CWE134_Uncontrolled_Format_String__char_file_fprintf_62a.cpp
+
+Check these again;
+CWE762_Mismatched_Memory
