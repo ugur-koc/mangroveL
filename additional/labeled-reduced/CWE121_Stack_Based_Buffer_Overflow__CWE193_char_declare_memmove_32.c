@@ -23,3 +23,5 @@ static void goodG2B()
 /* Warning description
 Assigned value is garbage or undefined------        char * data = *dataPtr1;
 */
+
+--up-r--

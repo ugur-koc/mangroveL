@@ -29,3 +29,5 @@ void  main(int argc, char * argv[])
 /* Warning description
 Function call argument is an uninitialized value------        strncpy(data, source, 100-1);
 */
+
+--fp-r--

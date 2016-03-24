@@ -20,3 +20,5 @@ static void goodG2B2()
 /* Warning description
 Function call argument is an uninitialized value------        memmove(data, source, 100*sizeof(char));
 */
+
+--fp-r--

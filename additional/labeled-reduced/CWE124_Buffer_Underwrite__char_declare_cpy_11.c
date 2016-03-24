@@ -19,3 +19,5 @@
 /* Warning description
 Function call argument is an uninitialized value------        strcpy(data, source);
 */
+
+--fp-r--

@@ -22,3 +22,5 @@ void  main(int argc, char * argv[])
 /* Warning description
 Dereference of null pointer (loaded from variable 'data')------    printDoubleLine(*data);
 */
+
+--fp-r--

@@ -26,3 +26,5 @@ void  main(int argc, char * argv[])
 /* Warning description
 Function call argument is an uninitialized value------        memcpy(data, source, (strlen(source) + 1) * sizeof(char));
 */
+
+--fp-r--

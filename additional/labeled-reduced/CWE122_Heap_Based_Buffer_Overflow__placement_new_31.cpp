@@ -24,3 +24,5 @@ Result of 'malloc' is converted to a pointer of type 'char', which is incompatib
 /* Warning description
 Potential leak of memory pointed to by 'dataGoodBuffer'------    data = dataBadBuffer;
 */
+
+--up-r--

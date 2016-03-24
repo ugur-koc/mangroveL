@@ -8,8 +8,7 @@ static void goodB2G()
     goodB2GSink_b(data);
 }
 /* Warning description
-Result of 'malloc' is converted to a pointer of type 'char', which is incompatible with sizeof operand type 'class OneIntClass'------    char * dataBadBuffer = (char *)malloc(sizeof(OneIntClass));
-*/
-/* Warning description
-Potential leak of memory pointed to by 'dataBadBuffer'------    char * dataGoodBuffer = (char *)malloc(sizeof(TwoIntsClass));
-*/
+Result of 'malloc' is converted to a pointer of type 'char', which is incompatible with sizeof operand type 'class OneIntClass'
+    char * dataBadBuffer = (char *)malloc(sizeof(OneIntClass));
+    */
+--up-r--

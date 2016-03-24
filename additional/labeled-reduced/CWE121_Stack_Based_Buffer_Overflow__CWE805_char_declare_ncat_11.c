@@ -18,3 +18,5 @@
 /* Warning description
 Function call argument is an uninitialized value------        strncat(data, source, 100);
 */
+
+--fp-r--

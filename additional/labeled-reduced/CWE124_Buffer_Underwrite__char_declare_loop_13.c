@@ -33,3 +33,5 @@ void  main(int argc, char * argv[])
 /* Warning description
 Dereference of undefined pointer value------            data[i] = source[i];
 */
+
+--fp-r--

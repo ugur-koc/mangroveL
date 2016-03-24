@@ -1,11 +1,13 @@
-#include <stdlib.h>
-#include <stdio.h>
-
+int somenumber() {
+   int z=rand();
+   return z;
+}
 int main(int argc, char** argv) {
-   int z=atoi(argv[1]);
    int * p = (int *)malloc(10 * sizeof(int));
+   int z;
+   z=somenumber();
    if ((z % 10) >= 11){ free(p); }
    free(p);
-   printf("Done!\n");
+   0;
    return 0;
 }

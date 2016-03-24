@@ -25,3 +25,5 @@ static void goodG2B()
 /* Warning description
 Potential leak of memory pointed to by 'data'------}
 */
+
+--tp-r--

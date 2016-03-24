@@ -18,5 +18,6 @@ static void goodG2B()
     funcPtr(data);
 }
 /* Warning description
-Result of 'malloc' is converted to a pointer of type 'char', which is incompatible with sizeof operand type 'class TwoIntsClass'------    char * dataGoodBuffer = (char *)malloc(sizeof(TwoIntsClass));
+Result of 'malloc' is converted to a pointer of type 'char', which is incompatible with sizeof operand type 'class TwoIntsClass'
+    char * dataGoodBuffer = (char *)malloc(sizeof(TwoIntsClass));
 */
