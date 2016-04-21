@@ -18,3 +18,5 @@ static void goodG2B2()
 /* Warning description
 Null pointer passed as an argument to a 'nonnull' parameter------        strncpy(data, source, strlen(source) + 1);
 */
+
+--fp-r--

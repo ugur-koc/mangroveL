@@ -20,3 +20,5 @@ static void goodB2G2()
 /* Warning description
 Result of 'malloc' is converted to a pointer of type 'char', which is incompatible with sizeof operand type 'class OneIntClass'------    char * dataBadBuffer = (char *)malloc(sizeof(OneIntClass));
 */
+
+--up-r--

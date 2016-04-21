@@ -19,3 +19,5 @@ static void goodG2B2()
 /* Warning description
 Function call argument is an uninitialized value------        strcat(data, source);
 */
+
+--fp-r--

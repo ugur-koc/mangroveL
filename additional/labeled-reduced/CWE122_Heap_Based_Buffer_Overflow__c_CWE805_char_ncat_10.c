@@ -28,3 +28,5 @@ void  main(int argc, char * argv[])
 /* Warning description
 Size argument is greater than the free space in the destination buffer------        strncat(data, source, 100);
 */
+
+--fp-r--

@@ -24,3 +24,5 @@ static void goodG2B2()
 /* Warning description
 Array access (from variable 'data') results in a null pointer dereference------                data[i] = source[i];
 */
+
+--fp-r--

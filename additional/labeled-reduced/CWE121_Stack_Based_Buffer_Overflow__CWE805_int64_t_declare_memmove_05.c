@@ -26,3 +26,5 @@ void  main(int argc, char * argv[])
 /* Warning description
 Function call argument is an uninitialized value------        memmove(data, source, 100*sizeof(int64_t));
 */
+
+--fp-r--

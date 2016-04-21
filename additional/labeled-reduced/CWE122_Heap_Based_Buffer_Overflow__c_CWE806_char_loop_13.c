@@ -32,3 +32,5 @@ void  main(int argc, char * argv[])
 /* Warning description
 Assigned value is garbage or undefined------            dest[i] = data[i];
 */
+
+--fp-r--

@@ -20,3 +20,5 @@ static void goodG2B2()
 /* Warning description
 Null pointer passed as an argument to a 'nonnull' parameter------        strcat(data, source);
 */
+
+--fp-r--
