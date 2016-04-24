@@ -1,13 +1,10 @@
 #!/bin/bash
 
-gcc -c bzip2.c > tmp 2>&1;
-var=$(cat tmp);
+var=$(scan-build gcc -c bzip2.c 2>&1 | cat);
 if [[ "$var" == *"error: "* ]]; then
    exit 1;
 fi
 
-scan-build gcc -c bzip2.c > tmp 2>&1;
-var=$(cat tmp);
 if [[ "$var" != *": warning: The left operand of '==' is a garbage value"* ]]; then
    exit 1;
 fi
@@ -17,7 +14,6 @@ exit 1;
 fi
 
 exit 0;
-
 
 #bzip2.c:2350:17: warning: The left operand of '==' is a garbage value
 #if (yy[0] == ll_i) {
