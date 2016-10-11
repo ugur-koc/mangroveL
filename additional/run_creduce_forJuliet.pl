@@ -7,7 +7,7 @@ use Time::HiRes;
 use File::Slurp qw(read_file write_file);
 
 my $workDir = $ARGV[0];
-my $logDir="/home/ukoc/juliet-logs/";
+my $logDir="/Users/ukoc/juliet-logs/";
 my $sbLog = $ARGV[1];
 my $testScript_gen = "test_interest_gen.sh";
 my $testScript = "test_interest.sh";

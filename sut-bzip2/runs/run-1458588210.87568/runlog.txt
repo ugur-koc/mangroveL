@@ -1,4 +1,0 @@
-usage: creduce [options] interestingness_test file_to_reduce [optionally, more files to reduce]
-       creduce --help for more information
-
-subroutine call from option "--add-pass" failed

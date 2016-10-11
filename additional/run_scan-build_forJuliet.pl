@@ -5,15 +5,15 @@ use 5.014;
 use warnings;
 use Time::HiRes;
 
-my $workDir ="/home/ukoc/juliet/testcases"; #$ARGV[0];
-my $logDir="/home/ukoc/juliet-logs/";
+my $workDir ="/Users/ukoc/juliet/testcases";
+my $logDir="/Users/ukoc/juliet-logs/";
 my @CWEFolders = ();
 
 sub run_sb($$){
     my $runDir=shift;
     my $logFile=shift;
     `echo "Runing under $runDir" > $logFile`;
-    `cd $runDir && scan-build make CFLAGS="-c -D OMITBAD" >> $logFile 2>&1`;
+    `cd $runDir && scan-build -disable-checker deadcode.DeadStores make CFLAGS="-c -D OMITBAD" >> $logFile 2>&1`;
     `./run_creduce_forJuliet.pl $runDir $logFile`;
     `cd $runDir && rm -fr *.o *.orig`;
 }
