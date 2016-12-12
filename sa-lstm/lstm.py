@@ -575,7 +575,7 @@ def train_lstm(
     return train_err, valid_err, test_err
 
 def test_lstm(dim_proj=128, patience=10, max_epochs=5000, dispFreq=10, decay_c=0., lrate=0.0001, n_words=1000000, 
-    optimizer=adadelta, encoder='lstm', saveto='lstm_model.npz', validFreq=370, saveFreq=1110, maxlen=1000000, batch_size=16, 
+    optimizer=adadelta, encoder='lstm', validFreq=370, saveFreq=1110, maxlen=1000000, batch_size=16, 
     valid_batch_size=64, dataset='codeData', noise_std=0., use_dropout=True, reload_model=None, test_size=-1, dataFile=None,):
 
     # Model options
@@ -662,8 +662,6 @@ def test_lstm(dim_proj=128, patience=10, max_epochs=5000, dispFreq=10, decay_c=0
     test_err = pred_error(f_pred, prepare_data, test, kf_test)
 
     print( 'Train ', train_err, 'Valid ', valid_err, 'Test ', test_err )
-    if saveto:
-        numpy.savez(saveto, train_err=train_err, valid_err=valid_err, test_err=test_err, history_errs=history_errs, **best_p)
     return train_err, valid_err, test_err
 
 if __name__ == '__main__':
@@ -671,4 +669,4 @@ if __name__ == '__main__':
     if True:
         train_lstm(max_epochs=100, test_size=2000, dataFile='data/java/CWE89OwaspDetailed.java', saveto='models/89OwaspDetailed.npz')
     else:
-        test_lstm(max_epochs=100, test_size=240, dataFile='data/java/CWE89JulietDetailed.java', saveto='models/temp.npz')
+        test_lstm(test_size=480, dataFile='data/java/CWE89JulietDetailed.java', reload_model='models/89OwaspDetailed.npz')
