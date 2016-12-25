@@ -71,7 +71,7 @@ if __name__ == '__main__':
 	julietDir = '/Users/ukoc/workspace/Juliet4J/mutants/'
 	with open(warningFile) as file: lines = file.readlines()
 	for line in lines:
-		(fileName,lineNumber,desc,label)=line.split(",")
+		(fileName,lineNumber,desc,label)=line.rstrip().split(",")
 		with open(julietDir+fileName[4:]) as file: lines = file.readlines()
 		if label == 'goodpositive':
 			processGood(lines, int(lineNumber))

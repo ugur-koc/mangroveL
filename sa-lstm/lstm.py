@@ -382,7 +382,7 @@ def pred_error(f_pred, prepare_data, data, iterator, verbose=False):
 
 def train_lstm(
     dim_proj=128,  # word embeding dimension and LSTM number of hidden units.
-    patience=10,  # Number of epoch to wait before early stop if no progress
+    patience=20,  # Number of epoch to wait before early stop if no progress
     max_epochs=5000,  # The maximum number of epoch to run
     dispFreq=10,  # Display to stdout the training progress every N updates
     decay_c=0.,  # Weight decay for the classifier applied to the U weights.
@@ -605,7 +605,7 @@ def test_lstm(dim_proj=128, patience=10, max_epochs=5000, dispFreq=10, decay_c=0
     params = init_params(model_options)
 
     if reload_model:
-        load_params('lstm_model.npz', params)
+        load_params(reload_model, params)
 
     # This create Theano Shared Variable from the parameters.
     # Dict name (string) -> Theano Tensor Shared Variable
@@ -667,6 +667,6 @@ def test_lstm(dim_proj=128, patience=10, max_epochs=5000, dispFreq=10, decay_c=0
 if __name__ == '__main__':
     # See function train for all possible parameter and there definition.
     if True:
-        train_lstm(max_epochs=100, test_size=2000, dataFile='data/java/CWE89OwaspDetailed.java', saveto='models/89OwaspDetailed.npz')
+        train_lstm(max_epochs=100, test_size=2000, dataFile='data/java/CWE89Combined.java', saveto='models/89Combined.npz')
     else:
         test_lstm(test_size=480, dataFile='data/java/CWE89JulietDetailed.java', reload_model='models/89OwaspDetailed.npz')
